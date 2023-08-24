@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Create remote repo for source code | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="设置本地代码仓库重新初始化本地代码仓库 1git init  提交修改 1git commit -m &quot;&lt;info&gt;&quot;  一系列更新操作 1234git remote add origin https:&#x2F;&#x2F;github.com&#x2F;lianghanzheng&#x2F;BlogSrc.git# 更新到main分支git push -u origin main  此时github中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Create remote repo for source code">
+<meta property="og:url" content="http://example.com/2023/08/24/Create-remote-repo-for-source-code/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="设置本地代码仓库重新初始化本地代码仓库 1git init  提交修改 1git commit -m &quot;&lt;info&gt;&quot;  一系列更新操作 1234git remote add origin https:&#x2F;&#x2F;github.com&#x2F;lianghanzheng&#x2F;BlogSrc.git# 更新到main分支git push -u origin main  此时github中">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-24T08:18:01.000Z">
+<meta property="article:modified_time" content="2023-08-24T08:22:42.205Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Create-remote-repo-for-source-code" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/24/Create-remote-repo-for-source-code/" class="article-date">
+  <time class="dt-published" datetime="2023-08-24T08:18:01.000Z" itemprop="datePublished">2023-08-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Create remote repo for source code
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="设置本地代码仓库"><a href="#设置本地代码仓库" class="headerlink" title="设置本地代码仓库"></a>设置本地代码仓库</h2><p>重新初始化本地代码仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<p>提交修改</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;&lt;info&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>一系列更新操作</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/lianghanzheng/BlogSrc.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新到main分支</span></span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+
+<p>此时github中也应该出现hexo本地代码。</p>
+<h2 id="后续更新时的操作"><a href="#后续更新时的操作" class="headerlink" title="后续更新时的操作"></a>后续更新时的操作</h2><p>依次执行以下命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line"></span><br><span class="line">git commit -m <span class="string">&quot;&lt;comment&gt;&quot;</span></span><br><span class="line"></span><br><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/08/24/Create-remote-repo-for-source-code/" data-id="cllowqard0000motph8q3a2q4" data-title="Create remote repo for source code" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/08/24/Deploy-Blog-with-Hexo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Deploy Blog with Hexo</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/08/24/Create-remote-repo-for-source-code/">Create remote repo for source code</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/24/Deploy-Blog-with-Hexo/">Deploy Blog with Hexo</a>
+          </li>
+        
+          <li>
+            <a href="/2023/08/24/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
