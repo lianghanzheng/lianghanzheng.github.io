@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;llvm.org&#x2F;devmtg&#x2F;2017-03&#x2F; https:&#x2F;&#x2F;llvm.org&#x2F;devmtg&#x2F;2017-10&#x2F; Introduction to LLVM12345678910111213141516# compilationclang++ file.cpp# generate IRclang++ -S -emit-llvm file.cpp# run IRlli file.ll">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2017">
+<meta property="og:url" content="http://example.com/2023/11/30/LLVMDeveloperMeeting/2017/index.html">
+<meta property="og:site_name" content="RRZ&#39;s Blog">
+<meta property="og:description" content="https:&#x2F;&#x2F;llvm.org&#x2F;devmtg&#x2F;2017-03&#x2F; https:&#x2F;&#x2F;llvm.org&#x2F;devmtg&#x2F;2017-10&#x2F; Introduction to LLVM12345678910111213141516# compilationclang++ file.cpp# generate IRclang++ -S -emit-llvm file.cpp# run IRlli file.ll">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-30T13:36:47.000Z">
+<meta property="article:modified_time" content="2023-12-04T03:22:14.310Z">
+<meta property="article:author" content="ReRoozen">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/11/30/LLVMDeveloperMeeting/2017/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2017 | RRZ's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">RRZ's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/30/LLVMDeveloperMeeting/2017/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2017
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-30 21:36:47" itemprop="dateCreated datePublished" datetime="2023-11-30T21:36:47+08:00">2023-11-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-04 11:22:14" itemprop="dateModified" datetime="2023-12-04T11:22:14+08:00">2023-12-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LLVM-Meetings/" itemprop="url" rel="index"><span itemprop="name">LLVM Meetings</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://llvm.org/devmtg/2017-03/">https://llvm.org/devmtg/2017-03/</a></p>
+<p><a target="_blank" rel="noopener" href="https://llvm.org/devmtg/2017-10/">https://llvm.org/devmtg/2017-10/</a></p>
+<h2 id="Introduction-to-LLVM"><a href="#Introduction-to-LLVM" class="headerlink" title="Introduction to LLVM"></a>Introduction to LLVM</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># compilation</span></span><br><span class="line">clang++ file.cpp</span><br><span class="line"><span class="comment"># generate IR</span></span><br><span class="line">clang++ -S -emit-llvm file.cpp</span><br><span class="line"><span class="comment"># run IR</span></span><br><span class="line">lli file.ll</span><br><span class="line"><span class="comment"># generate binary form .bc of IR</span></span><br><span class="line">llvm-as file.ll</span><br><span class="line"><span class="comment"># generate assembly from .bc</span></span><br><span class="line">llc file.bc</span><br><span class="line"><span class="comment"># query availible targets</span></span><br><span class="line">llc file.bc -mcpu=<span class="built_in">help</span></span><br><span class="line"><span class="comment"># opt as analysis tool</span></span><br><span class="line">opt file.ll --time-passes</span><br><span class="line"><span class="comment"># link two or more bitcode file into one file</span></span><br><span class="line">llvm-link file1.ll file2.ll -S -o output.ll</span><br></pre></td></tr></table></figure>
+
+<h3 id="Passes-of-LLVM"><a href="#Passes-of-LLVM" class="headerlink" title="Passes of LLVM"></a>Passes of LLVM</h3><p>According to granularity:</p>
+<ul>
+<li>module pass</li>
+<li>call graph pass</li>
+<li>function pass</li>
+<li>basic block pass</li>
+<li>…</li>
+</ul>
+<p>According to functionality:</p>
+<ul>
+<li>analysis pass</li>
+<li>transform pass</li>
+</ul>
+<h3 id="Writing-a-function-pass"><a href="#Writing-a-function-pass" class="headerlink" title="Writing a function pass"></a>Writing a function pass</h3><p>Source code see <a target="_blank" rel="noopener" href="https://www.mshah.io/fosdem18.html">here</a>. </p>
+<p>编写的pass放在 <code>$LLVM_TOP/llvm/lib/Transforms/Hello</code> 中。因为这个目录本来就包含于LLVM中，所以一切修改完成后只要在build目录下make即可。完成后在 <code>build/lib</code> 下能找到 <code>LLVMHello.so</code>。</p>
+<h4 id="Run-the-pass-with-opt"><a href="#Run-the-pass-with-opt" class="headerlink" title="Run the pass with opt"></a>Run the pass with opt</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opt -load LLVMHello.so -hello &lt; hello.bc &gt; /dev/null</span><br><span class="line">opt -load LLVMHello.so -hello &lt; hello.ll &gt; /dev/null</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>LLVM还能输出图片形式的CFG</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opt -dot-cfg-only file.ll &gt; /dev/null</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="入手LLVM的建议"><a href="#入手LLVM的建议" class="headerlink" title="入手LLVM的建议"></a>入手LLVM的建议</h3><ol>
+<li>打开doxygen文档</li>
+<li><code>grep --include=&quot;*.cpp&quot; -nr &quot;getInstructions()&quot;</code> 来查询某一个函数的用法</li>
+</ol>
+<h3 id="Dynamic-analysis"><a href="#Dynamic-analysis" class="headerlink" title="Dynamic analysis"></a>Dynamic analysis</h3><p>Inject code to moniter or change behaviou of codes.</p>
+<ol>
+<li>Write hook or profiling code</li>
+<li>Generate IR for hook</li>
+<li>Find the code to modify</li>
+<li>Time for module pass<ul>
+<li>create a stub</li>
+<li>iterate the module</li>
+<li>make modification</li>
+</ul>
+</li>
+</ol>
+<p>这些都是基于 <code>llvm-link</code> 进行。</p>
+<h2 id="Weak-Memory-Concurrency-in-C-C-11-and-LLVM"><a href="#Weak-Memory-Concurrency-in-C-C-11-and-LLVM" class="headerlink" title="Weak Memory Concurrency in C&#x2F;C++11 and LLVM"></a>Weak Memory Concurrency in C&#x2F;C++11 and LLVM</h2><h2 id="ARM-Code-Size-Optimisations"><a href="#ARM-Code-Size-Optimisations" class="headerlink" title="ARM Code Size Optimisations"></a>ARM Code Size Optimisations</h2><h2 id="SPIR-V-infrastructure-and-its-place-in-the-LLVM-ecosystem"><a href="#SPIR-V-infrastructure-and-its-place-in-the-LLVM-ecosystem" class="headerlink" title="SPIR-V infrastructure and its place in the LLVM ecosystem"></a>SPIR-V infrastructure and its place in the LLVM ecosystem</h2><p>@ARM</p>
+<h3 id="SPIR-V-structure"><a href="#SPIR-V-structure" class="headerlink" title="SPIR-V structure"></a>SPIR-V structure</h3><ul>
+<li>SPIR-V capabilities</li>
+<li>Memory model &amp; addressing model</li>
+<li>Entry point of kernels&#x2F;shaders</li>
+</ul>
+<h3 id="Difference-between-LLVM-and-SPIR-V"><a href="#Difference-between-LLVM-and-SPIR-V" class="headerlink" title="Difference between LLVM and SPIR-V"></a>Difference between LLVM and SPIR-V</h3><ul>
+<li>Structured control flow<ul>
+<li>Vulkan shaders require structure control flow</li>
+<li>OpenCL requires reducible control flow</li>
+<li>LLVM can produce irreducible control flow</li>
+</ul>
+</li>
+<li>Reliance on metadata<ul>
+<li>OepnCL relies on metadata to express semantics</li>
+<li>SPIR-V represents those as SPIR-V opcodes</li>
+</ul>
+</li>
+<li>Uniform control flow<ul>
+<li>SPIR-V has native opcodes to represent barrier operation and cross work-group operations</li>
+<li>LLVM introduce convergence function attribute to represent a similar concept</li>
+</ul>
+</li>
+<li>Composible types</li>
+</ul>
+<h3 id="Tooling-NOT-official"><a href="#Tooling-NOT-official" class="headerlink" title="Tooling (NOT official)"></a>Tooling (NOT official)</h3><ul>
+<li><code>spirv-opt</code></li>
+<li><code>spirv-assembler</code></li>
+<li><code>spirv-dis</code></li>
+<li><code>spirv-val</code></li>
+<li><code>spirv-cfg</code></li>
+<li>SPIRV-LLVM converter</li>
+</ul>
+<h2 id="Bringing-link-time-optimization-to-the-embedded-world-Thin-LTO-with-Linker-Scripts"><a href="#Bringing-link-time-optimization-to-the-embedded-world-Thin-LTO-with-Linker-Scripts" class="headerlink" title="Bringing link-time optimization to the embedded world: (Thin)LTO with Linker Scripts"></a>Bringing link-time optimization to the embedded world: (Thin)LTO with Linker Scripts</h2><h2 id="lld-A-Fast-Simple-and-Portable-Linker"><a href="#lld-A-Fast-Simple-and-Portable-Linker" class="headerlink" title="lld: A Fast, Simple, and Portable Linker"></a>lld: A Fast, Simple, and Portable Linker</h2><h2 id="Writing-Great-Machine-Schedulers"><a href="#Writing-Great-Machine-Schedulers" class="headerlink" title="Writing Great Machine Schedulers"></a>Writing Great Machine Schedulers</h2><p>@ARM</p>
+<h3 id="Instruction-scheduling-in-LLVM"><a href="#Instruction-scheduling-in-LLVM" class="headerlink" title="Instruction scheduling in LLVM"></a>Instruction scheduling in LLVM</h3><ul>
+<li>“Legacy scheduler”: ScheduleDAGRRList<ul>
+<li>Brings instruction DAG into a lineaer order of MIs</li>
+</ul>
+</li>
+<li>“Newer”: MachineScheduler</li>
+</ul>
+<p>目前主要的调度都在基本块内进行；全局调度仍然是一个等待解决的问题。</p>
+<h4 id="Pre-RA-Register-Allocation-scheduling"><a href="#Pre-RA-Register-Allocation-scheduling" class="headerlink" title="Pre-RA (Register Allocation) scheduling"></a>Pre-RA (Register Allocation) scheduling</h4><p>提前进行指令调度能够影响指令的活跃区间，从而减少寄存器占用，减少溢出操作。</p>
+<h4 id="RA"><a href="#RA" class="headerlink" title="RA"></a>RA</h4><p>这个时候可能会引入“读后写”假依赖关系。</p>
+<h4 id="Post-RA-scheduling"><a href="#Post-RA-scheduling" class="headerlink" title="Post RA scheduling"></a>Post RA scheduling</h4><p>根据资源约束、延迟进行调度。</p>
+<h3 id="GenericScheduler-tryCandidate"><a href="#GenericScheduler-tryCandidate" class="headerlink" title="GenericScheduler::tryCandidate"></a><code>GenericScheduler::tryCandidate</code></h3><p>多种方式设计调度策略：</p>
+<ul>
+<li>Top-down</li>
+<li>Bottom-up</li>
+<li>Bidirectional (default)</li>
+</ul>
+<p><code>tryCandidate</code> 能根据启发式从中选取最好的一个策略。</p>
+<ul>
+<li>physical register copies</li>
+<li>register pressure (excess and critical pressure)</li>
+<li>acyclic latency</li>
+<li>cluster</li>
+<li>resgister pressure (current max)</li>
+<li>latency</li>
+<li>source order</li>
+</ul>
+<h3 id="Modelling-pipeline-for-machine-scheduler"><a href="#Modelling-pipeline-for-machine-scheduler" class="headerlink" title="Modelling pipeline for machine scheduler"></a>Modelling pipeline for machine scheduler</h3><ul>
+<li><code>ScheduleDAGMI</code></li>
+<li><code>Scheduler</code></li>
+<li><code>TargetSchedModel</code></li>
+</ul>
+<p>Describe a machine model:</p>
+<ul>
+<li>For target:<ol>
+<li>difines operand categories (<code>SchedReadWrite</code>), e.g. ARMSchedule.td</li>
+<li>associates categories with actual instructions, e.g. ARMInstrInfo.td</li>
+</ol>
+</li>
+<li>For sub-target:<ol start="3">
+<li>defines description of pipeline and resources, e.g. ARMScheduleR52.td, <code>def CortexR52Model : ShcedMachineModel &#123;...&#125;</code></li>
+<li>associates categories with resource and latencies, e.g. ARMScheduleR52.td, <code>def AP2UnitALU: ...</code> (resource consumed by writers), <code>def : WriteRes&lt;WriteALU, [AP2UnitALU]&gt; &#123;...&#125;</code> (associate resources and latency)</li>
+</ol>
+</li>
+</ul>
+<h4 id="TableGen-debug"><a href="#TableGen-debug" class="headerlink" title="TableGen debug"></a>TableGen debug</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">llvm-tblgen --debug-only=subtarget-emitter --print-records -I=<span class="variable">$LLVM_TOP</span>/llvm/include ...</span><br><span class="line">llc -enable-misched -debug-only=machine-scheduler</span><br></pre></td></tr></table></figure>
+
+<h3 id="Modeling-for-more-specific-hardware-feature"><a href="#Modeling-for-more-specific-hardware-feature" class="headerlink" title="Modeling for more specific hardware feature"></a>Modeling for more specific hardware feature</h3><h4 id="Subtarget-override-of-specific-opcodes"><a href="#Subtarget-override-of-specific-opcodes" class="headerlink" title="Subtarget override of specific opcodes"></a>Subtarget override of specific opcodes</h4><ol>
+<li>define a new <code>SchedWrite</code>, named attached resource</li>
+<li>map list of opcodes to the <code>SchedWrite</code></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def PWriteSALU: SchedWriteRes&lt;[APUnitALU]&gt; &#123;</span><br><span class="line">  let Latency=4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def : InsrRW&lt;[PWriteSALU, ReadALU], instregex &quot;CLZ&quot;&gt;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Customizing-the-MachineScheduler"><a href="#Customizing-the-MachineScheduler" class="headerlink" title="Customizing the MachineScheduler"></a>Customizing the MachineScheduler</h3><h4 id="Customize-scheduling-policy"><a href="#Customize-scheduling-policy" class="headerlink" title="Customize scheduling policy"></a>Customize scheduling policy</h4><ol>
+<li>Implement <code>overrideSchedPolicy</code> in subtarget</li>
+</ol>
+<h4 id="Customize-MachineSchedStrategy-implementation"><a href="#Customize-MachineSchedStrategy-implementation" class="headerlink" title="Customize MachineSchedStrategy implementation"></a>Customize MachineSchedStrategy implementation</h4><ol>
+<li>Implement <code>MachineSchedStrategy</code></li>
+<li>Register new strategy for target <code>createMachineScheduler</code></li>
+</ol>
+<h4 id="DAG-mutations"><a href="#DAG-mutations" class="headerlink" title="DAG mutations"></a>DAG mutations</h4><p>These allow adding scheduling constraints:</p>
+<ul>
+<li>Weak edges (cluster, artificial)</li>
+<li>Adjust dependence using target-specific knowledge</li>
+</ul>
+<ol>
+<li>Implemenmt DAG mutation (<code>ScheduleDAGMutation</code>)</li>
+<li>Register DAG mutation (<code>createMachineScheduler</code>)</li>
+</ol>
+<h2 id="Welcome-to-the-back-end-The-LLVM-machine-representation"><a href="#Welcome-to-the-back-end-The-LLVM-machine-representation" class="headerlink" title="Welcome to the back-end: The LLVM machine representation"></a>Welcome to the back-end: The LLVM machine representation</h2><p>@Apple</p>
+<p>LLVM Machine IR (MIR):</p>
+<ul>
+<li>Machine specific instructions</li>
+<li>Tasks<ul>
+<li>Resource allocation</li>
+<li>Lowering ABI, exception handling, debug info, …</li>
+<li>Optimization: peephole, instruction&#x2F;block scheduling …</li>
+</ul>
+</li>
+<li>Tighten constraints pass pipeline</li>
+</ul>
+<h3 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h3><ul>
+<li>Writing an LLVM target<ul>
+<li>Implement <code>TargetMachine</code> interface</li>
+</ul>
+</li>
+<li>Code generation pipeline</li>
+<li>Pass manager setup<ul>
+<li><code>TargetPassConfig</code></li>
+<li>Override the methods to add&#x2F;remove&#x2F;replace passes</li>
+<li><code>insertPass</code> and <code>substitutePass</code> are also useful</li>
+</ul>
+</li>
+<li>Instructions<ul>
+<li><code>class MachineInstruction</code> (MI)</li>
+<li>Opcode</li>
+<li>Pointer to Machine Basic Block</li>
+<li>Operand array</li>
+<li>Debugging location</li>
+</ul>
+</li>
+<li>Operands<ul>
+<li><code>class MachineOperand</code> (MOP)</li>
+<li>Register &amp; register mask</li>
+<li>Immediates</li>
+<li>…</li>
+</ul>
+</li>
+<li>Opecode<ul>
+<li><code>class MCInstrDesc</code></li>
+<li>Flags (side effect, transformation hint, …)</li>
+</ul>
+</li>
+<li>Basic blocks<ul>
+<li><code>class MachineBasicBlock</code> (MBB)</li>
+<li>Double linked list of instructions</li>
+<li>Numbered</li>
+<li>Arrays with predecessor&#x2F;successor blocks with execution frenquency</li>
+</ul>
+</li>
+<li>Functions<ul>
+<li><code>class MachineFunction</code> (MF)</li>
+<li>Double linked list of basic blocks</li>
+<li>Pointers to IR <code>Function</code>, <code>TargetMahchine</code>, <code>MCContext</code>, …</li>
+<li>State <code>MachineResisterInfo</code>, <code>MachineFrameInfo</code>, <code>MachineConstantPoop</code>, <code>MachineJumpTableInfo</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Develop-tips"><a href="#Develop-tips" class="headerlink" title="Develop tips"></a>Develop tips</h3><ul>
+<li><p>Produce .ll then use llc</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clang -S -O1 -emit-llvm a.c -o a.ll</span><br><span class="line">llc a.ll</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Enable debug output</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llc -debug ...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Debug output for passes <code>foo</code> and <code>bar</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llc -debug-only=foo,bar ...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Driven with clang</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clang -mllvm -debug-only=foo,bar ...</span><br><span class="line">clang -mllvm -print-machineinstrs ...</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Testing-MIR-file-format"><a href="#Testing-MIR-file-format" class="headerlink" title="Testing: MIR file format"></a>Testing: MIR file format</h3><ul>
+<li><p>Stop after pass <code>isel</code> and write .mir file</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llc -stop-after=isel a.ll -o a.mir</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Load .mir file, run pass, write .mir file</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llc -run-pass=machine-shceduler a.mir -o a_scheduled.mir</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Load .mir file nad start code generation pipeline after pass <code>isel</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">llc -start-after=isel a.mir -o a.s</span><br><span class="line">llc -start-before=isel a.mir -o a.s</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>Both <code>-start-before</code> and <code>-start-after</code> often fails</p>
+</blockquote>
+<ul>
+<li>Check a MIR whether is valid<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llc -verify-machineinstrs ...</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Register-allocation"><a href="#Register-allocation" class="headerlink" title="Register allocation"></a>Register allocation</h3><h4 id="Physical-registers"><a href="#Physical-registers" class="headerlink" title="Physical registers"></a>Physical registers</h4><ul>
+<li>Defined by target <code>typedef uint16_t MCPhysReg</code></li>
+<li><code>MachineRegisterInfo</code> maintains list of uses and definitions per register</li>
+<li>Register classes are sets of registers</li>
+<li>Register constraints modeled with classes</li>
+</ul>
+<h4 id="Virtual-registers"><a href="#Virtual-registers" class="headerlink" title="Virtual registers"></a>Virtual registers</h4><ul>
+<li>Managed by <code>MachineRegisterInfo</code></li>
+<li>Both virtual and physical registers stored in <code>unsigned</code></li>
+<li><code>MachineRegisterInfo::isVirtualRegister(Reg)</code> v.s <code>MachineRegisterInfo:isPhysicalResgister(Reg)</code></li>
+<li>Register &#x3D;&#x3D; 0: No register used</li>
+</ul>
+<h4 id="Representation-with-register-flags"><a href="#Representation-with-register-flags" class="headerlink" title="Representation with register flags"></a>Representation with register flags</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">; X86 rotate left</span><br><span class="line">%EDI&lt;def,tied1&gt; = ROL32rCL %EDI&lt;kill,tied0&gt;m %EFLAGS&lt;imp-def&gt;, %CL&lt;imp-use&gt;</span><br><span class="line"></span><br><span class="line">; equal to x86 assembly</span><br><span class="line">roll %cl, %edi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>imp</code>: implicite, not emitted</li>
+<li><code>tied</code>: same register for Def+Use</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">; X86 XOR/Zero register</span><br><span class="line">%EAX&lt;def,tied1&gt; = XOR32rr %EAX&lt;undef, tied0&gt;, %EAX&lt;undef&gt;, %EFLAGS&lt;imp-def&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>undef</code>: register value doesn’t matter</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">; X86 Set 0/1</span><br><span class="line">%vreg0&lt;def&gt; = MOV32r0 ...</span><br><span class="line">%vreg0:sub_8bit&lt;def&gt; = SETLr %EFLAGS&lt;imp-use&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>subregindex: read&#x2F;write part of a virtual register (anatomy to the relation between RAX&#x2F;EAX&#x2F;AX&#x2F;AL&#x2F;AH)</li>
+</ul>
+<p>Liveness indicator flags: <code>dead</code> and <code>kill</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CALL &lt;ga:@func&gt;, &lt;regmask %LR, %FP, %X19, %X20, ...&gt;, ...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>regmask</code>: preserves %LR, %FP, %X19, %X20, clobber every other registers</li>
+</ul>
+<h4 id="Liveness-tracking"><a href="#Liveness-tracking" class="headerlink" title="Liveness tracking"></a>Liveness tracking</h4><ul>
+<li>Linearize program</li>
+<li><code>SlotIndexes</code> maintains numbering of instructions</li>
+<li>Slots per instructions</li>
+</ul>
+<h4 id="Register-allocation-tuning"><a href="#Register-allocation-tuning" class="headerlink" title="Register allocation tuning"></a>Register allocation tuning</h4><ul>
+<li><p>XXXRegisterInfo.td: adjust allocation order</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def GR32: RegisterClass&lt;&quot;X86&quot;, [i32], 32, </span><br><span class="line">                        (add EAX, ECX, EDX, ...)&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Set register class allocation priority</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// Tuple of 2 32bit registers</span><br><span class="line">def VReg_64 : RegisterClass&lt;&quot;AMDGPU&quot;, [i64], 32, (add VGPR_64)&gt; &#123;</span><br><span class="line">  let AllocationPriority = 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hinting</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class TargetRegisterInfo &#123; // ...</span><br><span class="line">  virtual void getRegAllocationHints(unsigned VirtReg,</span><br><span class="line">      ArrayRef&lt;MCPhysReg Order, SmallVectorImpl&lt;MCPhysReg&gt; &amp;Hints, /*...*/);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Liveness-tracking-after-register-allocation"><a href="#Liveness-tracking-after-register-allocation" class="headerlink" title="Liveness tracking after register allocation"></a>Liveness tracking after register allocation</h4><ul>
+<li>Use <code>LiveRegUnits</code>&#x2F;<code>LivePhysRegs</code> to compute liveness for instructions inside a block</li>
+</ul>
+<h4 id="Prolog-and-epilog-insertion-pass"><a href="#Prolog-and-epilog-insertion-pass" class="headerlink" title="Prolog and epilog insertion pass"></a>Prolog and epilog insertion pass</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TargetFrameLowering</span> &#123; <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">emitPrologue</span><span class="params">(MachineFunction &amp;MF, MachineBasicBlock &amp;MBB)</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">emitEpilogue</span><span class="params">(MachineFunction &amp;MF, MachineBasicBlock &amp;MBB)</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">determineCalleeSaves</span><span class="params">(MachineFunction &amp;MF, BitVector &amp;SavedRegs, <span class="comment">/*...*/</span>)</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">processFunctionBeforeFrameFinalized</span><span class="params">(MachineFunction &amp;MF, <span class="comment">/*...*/</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Setup call frames, setup stack frame</li>
+<li>Save&#x2F;Restore callee saved registers</li>
+<li>resolve frame indexes</li>
+<li>register scavenging<ul>
+<li>Last step of prolog epilog insertion</li>
+<li>simulate liveness in basic block, allocate virtual registers</li>
+<li>execute spills and reloads<br><br><code>RegScavenger::addScavengingFrameIndex(int FrameIndex)</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">STRi12 %R1, &lt;fi#2&gt;, 0, ...</span><br><span class="line">            ^ frame index, currently a placeholder</span><br><span class="line">STRi12 %R1, %SP, 4104, ...</span><br><span class="line">            ^ resolved frame index</span><br><span class="line">%verg0&lt;def&gt; = ADDri %SP, 4096, ...</span><br><span class="line">STRi12 %R1, %vreg0, 8, ...</span><br><span class="line">            ^ may introduce temporary register</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/07/LLVM/Kaleidoscope/" rel="prev" title="Kaleidoscope">
+      <i class="fa fa-chevron-left"></i> Kaleidoscope
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/12/01/LLVMDeveloperMeeting/2015/" rel="next" title="2015">
+      2015 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction-to-LLVM"><span class="nav-number">1.</span> <span class="nav-text">Introduction to LLVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Passes-of-LLVM"><span class="nav-number">1.1.</span> <span class="nav-text">Passes of LLVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Writing-a-function-pass"><span class="nav-number">1.2.</span> <span class="nav-text">Writing a function pass</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Run-the-pass-with-opt"><span class="nav-number">1.2.1.</span> <span class="nav-text">Run the pass with opt</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A5%E6%89%8BLLVM%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.3.</span> <span class="nav-text">入手LLVM的建议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-analysis"><span class="nav-number">1.4.</span> <span class="nav-text">Dynamic analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Weak-Memory-Concurrency-in-C-C-11-and-LLVM"><span class="nav-number">2.</span> <span class="nav-text">Weak Memory Concurrency in C&#x2F;C++11 and LLVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARM-Code-Size-Optimisations"><span class="nav-number">3.</span> <span class="nav-text">ARM Code Size Optimisations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPIR-V-infrastructure-and-its-place-in-the-LLVM-ecosystem"><span class="nav-number">4.</span> <span class="nav-text">SPIR-V infrastructure and its place in the LLVM ecosystem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SPIR-V-structure"><span class="nav-number">4.1.</span> <span class="nav-text">SPIR-V structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Difference-between-LLVM-and-SPIR-V"><span class="nav-number">4.2.</span> <span class="nav-text">Difference between LLVM and SPIR-V</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tooling-NOT-official"><span class="nav-number">4.3.</span> <span class="nav-text">Tooling (NOT official)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bringing-link-time-optimization-to-the-embedded-world-Thin-LTO-with-Linker-Scripts"><span class="nav-number">5.</span> <span class="nav-text">Bringing link-time optimization to the embedded world: (Thin)LTO with Linker Scripts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lld-A-Fast-Simple-and-Portable-Linker"><span class="nav-number">6.</span> <span class="nav-text">lld: A Fast, Simple, and Portable Linker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-Great-Machine-Schedulers"><span class="nav-number">7.</span> <span class="nav-text">Writing Great Machine Schedulers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Instruction-scheduling-in-LLVM"><span class="nav-number">7.1.</span> <span class="nav-text">Instruction scheduling in LLVM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pre-RA-Register-Allocation-scheduling"><span class="nav-number">7.1.1.</span> <span class="nav-text">Pre-RA (Register Allocation) scheduling</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RA"><span class="nav-number">7.1.2.</span> <span class="nav-text">RA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Post-RA-scheduling"><span class="nav-number">7.1.3.</span> <span class="nav-text">Post RA scheduling</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GenericScheduler-tryCandidate"><span class="nav-number">7.2.</span> <span class="nav-text">GenericScheduler::tryCandidate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Modelling-pipeline-for-machine-scheduler"><span class="nav-number">7.3.</span> <span class="nav-text">Modelling pipeline for machine scheduler</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TableGen-debug"><span class="nav-number">7.3.1.</span> <span class="nav-text">TableGen debug</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Modeling-for-more-specific-hardware-feature"><span class="nav-number">7.4.</span> <span class="nav-text">Modeling for more specific hardware feature</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Subtarget-override-of-specific-opcodes"><span class="nav-number">7.4.1.</span> <span class="nav-text">Subtarget override of specific opcodes</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Customizing-the-MachineScheduler"><span class="nav-number">7.5.</span> <span class="nav-text">Customizing the MachineScheduler</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Customize-scheduling-policy"><span class="nav-number">7.5.1.</span> <span class="nav-text">Customize scheduling policy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Customize-MachineSchedStrategy-implementation"><span class="nav-number">7.5.2.</span> <span class="nav-text">Customize MachineSchedStrategy implementation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DAG-mutations"><span class="nav-number">7.5.3.</span> <span class="nav-text">DAG mutations</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Welcome-to-the-back-end-The-LLVM-machine-representation"><span class="nav-number">8.</span> <span class="nav-text">Welcome to the back-end: The LLVM machine representation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basics"><span class="nav-number">8.1.</span> <span class="nav-text">Basics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Develop-tips"><span class="nav-number">8.2.</span> <span class="nav-text">Develop tips</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Testing-MIR-file-format"><span class="nav-number">8.3.</span> <span class="nav-text">Testing: MIR file format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Register-allocation"><span class="nav-number">8.4.</span> <span class="nav-text">Register allocation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Physical-registers"><span class="nav-number">8.4.1.</span> <span class="nav-text">Physical registers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Virtual-registers"><span class="nav-number">8.4.2.</span> <span class="nav-text">Virtual registers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Representation-with-register-flags"><span class="nav-number">8.4.3.</span> <span class="nav-text">Representation with register flags</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Liveness-tracking"><span class="nav-number">8.4.4.</span> <span class="nav-text">Liveness tracking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Register-allocation-tuning"><span class="nav-number">8.4.5.</span> <span class="nav-text">Register allocation tuning</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Liveness-tracking-after-register-allocation"><span class="nav-number">8.4.6.</span> <span class="nav-text">Liveness tracking after register allocation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prolog-and-epilog-insertion-pass"><span class="nav-number">8.4.7.</span> <span class="nav-text">Prolog and epilog insertion pass</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">ReRoozen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ReRoozen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

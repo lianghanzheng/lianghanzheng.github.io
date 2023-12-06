@@ -20,32 +20,28 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="浏览器上的C++编译器 (可代码共享)TODO： Literals And Constantconstexprconstexpr 在C++11中加入标准，能够将一些计算工作从二进制文件执行期间卸载到编译期间进行，从而避免每次程序执行时都执行相同的运算。 constexpr 可以像变量一样被赋值。将 constexpr 作为返回值类型的函数同样要在编译时得到计算结果。但是在赋值时，从汇编代码来看，需">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Modern CPP (C++20) Review">
-<meta property="og:url" content="http://example.com/2023/08/25/CPP/Modern-CPP-C-20-Review/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="RRZ&#39;s Blog">
+<meta property="og:url" content="http://example.com/page/2/index.html">
 <meta property="og:site_name" content="RRZ&#39;s Blog">
-<meta property="og:description" content="浏览器上的C++编译器 (可代码共享)TODO： Literals And Constantconstexprconstexpr 在C++11中加入标准，能够将一些计算工作从二进制文件执行期间卸载到编译期间进行，从而避免每次程序执行时都执行相同的运算。 constexpr 可以像变量一样被赋值。将 constexpr 作为返回值类型的函数同样要在编译时得到计算结果。但是在赋值时，从汇编代码来看，需">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-25T07:46:23.000Z">
-<meta property="article:modified_time" content="2023-10-05T14:41:43.161Z">
 <meta property="article:author" content="ReRoozen">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2023/08/25/CPP/Modern-CPP-C-20-Review/">
+<link rel="canonical" href="http://example.com/page/2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
-    isPost : true,
+    isHome : true,
+    isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Modern CPP (C++20) Review | RRZ's Blog</title>
+  <title>RRZ's Blog</title>
   
 
 
@@ -148,10 +144,786 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/27/PaperWriting/Paper-Writing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/27/PaperWriting/Paper-Writing/" class="post-title-link" itemprop="url">Paper Writing</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-27 10:32:00" itemprop="dateCreated datePublished" datetime="2023-10-27T10:32:00+08:00">2023-10-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-16 21:27:17" itemprop="dateModified" datetime="2023-11-16T21:27:17+08:00">2023-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Writing/" itemprop="url" rel="index"><span itemprop="name">Writing</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
 
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="论文写作规范"><a href="#论文写作规范" class="headerlink" title="论文写作规范"></a>论文写作规范</h1><p>本博客内容主要从《Science Research Writing: For Non-Native Speakers of English》中摘录并整理。</p>
+<p>规范地撰写一篇论文是为了有效的传递信息。通过花费几秒钟阅读标题，读者应该能够获得一些信息；通过花费几十秒阅读Abstract，读者能够获得更多的一些信息；通过花费几分钟阅读Introduction&#x2F;Conclusion，读者应该又能得到一些信息。<em>论文中的每句话都应该能够传达出有效的信息。</em></p>
+<h2 id="撰写Introduction"><a href="#撰写Introduction" class="headerlink" title="撰写Introduction"></a>撰写Introduction</h2><p>尽管论文是为了发表自己在实验中使用的方法与结果，但是一个<strong>Introduction</strong>却不能直接这样入手;方法和结果应该属于<strong>Methodology</strong>和<strong>Result</strong>这样的report section。</p>
+<p>Introduction应该像一个漏斗一样：将话题从一个开放的话题过渡到自己工作的那一个点上。</p>
+<h3 id="主要语法与写作技巧"><a href="#主要语法与写作技巧" class="headerlink" title="主要语法与写作技巧"></a>主要语法与写作技巧</h3><ul>
+<li>Tense pairs</li>
+<li>signalling language</li>
+<li>passive&#x2F;activate use</li>
+<li>paragraphing</li>
+</ul>
+<h4 id="Tense-piars：不同时态表达的倾向性"><a href="#Tense-piars：不同时态表达的倾向性" class="headerlink" title="Tense piars：不同时态表达的倾向性"></a>Tense piars：不同时态表达的倾向性</h4><h5 id="一般现在时vs-现在进行时"><a href="#一般现在时vs-现在进行时" class="headerlink" title="一般现在时vs.现在进行时"></a>一般现在时vs.现在进行时</h5><p>一般现在时表达了一个长久的状态，而现在进行时则表达了一个临时的状态。因此一般现在时用来表达一个已经被广泛接受的结论或事实。但是所谓“广泛接受”的标准因人而异，最保险的方法是在使用一般现在时的句子中加上文献引用——毕竟能够发表出去的工作肯定也得到了部分人的承认。</p>
+<p>类似地，在描述结果的时候也有一般现在时和一般过去时的抉择：</p>
+<ol>
+<li><em>We found that the pressure <strong>increased</strong> as the temperature <strong>rose</strong>, which <strong>indicated</strong> that temperature <strong>played</strong> a significant role in the process.</em></li>
+<li><em>We found that the pressure <strong>increases</strong> as the temperature <strong>rises</strong>, which <strong>indicates</strong> that temperature <strong>plays</strong> a significant role in the process.</em></li>
+</ol>
+<p>毫无疑问，当我们用一般现在时描述我们的结果时显得我们对结果更加自信：我们描述的是一个能够被广泛接受的事实；而使用一般过去时则只是说明在实验限定的条件下产生了这样的结果。</p>
+<h5 id="一般过去时vs-现在完成时"><a href="#一般过去时vs-现在完成时" class="headerlink" title="一般过去时vs.现在完成时"></a>一般过去时vs.现在完成时</h5><p>一般过去时表达了过去发生的事情并不影响现在的状态，现在完成时表明过去发生的事情对现在的状态持续产生影响。</p>
+<ol>
+<li><em>I lived in Tokyo for five years…, (but I don’t live there anymore.)</em></li>
+<li><em>I have lived in Tokyo for five years…, ( and I still live there NOW.)</em></li>
+</ol>
+<h4 id="Signalling-language：连接句子"><a href="#Signalling-language：连接句子" class="headerlink" title="Signalling language：连接句子"></a>Signalling language：连接句子</h4><p>在撰写论文时，可能从上一个句子到下一个句子中间，我们花费了10分钟来构思内容，然后才动笔。但是我们的读者看完上一个句子后却会立即看向下一个句子，如果没有良好的衔接，那么有可能读者会看的云里雾里。</p>
+<h5 id="重叠"><a href="#重叠" class="headerlink" title="重叠"></a>重叠</h5><p>通过内容重叠对句子进行衔接：</p>
+<blockquote>
+<p><em>The pattern of inflammation during an asthma attack is diff erent from that seen in <u>stable asthma</u>. In <strong><u>stable asthma</u></strong> the total number of inflammatory cells does not increase.</em></p>
+</blockquote>
+<p>这种通过重叠的衔接又派生除了三种形式：代词、分号和非限制定语从句。</p>
+<p>使用代词进行衔接：</p>
+<blockquote>
+<p><em>Many researchers have suggested <u>ways of reducing cost without affecting the quality of the image</u>. <strong><u>These methods</u></strong> rely on data structures built during a preprocessing step.</em></p>
+</blockquote>
+<p>使用分号进行衔接：</p>
+<blockquote>
+<p><em>The procedure for testing whether components are operationally safe usually takes many hours<u>;</u> this means that tests are rarely repeated.</em></p>
+</blockquote>
+<p>使用非限制定语从句进行衔接：</p>
+<blockquote>
+<p><em>It has received much attention over the past few decades due to its biodegradable properties, <strong><u>which</u></strong> off er important economic benefits.</em></p>
+</blockquote>
+<h5 id="衔接词"><a href="#衔接词" class="headerlink" title="衔接词"></a>衔接词</h5><p>除了重叠之外，在句子间添加衔接词来表明两个句子之间递进关系 (therefore)、转折关系 (however) 也是常用的手段。如果作者没有通过衔接词来表达下一个句子的功能，那么读者处理这些信息就会很困难。e.g. 没有加上however，那么读者就会疑惑为什么上个句子在肯定某个事物，到了下个句子就开始否定，从而质疑整个段落内容。</p>
+<p>一直使用however，therefore当然会令人感到单调，所以衔接词的积累也很重要。</p>
+<p>表示原因：<em>The experiment was unsuccessful ________ the measuring instruments were inaccurate.</em></p>
+<ul>
+<li>due to (the fact that)</li>
+<li>on account of (the fact that)</li>
+<li>in view of (the fact that)</li>
+<li>as</li>
+<li>because</li>
+<li>since</li>
+</ul>
+<blockquote>
+<ul>
+<li><em>since</em>除了表示原因以外还可以引导时间状语，在可能产生歧义时替换掉</li>
+<li>所有的衔接词最好都放在句首</li>
+</ul>
+</blockquote>
+<p>表示结果：<em>The measuring instruments were calibrated accurately, ________ the experiment was successful.</em></p>
+<ul>
+<li>which is why</li>
+<li>as a result (of which)</li>
+<li>therefore</li>
+<li>consquently</li>
+<li>hence</li>
+<li>so</li>
+</ul>
+<p>表示转折或者差异：<em>British students are all vegetarians, __________ Norwegian students eat meat every day.</em></p>
+<ul>
+<li>on the other hand</li>
+<li>by contrast</li>
+<li>however</li>
+<li>whereas</li>
+<li>but</li>
+<li>while</li>
+</ul>
+<blockquote>
+<ul>
+<li>on the contrary和conversely除了表示转折以外，还蕴含了“其反面才是正确的”含义，因此不能用来衔接给出的例句</li>
+<li>while也能引导时间状语，所以注意不要在可能引起混淆的时候使用</li>
+</ul>
+</blockquote>
+<p>表示出乎意料：</p>
+<ol type="a">
+  <li><i>_______ it was difficult, a solution was eventually found.</i></li>
+  <li><i>_______ the difficulty, a solution was eventually found.</i></li>
+  <li><i>It was difficult; ________ a solution was eventually found.</i></li>
+</ol>
+
+<p>在这三种情况下分别可以用：</p>
+<table>
+<tr>
+  <td>a</td>
+  <td>b</td>
+  <td>c</td>
+</tr>
+<tr>
+  <td><ol>
+    <li>Although</li>
+    <li>Even though</li>
+    <li>Though</li>
+  </ol></td>
+  <td><ol>
+    <li>Despite</li>
+    <li>In spite of</li>
+    <li>Regardless of</li>
+    <li>Notwithstanding</li>
+  </ol></td>
+  <td><ol>
+    <li>nevertheless</li>
+    <li>however</li>
+    <li>yet</li>
+    <li>nonetheless</li>
+    <li>even so</li>
+  </ol></td>
+</tr>
+</table>
+
+<blockquote>
+<ul>
+<li>still和anyway也能在这个使用情境下客串，但是这两个词也蕴含了更多信息</li>
+</ul>
+</blockquote>
+<p>表示并列：<em>We used a batch processing system because it was more effective; ___________ it was faster.</em></p>
+<ul>
+<li>in addition</li>
+<li>in the second place (etc.)</li>
+<li>what is more</li>
+<li>apart from that&#x2F;which</li>
+<li>moreover</li>
+<li>furthermore</li>
+<li>also</li>
+<li>secondly</li>
+</ul>
+<blockquote>
+<ul>
+<li>besides也能表达类似的意思，但是它应该用在更有说服力的上下文中</li>
+</ul>
+</blockquote>
+<h4 id="被动语态和主动语态"><a href="#被动语态和主动语态" class="headerlink" title="被动语态和主动语态"></a>被动语态和主动语态</h4><p>在论文中，<strong>we</strong>只能用来表示自己的研究团队，而绝不能表示宽泛的人类整体。如果想要指代一个广泛的人类群体，那么应该使用被动语态：<em>It is known&#x2F;thought that …</em></p>
+<p>但是在学位论文中，因为没有共同署名的团队，所以不能用we。但是用I也是不能被接受的，此时应该使用This article&#x2F;The present paper来表达自己的观点。</p>
+<p>被动语态相较于主动语态的缺点在于表达观点的主体并没有被明示，所以类似于This article&#x2F;The present paper这样的表述更不容易引起混淆，更适合放在Introduction中。</p>
+<h4 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h4><p>分段面临着两类主要的错误：1) 段落由零散的短句构成，或只是独立句子；2) 段落过长。</p>
+<h5 id="阅读的技巧"><a href="#阅读的技巧" class="headerlink" title="阅读的技巧"></a>阅读的技巧</h5><p>在阅读一本推理小说的时候，如果提前看了最后一页，那么这本小说对读者的吸引力会迅速降低；但是如果坚持看完也能提高读者的阅读速度：因为读者知道了哪些信息是可以忽略的。</p>
+<p>阅读论文同样也是如此，在面临一篇长文时，先浏览一遍获取文章的主题及关键内容的位置能够在正式阅读时更快进入主题。</p>
+<blockquote>
+<ol>
+<li>阅读标题：对文章的内容有一个预期</li>
+<li>看作者的名字和单位：对文件的价值有一个预期</li>
+<li>检查数据：通过数据辅助理解文章内容</li>
+<li>看摘要：获得文章的工作和结论</li>
+<li>快速浏览第一个段落</li>
+<li>快速浏览每个段落的第一句话</li>
+<li>浏览每个图表及它们的标题</li>
+<li>阅读最后一段</li>
+</ol>
+</blockquote>
+<h5 id="利用浏览的技巧辅助写作"><a href="#利用浏览的技巧辅助写作" class="headerlink" title="利用浏览的技巧辅助写作"></a>利用浏览的技巧辅助写作</h5><p>读者拥有这样的阅读习惯，那么我们当然能够在文章做出相应的设计。以第六条为例，在段落起始句交代这个段落的主要内容，其它的句子都用来支撑首句的观点。当内容偏离首句时，分段。</p>
+<h3 id="构建一个写作模型"><a href="#构建一个写作模型" class="headerlink" title="构建一个写作模型"></a>构建一个写作模型</h3><ol>
+<li>介绍这个话题 (topic) 的重要性，e.g. much study in recent years (接现在完成时)或者a major role are common here (接一般现在时)</li>
+<li>介绍这个重要的东西是什么&#x2F;相关背景信息，从最可能被读者知道的背景入手，然后深入；另一方面，在这里也能有引用文献，但是最好是大佬的文章或者结论被广泛接受的文章</li>
+<li>指出已有工作面临的挑战、问题的来源，但不是真正开始讲述自己的工作；收缩话题范围</li>
+<li>开始以文献综述的方式从研究面切入研究点；文献可以按照三种顺序陈列：发表时间顺序、方法类型和通用-&gt;特定应用情景</li>
+<li>指出现有工作的不足，并开始说明自己文章涉及的工作</li>
+<li>对自己工作的方法和结果分别简单描述</li>
+</ol>
+<p>书上将这几点进一步归纳为了四点：</p>
+<ol>
+<li>明确研究的重要性&#x2F;提供背景信息&#x2F;陈述当前研究方向的热门关注点</li>
+<li>给出关于这个话题的文献综述</li>
+<li>指出现有工作的不足&#x2F;说明自己解决的问题&#x2F;提出在文章中将要验证的命题</li>
+<li>概述这篇文章的方法与结论</li>
+</ol>
+<blockquote>
+<p>我个人在分析Introduction结构时，对于长篇幅我更喜欢自己的六点分类，对于短篇幅书上的四点分类更好</p>
+</blockquote>
+<h3 id="词汇"><a href="#词汇" class="headerlink" title="词汇"></a>词汇</h3><p>本书作者根据他自己的四点对提供的词组进行了分类。由于内容比较丰富，建议直接阅读原文。</p>
+<h2 id="撰写Methodology"><a href="#撰写Methodology" class="headerlink" title="撰写Methodology"></a>撰写Methodology</h2><p>如前文提到的，Methodology是report的一部分。大部分出版商都会发布它们的Guide for Authors，并且都会有这样的一句话： <em>The Methodology should contain suffi cient detail for readers to replicate the work done and obtain similar results.</em></p>
+<p>虽然这个章节的目标是让其他人能够复现实验并得到相近的结果，但这并不意味着要在这一节像流水账一样地把做的事情全部记录下来。</p>
+<p>对于一个开始着手第一篇论文的学生而言，之前的报告都是写给老师看的——一个比本人更懂这个话题的人。因此这样的报告主要是说明自己是否完成了老师布置的任务。</p>
+<p>但是，撰写论文 (在理论上) 是让别人从自己这里学到东西。论文里提到的东西，对于别人来说可能是一个新方法，因此除了让别人能够复现结果以外，还要让别人能够接受这个新的方法。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/23/CPP/C-17-STL-Solution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/23/CPP/C-17-STL-Solution/" class="post-title-link" itemprop="url">C++17 STL Solution</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-23 22:06:25" itemprop="dateCreated datePublished" datetime="2023-10-23T22:06:25+08:00">2023-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-26 13:34:05" itemprop="dateModified" datetime="2023-10-26T13:34:05+08:00">2023-10-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Modern-CPP/" itemprop="url" rel="index"><span itemprop="name">Modern CPP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="STL-Containers"><a href="#STL-Containers" class="headerlink" title="STL Containers"></a>STL Containers</h2><h3 id="std-vector"><a href="#std-vector" class="headerlink" title="std::vector"></a><code>std::vector</code></h3><h4 id="以-O-1-的复杂度在没有排序的-vector-中删除元素"><a href="#以-O-1-的复杂度在没有排序的-vector-中删除元素" class="headerlink" title="以 $O(1)$ 的复杂度在没有排序的 vector 中删除元素"></a>以 $O(1)$ 的复杂度在没有排序的 <code>vector</code> 中删除元素</h4><p>事实上，正常的删除操作的复杂度依然是 $O(n)$。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; v &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>&#125;;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="type">const</span> <span class="keyword">auto</span> <span class="title">new_end</span> <span class="params">(remove(begin(v), end(v), <span class="number">2</span>))</span></span>;</span><br><span class="line">    v.<span class="built_in">erase</span>(new_end, <span class="built_in">end</span>(v));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>remove</code> 函数移出元素是通过移位完成的：遇见需要删除的元素，将其后面一个元素搬运过来，并返回一个迭代器。因此在 <code>remove</code> 上的时间开销就是 $O(n)$。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* A possible implementation of remove. */</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> ForwardIt, <span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function">ForwardIt <span class="title">remove</span><span class="params">(ForwardIt first, ForwardIt last, <span class="type">const</span> T&amp; value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    first = std::<span class="built_in">find</span>(first, last, value);</span><br><span class="line">    <span class="keyword">if</span> (first != last)</span><br><span class="line">        <span class="keyword">for</span> (ForwardIt i = first; ++i != last;)</span><br><span class="line">            <span class="keyword">if</span> (!(*i == value))</span><br><span class="line">                *first++ = std::<span class="built_in">move</span>(*i);</span><br><span class="line">    <span class="keyword">return</span> first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h5><p>但是，如果不需要维护 <code>vector</code> 中的元素的顺序，我们则能够进行一定的特化使之复杂度降为 $O(1)$。因为原本复杂度为 $O(n)$ 的一个核心原因是为了填补前面元素的空缺，因此，直接把最后一个元素换位到删除的元素的位置即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quick_remove_at</span><span class="params">(std::vector&lt;T&gt; &amp;v,</span></span></span><br><span class="line"><span class="params"><span class="function">                     std::<span class="type">size_t</span> idx)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (idx &lt; v.<span class="built_in">size</span>()) &#123;</span><br><span class="line">    v.<span class="built_in">at</span>(idx) = std::<span class="built_in">move</span>(v.<span class="built_in">back</span>());</span><br><span class="line">    v.<span class="built_in">pop_back</span>();</span><br><span class="line">  &#125;        </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">quick_remove_at</span><span class="params">(std::vector&lt;T&gt; &amp;v, </span></span></span><br><span class="line"><span class="params"><span class="function">                     <span class="keyword">typename</span> std::vector&lt;T&gt;::iterator it)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (it != std::<span class="built_in">end</span>(v)) &#123;</span><br><span class="line">    *it = std::<span class="built_in">move</span>(v.<span class="built_in">back</span>());</span><br><span class="line">    v.<span class="built_in">pop_back</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Iterators"><a href="#Iterators" class="headerlink" title="Iterators"></a>Iterators</h2><h2 id="Lambda-Expressions"><a href="#Lambda-Expressions" class="headerlink" title="Lambda Expressions"></a>Lambda Expressions</h2><h2 id="STL-Algorithm-Basics"><a href="#STL-Algorithm-Basics" class="headerlink" title="STL Algorithm Basics"></a>STL Algorithm Basics</h2><h2 id="Advanced-Use-of-STL-Algorithm"><a href="#Advanced-Use-of-STL-Algorithm" class="headerlink" title="Advanced Use of STL Algorithm"></a>Advanced Use of STL Algorithm</h2><h2 id="Strings-Stream-Classes-and-Regular-Expressions"><a href="#Strings-Stream-Classes-and-Regular-Expressions" class="headerlink" title="Strings, Stream Classes, and Regular Expressions"></a>Strings, Stream Classes, and Regular Expressions</h2><h2 id="Utility-Classes"><a href="#Utility-Classes" class="headerlink" title="Utility Classes"></a>Utility Classes</h2><h2 id="Parallelism-and-Concurrency"><a href="#Parallelism-and-Concurrency" class="headerlink" title="Parallelism and Concurrency"></a>Parallelism and Concurrency</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/06/git/Git-Essential/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/06/git/Git-Essential/" class="post-title-link" itemprop="url">Git Essential</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-06 09:37:25" itemprop="dateCreated datePublished" datetime="2023-10-06T09:37:25+08:00">2023-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-16 22:23:57" itemprop="dateModified" datetime="2023-10-16T22:23:57+08:00">2023-10-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>一个VCS (Version Control System) 需要包含以下信息：</p>
+<ol>
+<li>为每个文件和目录都保存一个版本信息</li>
+<li>每次版本变更时的描述信息</li>
+<li>展示每个版本变更时做出的改动</li>
+</ol>
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><h3 id="配置信息"><a href="#配置信息" class="headerlink" title="配置信息"></a>配置信息</h3><p>查看本地git的配置信息：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+
+<p>根据查看的可配置信息，能够按照以下格式进行修改：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global &lt;item&gt; <span class="string">&quot;your-value&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>比如说，配置用户名能够以下列方式进行：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">&quot;abcd@gmail.com&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建git项目"><a href="#创建git项目" class="headerlink" title="创建git项目"></a>创建git项目</h3><p>在命令行打开一个目录，然后输入 <code>git init</code>。该操作之后，目录出现了一个 <code>.git</code> 目录。这里保存了所有的历史信息。</p>
+<h3 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h3><p>命令 <code>git status</code> 能够查看哪些文件还没有通过 <code>git add</code> 追踪，以及哪些文件被 <code>add</code> 了但是还没有被提交。</p>
+<p>每次commit之后，对文件的追踪会停止。</p>
+<h3 id="追踪文件状态"><a href="#追踪文件状态" class="headerlink" title="追踪文件状态"></a>追踪文件状态</h3><p>在初始化后的目录中创建一个新的文件，但这个文件的版本信息并不会因为我们按下ctrl+s而自动被记录在git中，只有 <code>git status</code> 知道git仓库中多出来了一个未被追踪的文件。</p>
+<p>为了让git能够追踪这个新的文件，应该使用命令 <code>git add</code> 显式地告诉git要追踪这个文件，并为当前的文件在staging area创建一个快照，使得程序员能够知道后续的修改相对记录的版本有哪些改动。</p>
+<blockquote>
+<p>git已经和vscode很好地集成在一起了，看编辑器左边的条就知道了</p>
+</blockquote>
+<p>但是真正想要创建一个新的版本，需要使用命令 <code>git commit</code> 进行提交。</p>
+<blockquote>
+<p><code>git add .</code> 能够很方便地将所有修改的文件都追踪，但是在大型项目中不要这么做，因为你可能会把没改完的其它文件也一起add了</p>
+</blockquote>
+<p>但是有时候我们可能错误地将文件加入了staging area，这时候需要取消某些文件的追踪。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看添加了哪些文件</span></span><br><span class="line">git status</span><br><span class="line"><span class="comment"># 删除错误添加的文件</span></span><br><span class="line">git restore --staged filename</span><br></pre></td></tr></table></figure>
+
+<p>通过commit，我们能够完全撤销在那次commit之后的所有修改、</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git restore filename</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看每次commit"><a href="#查看每次commit" class="headerlink" title="查看每次commit"></a>查看每次commit</h3><p>命令 <code>git log</code> 允许我们查看每次commit都是谁做的，并且每个版本的哈希值和描述信息都是什么。</p>
+<h3 id="查看git中的修改"><a href="#查看git中的修改" class="headerlink" title="查看git中的修改"></a>查看git中的修改</h3><p>命令 <code>git diff</code> 能够查看当前文件和上一次add之后的文件相比做出了哪些修改。</p>
+<h3 id="查看git维护了哪些文件的状态"><a href="#查看git维护了哪些文件的状态" class="headerlink" title="查看git维护了哪些文件的状态"></a>查看git维护了哪些文件的状态</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git ls-files</span><br></pre></td></tr></table></figure>
+
+<h3 id="从git仓库中移除文件"><a href="#从git仓库中移除文件" class="headerlink" title="从git仓库中移除文件"></a>从git仓库中移除文件</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> filename</span><br><span class="line">git <span class="built_in">rm</span> -r directory</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tagging"><a href="#Tagging" class="headerlink" title="Tagging"></a>Tagging</h3><p>通常用来标记一个release版本。但是究其本质而言，只是对某个commit的引用 (不用hash值去查)，并没有保存额外的信息。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git tag version1.0.0</span><br><span class="line">git tag -a v2.2.2 -m <span class="string">&quot;description info of v2.2.2&quot;</span></span><br><span class="line">git tag -l <span class="string">&quot;v1*&quot;</span></span><br><span class="line">git tag --list</span><br><span class="line">git tag --delets version1.0.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a><code>.gitignore</code></h3><p>有时我们在项目中创建了一个临时文件来验证一些想法，因此我们并不希望这个文件被追踪。</p>
+<p>创建 <code>.gitignore</code> 并在里面添加不希望被追踪的文件路径就能做到这点。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dir 不需要提交的目录</span></span><br><span class="line">/node_modules</span><br><span class="line"></span><br><span class="line"><span class="comment"># log 不需要提交的任意包含后缀名为log的文件</span></span><br><span class="line">*.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h3 id="将本地仓库push到远程仓库"><a href="#将本地仓库push到远程仓库" class="headerlink" title="将本地仓库push到远程仓库"></a>将本地仓库push到远程仓库</h3><p>首先我们需要将本地的仓库和远程仓库建立联系。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin your-remote-repository.git</span><br></pre></td></tr></table></figure>
+
+<p>在这里，<code>origin</code> 是为远程仓库起名，方便在上传的时候使用。同时 <code>origin</code> 也是默认的仓库名。当然，一个git本地仓库能够与多个远程仓库相关联，如git、gitee、gitlab等，因此可以给这些仓库取不同的名字。</p>
+<p>完成关联后，下列命令能将本地仓库上传至远程：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置ssh-key"><a href="#配置ssh-key" class="headerlink" title="配置ssh key"></a>配置ssh key</h3><p>如果github仓库是public，那么所做的修改能够直接push上去。如果是private，那么需要进行一些额外的配置工作。</p>
+<h4 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h4><p>ssh &#x3D; secure shell</p>
+<p>两点传输的过程中会对原始信息进行加密。常用的加密方法为RSA，包含私钥和公钥两个部分。但是这两个秘钥都可以用linux命令行工具 <code>ssh-keygen</code> 获取 (位于 <code>~/.ssh</code>) 目录下。然后将公钥配置在github和账户中。</p>
+<blockquote>
+<p>命令 <code>clip &lt; id_rsa.pub</code> 能够将内容复制到剪贴板上</p>
+</blockquote>
+<h3 id="github冲浪"><a href="#github冲浪" class="headerlink" title="github冲浪"></a>github冲浪</h3><p>打开一个项目中具体的文件，raw会给出纯文本形式的代码，blame能提供精确到行的编辑信息，history能够显示每次commit。</p>
+<p>Issue类似于一个TODO，多人合作时，类似你导给你该论文。</p>
+<h3 id="fork：合作开发"><a href="#fork：合作开发" class="headerlink" title="fork：合作开发"></a>fork：合作开发</h3><h4 id="远程操作"><a href="#远程操作" class="headerlink" title="远程操作"></a>远程操作</h4><p>点击 (别人的) 仓库页面上的fork按钮，就能够在自己的账户上获得一份该仓库的副本。</p>
+<p>当我们为这个项目添加了额外的特性之后，我们在github的仓库中按下Pull request按钮进入预览页面后，再按下Create pull request就能够向原作者发起合并的请求。</p>
+<h4 id="本地操作"><a href="#本地操作" class="headerlink" title="本地操作"></a>本地操作</h4><p>命令 <code>git clone</code> 能够获得一份本地的版本。之后就能像本地仓库一样用 <code>add</code>、<code>commit</code> 进行管理，并通过 <code>push</code> 上传至 (自己的) 远程仓库。</p>
+<p>但是如果想要和原作者的main分支合并，仍然需要回到github的仓库页面点击Pull request发起合并请求。</p>
+<h3 id="branch"><a href="#branch" class="headerlink" title="branch"></a>branch</h3><p>一般来说，main&#x2F;master上一般保存稳定版，而进一步的开发工作一般都放在不同的分支上进行，等到所有的测试都完成再合并会main&#x2F;master分支上。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建新的分支</span></span><br><span class="line">git branch <span class="string">&quot;a-new-branch&quot;</span></span><br><span class="line"><span class="comment"># 显示所有的分支和当前所处于的分支</span></span><br><span class="line">git branch</span><br><span class="line"><span class="comment"># 跳转到新的分支上</span></span><br><span class="line">git checkout a-new-branch</span><br><span class="line"><span class="comment"># 上传到远程仓库的新分支</span></span><br><span class="line">git push orgin a-new-branch</span><br></pre></td></tr></table></figure>
+
+<h2 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h2><p>一个项目的workflow大致会分为一下几个阶段：</p>
+<ol>
+<li>文件未被追踪</li>
+<li>git开始追踪文件，但文件尚未被修改</li>
+<li>git追踪到文件的修改</li>
+<li>Staged&#x2F;Indexed</li>
+<li>Commited：能够被追溯</li>
+</ol>
+<h3 id="Untracked-State"><a href="#Untracked-State" class="headerlink" title="Untracked State"></a>Untracked State</h3><p>在编写项目时我们会创建种种文件：源代码、临时文件…而它们在初始时都不会被git追溯。因此，此时做出的所有改动，git都不会记录。</p>
+<p><code>git status</code> 对这类文件的描述是untracked files。</p>
+<h3 id="Tracking-new-files-staged-state"><a href="#Tracking-new-files-staged-state" class="headerlink" title="Tracking new files (staged state)"></a>Tracking new files (staged state)</h3><p>命令 <code>git add</code> 会将文件从untracked状态转移到这个状态 (状态1转移到状态4)。</p>
+<h3 id="Staging-modified-files"><a href="#Staging-modified-files" class="headerlink" title="Staging modified files"></a>Staging modified files</h3><p>状态2的含义是文件内容与上一次commit的内容保持一致。</p>
+<p><code>git status</code> 不会显示该文件的信息。</p>
+<p>如果此时对文件内容做出了修改，那么 <code>git status</code> 会显示该文件changes not staged for commit (状态2转移到状态3)。</p>
+<p>进一步使用命令 <code>git add</code> 就能从状态3转移到状态4。</p>
+<h3 id="同时处于两个状态的文件"><a href="#同时处于两个状态的文件" class="headerlink" title="同时处于两个状态的文件"></a>同时处于两个状态的文件</h3><p>如果一个文件在一次commit之后又add几次后，然后还有没有被add的修改信息，那么一个文件就会同时出于staged和unstaged状态 (状态3和状态4)。在staged area保存了上一次add之后的文件内容，在unstaged area保存了文件最新的内容。</p>
+<h3 id="Commit-Snapshot"><a href="#Commit-Snapshot" class="headerlink" title="Commit&#x2F;Snapshot"></a>Commit&#x2F;Snapshot</h3><p>commit之后会生成一个SHA-I值来标记这次commit，并能够从未来的版本回溯到这个版本。</p>
+<h3 id="Skipping-staging-area"><a href="#Skipping-staging-area" class="headerlink" title="Skipping staging area"></a>Skipping staging area</h3><p><code>git commit -a</code> 能够将还没有add的文件也进入commit状态。</p>
+<h2 id="Branch-and-merge"><a href="#Branch-and-merge" class="headerlink" title="Branch and merge"></a>Branch and merge</h2><p><code>git checkout -b</code> 能够创建分支并跳转到新分支上。</p>
+<p>我们现在可能正在一个dev分支上进行开发，并且还没有完成，而现在我们发现了一个bug需要修复。</p>
+<p>那么可选的方案之一是回到上一次commit，然后打开一个新的isuue分支进行修复。</p>
+<blockquote>
+<p>这篇博客 (<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600/900388704535136">https://www.liaoxuefeng.com/wiki/896043488029600/900388704535136</a>) 里给出了一个基于 <code>git stash</code> 的方法</p>
+</blockquote>
+<p>修复后的issue分支能够和其它分支merge。</p>
+<h3 id="Merge"><a href="#Merge" class="headerlink" title="Merge"></a>Merge</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 刚在issue分支修完bug</span></span><br><span class="line">git checkout master</span><br><span class="line"><span class="comment"># 合并</span></span><br><span class="line">git merge issue</span><br><span class="line"><span class="comment"># 删除issue</span></span><br><span class="line">git branch -d issue</span><br></pre></td></tr></table></figure>
+
+<p>merge背后的操作是master分支“向前”移动了一次，原来的issue成为了新的master。</p>
+<p>但是现在master也只是修完了bug，和dev版本的关系并非父子节点而是兄弟节点。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 刚在dev分支开发完新功能</span></span><br><span class="line">git checkout master</span><br><span class="line"><span class="comment"># 合并</span></span><br><span class="line">git merge dev</span><br><span class="line"><span class="comment"># 查看现在的分支由哪些节点合并</span></span><br><span class="line">git <span class="built_in">log</span> -1</span><br><span class="line"><span class="comment"># 删除原本的dev</span></span><br><span class="line">git branch -d dev</span><br></pre></td></tr></table></figure>
+
+<p>尽管在命令上看不出什么差别，但是背后的操作却有区别。与亲代节点之间的直接替换不同，兄弟节点之间的合并会创建一个公共的子节点作为新的master节点。</p>
+<h3 id="冲突处理"><a href="#冲突处理" class="headerlink" title="冲突处理"></a>冲突处理</h3><p>假设现在有一个文件 <code>feature.py</code>，在master分支上有以下内容：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;World&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>随后在当前master分支创建一个issue分支 (兄弟)，并对 <code>feature.py</code> 内容做出修改并提交：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Universe&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这个时候回到master分支又对 <code>feature.py</code> 做出修改并提交：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Cosmos&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这个时候master与issue合并就会发生冲突——因为issue分支对同一个文件进行了修改。这个时候git cmd对分支的显示从 <code>master</code> 变成了 <code>master|MERGING</code>。打开冲突的文件 <code>feature.py</code> 能够看见不同分支下冲突的行。</p>
+<p>进入冲突的文件，调整文件内容，删掉所有的分隔符，然后add又commit，即可恢复到 <code>master</code>。</p>
+<h2 id="其它零碎知识增补"><a href="#其它零碎知识增补" class="headerlink" title="其它零碎知识增补"></a>其它零碎知识增补</h2><h3 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a><code>git status</code></h3><p>vscode (和git集成) 打开git仓库后，进行开发工作时文件上会出现 <code>M</code> 等表示状态的字母。</p>
+<ul>
+<li><code>M</code> 在上一次add的基础上进行了修改</li>
+<li><code>??</code> 未追踪</li>
+<li><code>A</code> 一个新的加入staging area的文件</li>
+</ul>
+<p>这些状态可以用 <code>git status --short</code>&#x2F;<code>git status -s</code> 看到。</p>
+<h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a><code>git log</code></h3><p>显示所有的commit信息。通过 <code>-p</code> 选项能够看到每次commit之间的变化。更详细的可以用 <code>-stat</code> 选项看。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 最近三次的commit</span></span><br><span class="line">git <span class="built_in">log</span> -p -3</span><br><span class="line"><span class="comment"># 过去三周的commit</span></span><br><span class="line">git <span class="built_in">log</span> --since=3.weeks</span><br></pre></td></tr></table></figure>
+
+<h3 id="git-aliases"><a href="#git-aliases" class="headerlink" title="git aliases"></a>git aliases</h3><p>类似Linux的 <code>alias</code> 命令。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global <span class="built_in">alias</span>.&lt;alias-command&gt; &lt;actual-command&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="从git中删除文件"><a href="#从git中删除文件" class="headerlink" title="从git中删除文件"></a>从git中删除文件</h3><p>即使将文件通过 <code>rm</code> 命令删除，使用 <code>git ls-files</code> 会发现该文件仍然被git追踪。但是再add一次就能让git停止追踪。</p>
+<p>不过直接用 <code>git rm</code> 能够更直接达到相同效果。</p>
+<h3 id="在git中移动文件"><a href="#在git中移动文件" class="headerlink" title="在git中移动文件"></a>在git中移动文件</h3><p>同样地，使用 <code>mv</code> 后再add一次就能够记录这样的变化。</p>
+<p>直接用 <code>git mv</code> 能够达到相同的效果。 </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/18/vim/PluginsManagement/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/18/vim/PluginsManagement/" class="post-title-link" itemprop="url">Vim的插件管理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-18 12:32:30 / 修改时间：12:32:23" itemprop="dateCreated datePublished" datetime="2023-09-18T12:32:30+08:00">2023-09-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vim/" itemprop="url" rel="index"><span itemprop="name">vim</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="插件管理"><a href="#插件管理" class="headerlink" title="插件管理"></a>插件管理</h1><h2 id="自动化工具"><a href="#自动化工具" class="headerlink" title="自动化工具"></a>自动化工具</h2><h3 id="安装vim-plug"><a href="#安装vim-plug" class="headerlink" title="安装vim-plug"></a>安装vim-plug</h3><p>将github上仓库中的 <code>plug.vim</code> 置于 <code>$HOME/.vim/autoload/plug.vim</code> 即可.</p>
+<h3 id="管理方式"><a href="#管理方式" class="headerlink" title="管理方式"></a>管理方式</h3><p>在 <code>~/.vimrc</code> 中添加如下内容.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&quot; plugin management</span><br><span class="line">call plug#begin()</span><br><span class="line">  </span><br><span class="line">Plug &#x27;scrooloose/nerdtree&#x27;</span><br><span class="line">Plug &#x27;tpope/vim-vinegar&#x27;</span><br><span class="line">Plug &#x27;preservim/vim-markdown&#x27;</span><br><span class="line">  </span><br><span class="line">call plug#end()</span><br></pre></td></tr></table></figure>
+
+<p>修改完成后,通过命令 <code>:PlugInstall</code> 自动下载插件.</p>
+<h3 id="修改源"><a href="#修改源" class="headerlink" title="修改源"></a>修改源</h3><p>打开搜索编辑器搜索一下2行命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let fmt = get(g:, &#x27;plug_url_format&#x27;, &#x27;https://git::@github.com/%s.git&#x27;)</span><br><span class="line">&quot; ...</span><br><span class="line">\ &#x27;^https://git::@github\.com&#x27;, https://github.com, &#x27;&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>将 <code>github.com</code> 换成镜像即可.目前可用的镜像有 <code>hub.fastgit.xyz</code>.</p>
+<h2 id="手动安装方式"><a href="#手动安装方式" class="headerlink" title="手动安装方式"></a>手动安装方式</h2><p>遇见一些不能联网的机器也是可能的事情,因此有学习的必要.</p>
+<p>vim8原生的插件加载方式,为在 <code>~/vim/pack</code> 搜索插件目录树.</p>
+<ul>
+<li><code>.vim/pack/&lt;dirname&gt;/opt</code> 保存手动加载的插件</li>
+<li><code>.vim/pack/&lt;dirname&gt;/start</code> 保存始终加载的插件</li>
+</ul>
+<p><code>&lt;dirname&gt;</code> 可以是一个随便又好记的名字.</p>
+<p>手动加载插件的命令为 <code>:packadd &lt;dirname&gt;</code>.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/18/vim/ModesOfVim/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/18/vim/ModesOfVim/" class="post-title-link" itemprop="url">Vim的模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-18 12:31:59 / 修改时间：12:31:48" itemprop="dateCreated datePublished" datetime="2023-09-18T12:31:59+08:00">2023-09-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vim/" itemprop="url" rel="index"><span itemprop="name">vim</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Vim的模式"><a href="#Vim的模式" class="headerlink" title="Vim的模式"></a>Vim的模式</h1><h2 id="正常模式"><a href="#正常模式" class="headerlink" title="正常模式"></a>正常模式</h2><p>打开vim后进入的模式.处于其它模式时,按1-2次ESC键即可返回正常模式.</p>
+<h2 id="命令行模式"><a href="#命令行模式" class="headerlink" title="命令行模式"></a>命令行模式</h2><p>正常模式按下 <code>:</code> 后即可进入,输入命令敲下回车开始执行.</p>
+<p>命令模式下,上下方向键可翻阅历史命令；ctrl+b跳至命令行开头；ctrl+e跳至命令行结尾；ctrl+f打开i命令行历史记录 (缓冲区),在命令上敲击Enter可以执行,按下ctrl+c可以对缓冲区编辑.</p>
+<p>搜索字符串时敲击 <code>/</code> 或 <code>?</code> 也是进入命令行模式.</p>
+<h2 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h2><p>按下i进入.</p>
+<h2 id="可视模式"><a href="#可视模式" class="headerlink" title="可视模式"></a>可视模式</h2><ul>
+<li>按 <code>v</code> 进入字符可视模式</li>
+<li>按 <code>V</code> 进入行可视模式</li>
+<li>按ctrl+v进入块可视模式</li>
+</ul>
+<h2 id="替换模式"><a href="#替换模式" class="headerlink" title="替换模式"></a>替换模式</h2><p>按 <code>R</code> 进入.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/25/HexoEstablish/Theme-Next-Configure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/25/HexoEstablish/Theme-Next-Configure/" class="post-title-link" itemprop="url">Theme Next Configure</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-08-25 16:27:57 / 修改时间：16:43:40" itemprop="dateCreated datePublished" datetime="2023-08-25T16:27:57+08:00">2023-08-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="对Next主题进行自定义"><a href="#对Next主题进行自定义" class="headerlink" title="对Next主题进行自定义"></a>对Next主题进行自定义</h1><h2 id="作者、版权信息等"><a href="#作者、版权信息等" class="headerlink" title="作者、版权信息等"></a>作者、版权信息等</h2><p>在自己目录的 <code>_config.yml</code> 中修改 <code>Site</code> 部分的内容，以我自己的博客为例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">RRZ&#x27;s</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">ReRoozen</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="设置文章分类"><a href="#设置文章分类" class="headerlink" title="设置文章分类"></a>设置文章分类</h2><p>首先应该修改 <code>themes/next/_config.yml</code> 中的内容，取消下列行的注释：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br><span class="line">  <span class="comment">#schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line">  <span class="comment">#sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="comment">#commonweal: /404/ || fa fa-heartbeat</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+
+<p>该命令会产生一个 <code>index.md</code> 文件，这个文件用于存放分类，与一般的文档相比有着不同的 <code>type</code>，修改其内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2023-08-25 16:08:42</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>之后在原本的博客的描述中添加以下 <code>categories</code> 信息，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Theme Next Configure</span><br><span class="line">date: 2023-08-25 16:27:57</span><br><span class="line">categories: hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -167,9 +939,10 @@
       <meta itemprop="name" content="RRZ's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Modern CPP (C++20) Review
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/25/CPP/Modern-CPP-C-20-Review/" class="post-title-link" itemprop="url">Modern CPP (C++20) Review</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -208,7 +981,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="浏览器上的C-编译器-可代码共享"><a href="#浏览器上的C-编译器-可代码共享" class="headerlink" title="浏览器上的C++编译器 (可代码共享)"></a>浏览器上的C++编译器 (可代码共享)</h2><p>TODO：</p>
+          <h2 id="浏览器上的C-编译器-可代码共享"><a href="#浏览器上的C-编译器-可代码共享" class="headerlink" title="浏览器上的C++编译器 (可代码共享)"></a>浏览器上的C++编译器 (可代码共享)</h2><p>TODO：</p>
 <h2 id="Literals-And-Constant"><a href="#Literals-And-Constant" class="headerlink" title="Literals And Constant"></a>Literals And Constant</h2><h3 id="constexpr"><a href="#constexpr" class="headerlink" title="constexpr"></a><code>constexpr</code></h3><p><code>constexpr</code> 在C++11中加入标准，能够将一些计算工作从二进制文件执行期间卸载到编译期间进行，从而避免每次程序执行时都执行相同的运算。</p>
 <p><code>constexpr</code> 可以像变量一样被赋值。<br>将 <code>constexpr</code> 作为返回值类型的函数同样要在编译时得到计算结果。但是在赋值时，从汇编代码来看，需要给 <code>constexpr</code> 的变量赋值才会在编译时计算结果，否则就像普通函数一样。</p>
 <p>想要强制函数在编译时完成计算结果，需要使用关键字 <code>consteval</code>。</p>
@@ -699,34 +1472,314 @@
 </ol>
 <p>Module形式下，库的实现的后缀为 <code>.ixx</code>，意味interface，以此为基础创建一个BMI (Binary Module Interface)，供程序员以 <code>import</code> 的方式引用。</p>
 
+      
     </div>
 
     
     
     
-
       <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2023/08/24/HexoEstablish/Create-remote-repo-for-source-code/" rel="prev" title="Create remote repo for source code">
-      <i class="fa fa-chevron-left"></i> Create remote repo for source code
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/08/25/HexoEstablish/Theme-Next-Configure/" rel="next" title="Theme Next Configure">
-      Theme Next Configure <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
+        <div class="post-eof"></div>
       </footer>
-    
   </article>
   
   
   
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/HexoEstablish/Create-remote-repo-for-source-code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/24/HexoEstablish/Create-remote-repo-for-source-code/" class="post-title-link" itemprop="url">Create remote repo for source code</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-24 16:18:01" itemprop="dateCreated datePublished" datetime="2023-08-24T16:18:01+08:00">2023-08-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-25 16:25:14" itemprop="dateModified" datetime="2023-08-25T16:25:14+08:00">2023-08-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="设置本地代码仓库"><a href="#设置本地代码仓库" class="headerlink" title="设置本地代码仓库"></a>设置本地代码仓库</h2><p>重新初始化本地代码仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<p>提交修改</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;&lt;info&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>一系列更新操作</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/lianghanzheng/BlogSrc.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新到main分支</span></span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+
+<p>此时github中也应该出现hexo本地代码。</p>
+<h2 id="后续更新时的操作"><a href="#后续更新时的操作" class="headerlink" title="后续更新时的操作"></a>后续更新时的操作</h2><p>依次执行以下命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line"></span><br><span class="line">git commit -m <span class="string">&quot;&lt;comment&gt;&quot;</span></span><br><span class="line"></span><br><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+
+<h2 id="其它问题"><a href="#其它问题" class="headerlink" title="其它问题"></a>其它问题</h2><h3 id="OpenSSL-SSL-read-Connection-was-reset-errno-10054"><a href="#OpenSSL-SSL-read-Connection-was-reset-errno-10054" class="headerlink" title="OpenSSL SSL_read: Connection was reset, errno 10054"></a><code>OpenSSL SSL_read: Connection was reset, errno 10054</code></h3><p>通过以下命令解决</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过压缩的方式下载</span></span><br><span class="line">git config --global --add core.compression -1</span><br><span class="line"><span class="comment"># 增大缓存大小</span></span><br><span class="line">git config --global http.postBuffer 524288000</span><br><span class="line"><span class="comment"># 安全设置</span></span><br><span class="line">git config http.sslVerify <span class="string">&quot;false&quot;</span></span><br><span class="line"></span><br><span class="line">git config --global http.sslBackend <span class="string">&quot;openssl&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="OpenSSL-SSL-connect-Connection-was-reset-in-connection-to-github-com-443"><a href="#OpenSSL-SSL-connect-Connection-was-reset-in-connection-to-github-com-443" class="headerlink" title="OpenSSL SSL_connect: Connection was reset in connection to github.com:443"></a><code>OpenSSL SSL_connect: Connection was reset in connection to github.com:443</code></h3><p>可能是因为科学上网的端口没有正确设置，查看一下用一下命令修改端口即可：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy 127.0.0.1:7890</span><br><span class="line"></span><br><span class="line">git config --global https.proxy 127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/HexoEstablish/Deploy-Blog-with-Hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/24/HexoEstablish/Deploy-Blog-with-Hexo/" class="post-title-link" itemprop="url">Deploy Blog with Hexo</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-24 14:37:41" itemprop="dateCreated datePublished" datetime="2023-08-24T14:37:41+08:00">2023-08-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-25 16:25:02" itemprop="dateModified" datetime="2023-08-25T16:25:02+08:00">2023-08-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="通过Hexo部署本地博客并发布在github-page上"><a href="#通过Hexo部署本地博客并发布在github-page上" class="headerlink" title="通过Hexo部署本地博客并发布在github page上"></a>通过Hexo部署本地博客并发布在github page上</h1><h2 id="前置依赖"><a href="#前置依赖" class="headerlink" title="前置依赖"></a>前置依赖</h2><ol>
+<li>git</li>
+<li>Node.js</li>
+</ol>
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置ssh-key"><a href="#配置ssh-key" class="headerlink" title="配置ssh key"></a>配置ssh key</h3><p>接下来的所有命令默认在git bash上输入。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;&lt;email&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>之后狂按回车即可。</p>
+<p>生成的秘钥位于 <code>~/.ssh/id_rsa.pub</code> 中，将这个文件的内容复制到github个人账户的SSH and GPG Keys选项中。</p>
+<p>检查秘钥是否配置成功。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>配置账户与密码：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;&lt;id&gt;&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;&lt;email&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="搭建博客"><a href="#搭建博客" class="headerlink" title="搭建博客"></a>搭建博客</h2><p>初始化本地代码仓库：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p>编写一篇新的博客：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;&lt;title&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>博客对应的源文件位于目录 <code>$BLOG_TOP/source/_post</code> 中。</p>
+<p>生成静态页面：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<p>预览生成的内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置到github-page"><a href="#配置到github-page" class="headerlink" title="配置到github page"></a>配置到github page</h2><blockquote>
+<p>显然，我自己已经创建了github page，所以创建page仓库的过程省略</p>
+</blockquote>
+<p>在初始化的hexo blog代码仓库的 <code>_config.yml</code> 文件中添加以下内容</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:&lt;name&gt;/&lt;name&gt;.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
+
+<p>将 <code>hexo g</code> 生成的页面部署在github page中。</p>
+<p>在仓库目录安装完 <code>hexo-deployer-git</code> 之后就可以远程部署到github page上了。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line"></span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/vim/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/24/vim/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-24 14:30:30" itemprop="dateCreated datePublished" datetime="2023-08-24T14:30:30+08:00">2023-08-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-25 16:24:45" itemprop="dateModified" datetime="2023-08-25T16:24:45+08:00">2023-08-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 
 
@@ -778,7 +1831,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8A%E7%9A%84C-%E7%BC%96%E8%AF%91%E5%99%A8-%E5%8F%AF%E4%BB%A3%E7%A0%81%E5%85%B1%E4%BA%AB"><span class="nav-number">1.</span> <span class="nav-text">浏览器上的C++编译器 (可代码共享)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Literals-And-Constant"><span class="nav-number">2.</span> <span class="nav-text">Literals And Constant</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#constexpr"><span class="nav-number">2.1.</span> <span class="nav-text">constexpr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#constinit"><span class="nav-number">2.2.</span> <span class="nav-text">constinit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">3.</span> <span class="nav-text">String</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Raw-Literal-String"><span class="nav-number">3.1.</span> <span class="nav-text">Raw Literal String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-view"><span class="nav-number">3.2.</span> <span class="nav-text">string_view</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86-reference-%E4%BD%9C%E4%B8%BA%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">4.1.</span> <span class="nav-text">将 reference 作为返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">4.2.</span> <span class="nav-text">可选返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#std-optional"><span class="nav-number">4.2.1.</span> <span class="nav-text">std::optional</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">匿名函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%95%E8%8E%B7%E5%88%97%E8%A1%A8"><span class="nav-number">5.1.</span> <span class="nav-text">捕获列表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inline-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">6.</span> <span class="nav-text">inline 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#decltype-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">7.</span> <span class="nav-text">decltype 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template"><span class="nav-number">8.</span> <span class="nav-text">Template</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E7%89%B9%E5%8C%96"><span class="nav-number">8.1.</span> <span class="nav-text">模板特化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E5%AF%B9%E6%A8%A1%E6%9D%BF%E5%92%8C%E9%87%8D%E8%BD%BD%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">8.2.</span> <span class="nav-text">编译器对模板和重载的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0"><span class="nav-number">8.3.</span> <span class="nav-text">多个模板参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%EF%BC%9A%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E7%B1%BB%E5%9E%8B"><span class="nav-number">8.4.</span> <span class="nav-text">模板参数：不仅仅是类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%92%8C%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="nav-number">8.5.</span> <span class="nav-text">模板和匿名函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Type-traits"><span class="nav-number">8.6.</span> <span class="nav-text">Type traits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E-constexpr-%E7%BB%93%E5%90%88%E5%9C%A8%E7%BC%96%E8%AF%91%E6%97%B6%E6%B6%88%E9%99%A4%E5%88%86%E6%94%AF"><span class="nav-number">8.7.</span> <span class="nav-text">与 constexpr 结合在编译时消除分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-20-Concept"><span class="nav-number">9.</span> <span class="nav-text">C++20 Concept</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89concept"><span class="nav-number">9.1.</span> <span class="nav-text">自定义concept</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Nested-requirement"><span class="nav-number">9.1.1.</span> <span class="nav-text">Nested requirement</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Compound-requirement"><span class="nav-number">9.1.2.</span> <span class="nav-text">Compound requirement</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88concept"><span class="nav-number">9.2.</span> <span class="nav-text">组合concept</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class"><span class="nav-number">10.</span> <span class="nav-text">Class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">10.1.</span> <span class="nav-text">默认构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E6%97%B6%E6%9C%BA"><span class="nav-number">10.2.</span> <span class="nav-text">构造函数和析构函数的调用时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">10.3.</span> <span class="nav-text">一个对象的大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-%E5%AF%B9%E8%B1%A1"><span class="nav-number">10.4.</span> <span class="nav-text">const 对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#structured-bindings"><span class="nav-number">10.5.</span> <span class="nav-text">structured bindings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#initializer-list-v-s-member-wise-initialize"><span class="nav-number">10.6.</span> <span class="nav-text">initializer list v.s. member-wise initialize</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#initializer-list%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">10.6.1.</span> <span class="nav-text">initializer list的用法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-explictt%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">10.7.</span> <span class="nav-text">类型转换 (explictt构造函数)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="nav-number">10.8.</span> <span class="nav-text">静态成员变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#inline-%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="nav-number">10.8.1.</span> <span class="nav-text">inline 静态成员变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#const-%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="nav-number">10.8.2.</span> <span class="nav-text">const 静态成员变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="nav-number">10.9.</span> <span class="nav-text">静态成员函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E7%9A%84%E7%B1%BB"><span class="nav-number">10.10.</span> <span class="nav-text">嵌套的类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">11.</span> <span class="nav-text">智能指针</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#unique-ptr"><span class="nav-number">11.1.</span> <span class="nav-text">unique_ptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shared-ptr"><span class="nav-number">11.2.</span> <span class="nav-text">shared_ptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weak-ptr"><span class="nav-number">11.3.</span> <span class="nav-text">weak_ptr</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">12.</span> <span class="nav-text">运算符重载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">12.1.</span> <span class="nav-text">作为成员函数的运算符重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E9%9D%9E%E6%88%90%E5%91%98%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">12.2.</span> <span class="nav-text">作为非成员的运算符重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E6%A0%87%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">12.3.</span> <span class="nav-text">下标运算符 []</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream-insertion"><span class="nav-number">12.4.</span> <span class="nav-text">Stream insertion &lt;&lt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">12.5.</span> <span class="nav-text">定制类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%AD%E7%9A%84%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">12.6.</span> <span class="nav-text">二元运算符中的隐式转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">12.7.</span> <span class="nav-text">++ 运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BF%E5%87%BD%E6%95%B0-functor"><span class="nav-number">12.8.</span> <span class="nav-text">仿函数 (functor)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="nav-number">13.</span> <span class="nav-text">关系&#x2F;逻辑运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#std-rel-ops-%E5%90%8D%E7%A7%B0%E7%A9%BA%E9%97%B4"><span class="nav-number">13.1.</span> <span class="nav-text">std::rel_ops 名称空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Three-way-comparison-operartor"><span class="nav-number">13.2.</span> <span class="nav-text">Three way comparison operartor &lt;&#x3D;&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#std-strong-ordering"><span class="nav-number">13.2.1.</span> <span class="nav-text">std::strong_ordering</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#std-weak-ordering"><span class="nav-number">13.2.2.</span> <span class="nav-text">std::weak_ordering</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#std-partial-ordering"><span class="nav-number">13.2.3.</span> <span class="nav-text">std::partial_ordering</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">13.3.</span> <span class="nav-text">默认的运算符重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">13.4.</span> <span class="nav-text">重载 &lt;&#x3D;&gt; 运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weak-ordering-%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">13.5.</span> <span class="nav-text">weak_ordering 的例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-number">13.6.</span> <span class="nav-text">Summary</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF"><span class="nav-number">14.</span> <span class="nav-text">继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#protected"><span class="nav-number">14.1.</span> <span class="nav-text">protected</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%80%81-Polymorphism"><span class="nav-number">15.</span> <span class="nav-text">多态 (Polymorphism)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E5%87%BD%E6%95%B0"><span class="nav-number">15.1.</span> <span class="nav-text">虚函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Slicing"><span class="nav-number">15.2.</span> <span class="nav-text">Slicing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E4%B8%AD%E7%9A%84-static-%E6%88%90%E5%91%98"><span class="nav-number">15.3.</span> <span class="nav-text">继承中的 static 成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final-specifier"><span class="nav-number">15.4.</span> <span class="nav-text">final specifier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">15.5.</span> <span class="nav-text">virtual 析构函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-cast"><span class="nav-number">15.6.</span> <span class="nav-text">dynamic_cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typeid-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">15.7.</span> <span class="nav-text">typeid() 运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">16.</span> <span class="nav-text">异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%80%81%E7%9A%84%E5%BC%82%E5%B8%B8%E7%B1%BB"><span class="nav-number">16.1.</span> <span class="nav-text">多态的异常类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#noexcept-%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">16.2.</span> <span class="nav-text">noexcept 修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%BC%82%E5%B8%B8%E5%BA%93"><span class="nav-number">16.3.</span> <span class="nav-text">标准异常库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E6%A8%A1%E6%9D%BF"><span class="nav-number">17.</span> <span class="nav-text">类模板</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E7%89%B9%E5%8C%96-1"><span class="nav-number">17.1.</span> <span class="nav-text">模板特化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E7%89%B9%E5%AE%9A%E7%9A%84%E6%96%B9%E6%B3%95%E7%89%B9%E5%8C%96"><span class="nav-number">17.1.1.</span> <span class="nav-text">对特定的方法特化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E7%B1%BB%E7%9A%84%E5%8F%8B%E5%85%83"><span class="nav-number">17.2.</span> <span class="nav-text">模板类的友元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E7%B1%BB%E5%92%8Cconcept"><span class="nav-number">17.3.</span> <span class="nav-text">模板类和concept</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E8%AF%AD%E4%B9%89"><span class="nav-number">18.</span> <span class="nav-text">移动语义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A6%E5%80%BC-lvalue-%E5%92%8C%E5%8F%B3%E5%80%BC-rvalue"><span class="nav-number">18.1.</span> <span class="nav-text">左值 (lvalue) 和右值 (rvalue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8"><span class="nav-number">18.2.</span> <span class="nav-text">右值引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-move"><span class="nav-number">18.3.</span> <span class="nav-text">std::move</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Move-only-type"><span class="nav-number">18.4.</span> <span class="nav-text">Move only type</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E4%B8%80%E7%AD%89%E5%AF%B9%E8%B1%A1"><span class="nav-number">19.</span> <span class="nav-text">函数作为一等对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="nav-number">19.1.</span> <span class="nav-text">函数指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83-callback-%E5%87%BD%E6%95%B0"><span class="nav-number">19.2.</span> <span class="nav-text">回调 (callback) 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88%E5%88%AB%E5%90%8D"><span class="nav-number">19.3.</span> <span class="nav-text">函数指针别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BF%E5%87%BD%E6%95%B0-functor-1"><span class="nav-number">19.4.</span> <span class="nav-text">仿函数 (functor)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%9F%E4%BB%BF%E5%87%BD%E6%95%B0%EF%BC%81"><span class="nav-number">19.5.</span> <span class="nav-text">lambda表达式？仿函数！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-function"><span class="nav-number">19.6.</span> <span class="nav-text">std::function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STL%E7%AE%97%E6%B3%95"><span class="nav-number">20.</span> <span class="nav-text">STL算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-20-Range-Library"><span class="nav-number">21.</span> <span class="nav-text">C++20 Range Library</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Range-algorithm"><span class="nav-number">21.1.</span> <span class="nav-text">Range algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Projection"><span class="nav-number">21.2.</span> <span class="nav-text">Projection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View-and-Range-Adaptors"><span class="nav-number">21.3.</span> <span class="nav-text">View and Range Adaptors</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View-composition-and-pipe-operator"><span class="nav-number">21.4.</span> <span class="nav-text">View composition and pipe operator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Range-factories"><span class="nav-number">21.5.</span> <span class="nav-text">Range factories</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AE%B9%E5%99%A8%E6%B7%BB%E5%8A%A0%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">22.</span> <span class="nav-text">为自定义的容器添加迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="nav-number">22.1.</span> <span class="nav-text">前提条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89input-iterator"><span class="nav-number">22.2.</span> <span class="nav-text">定义input iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89output-iterator"><span class="nav-number">22.3.</span> <span class="nav-text">定义output iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89forward-iterator"><span class="nav-number">22.4.</span> <span class="nav-text">定义forward iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89bidirectional-iterator"><span class="nav-number">22.5.</span> <span class="nav-text">定义bidirectional iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89random-access-iterator"><span class="nav-number">22.6.</span> <span class="nav-text">定义random access iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">22.7.</span> <span class="nav-text">const 迭代器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B-Coroutines-C-20"><span class="nav-number">23.</span> <span class="nav-text">协程 (Coroutines) (C++20)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">23.1.</span> <span class="nav-text">关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-20-coroutine-infrastructure"><span class="nav-number">23.2.</span> <span class="nav-text">C++20 coroutine infrastructure</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modules"><span class="nav-number">24.</span> <span class="nav-text">Modules</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

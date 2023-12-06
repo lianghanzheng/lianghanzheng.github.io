@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="出于学习和工作需要，我将从学第三节开始的Kaleidoscope教程。第一节和第二节从原理上来说比较容易，但是实现起来比较繁琐，因此直接略过。 一份Kaleidoscope代码样例： 12345def fib(x)  if x &lt; 3 then    1  else    fib(x-1)+fib(x-2)  在Kaleidoscope中，数据类型只有double，所以 ExprAST 和函">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaleidoscope">
+<meta property="og:url" content="http://example.com/2023/11/07/LLVM/Kaleidoscope/index.html">
+<meta property="og:site_name" content="RRZ&#39;s Blog">
+<meta property="og:description" content="出于学习和工作需要，我将从学第三节开始的Kaleidoscope教程。第一节和第二节从原理上来说比较容易，但是实现起来比较繁琐，因此直接略过。 一份Kaleidoscope代码样例： 12345def fib(x)  if x &lt; 3 then    1  else    fib(x-1)+fib(x-2)  在Kaleidoscope中，数据类型只有double，所以 ExprAST 和函">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-07T07:36:41.000Z">
+<meta property="article:modified_time" content="2023-11-16T13:28:04.758Z">
+<meta property="article:author" content="ReRoozen">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/11/07/LLVM/Kaleidoscope/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Kaleidoscope | RRZ's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">RRZ's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/07/LLVM/Kaleidoscope/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ReRoozen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="RRZ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kaleidoscope
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-07 15:36:41" itemprop="dateCreated datePublished" datetime="2023-11-07T15:36:41+08:00">2023-11-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-16 21:28:04" itemprop="dateModified" datetime="2023-11-16T21:28:04+08:00">2023-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LLVM/" itemprop="url" rel="index"><span itemprop="name">LLVM</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>出于学习和工作需要，我将从学第三节开始的Kaleidoscope教程。<br>第一节和第二节从原理上来说比较容易，但是实现起来比较繁琐，因此直接略过。</p>
+<p>一份Kaleidoscope代码样例：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fib</span>(<span class="params">x</span>)</span><br><span class="line">  <span class="keyword">if</span> x &lt; <span class="number">3</span> then</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    fib(x-<span class="number">1</span>)+fib(x-<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在Kaleidoscope中，数据类型只有double，所以 <code>ExprAST</code> 和函数的参数都没有记录类型信息。</p>
+<h2 id="Code-generation-setup"><a href="#Code-generation-setup" class="headerlink" title="Code generation setup"></a>Code generation setup</h2><h3 id="相关组件"><a href="#相关组件" class="headerlink" title="相关组件"></a>相关组件</h3><p>每个表达式都能被赋给一个SSA变量，在份教程中，SSA变量以 <code>codegen</code> 方法的形式生成。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ExprAST</span> &#123; </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">virtual</span> ~<span class="built_in">ExprAST</span>() = <span class="keyword">default</span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> Value *<span class="title">codegen</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NumberASTExpr</span>: <span class="keyword">public</span> ExprAST &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">NumberExprAST</span>(<span class="type">double</span> Val): <span class="built_in">Val</span>(Val) &#123;&#125;</span><br><span class="line">  <span class="function">Value *<span class="title">codegen</span><span class="params">()</span> <span class="keyword">override</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="type">double</span> Val;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">VariableExprAST</span> : <span class="keyword">public</span> ExprAST &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">VariableExprAST</span>(<span class="type">const</span> std::string &amp;Name) : <span class="built_in">Name</span>(Name) &#123;&#125;</span><br><span class="line">  <span class="function">Value *<span class="title">codegen</span><span class="params">()</span> <span class="keyword">override</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  std::string Name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BinaryExprAST</span> : <span class="keyword">public</span> ExprAST &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">BinaryExprAST</span>(<span class="type">char</span> Op, std::unique_ptr&lt;ExprAST&gt; LHS,</span><br><span class="line">                std::unique_ptr&lt;ExprAST&gt; RHS)</span><br><span class="line">      : <span class="built_in">Op</span>(Op), <span class="built_in">LHS</span>(std::<span class="built_in">move</span>(LHS)), <span class="built_in">RHS</span>(std::<span class="built_in">move</span>(RHS)) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">Value *<span class="title">codegen</span><span class="params">()</span> <span class="keyword">override</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="type">char</span> Op;</span><br><span class="line">  std::unique_ptr&lt;ExprAST&gt; LHS, RHS;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CallExprAST</span> : <span class="keyword">public</span> ExprAST &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">CallExprAST</span>(<span class="type">const</span> std::string &amp;Callee,</span><br><span class="line">              std::vector&lt;std::unique_ptr&lt;ExprAST&gt;&gt; Args)</span><br><span class="line">      : <span class="built_in">Callee</span>(Callee), <span class="built_in">Args</span>(std::<span class="built_in">move</span>(Args)) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">Value *<span class="title">codegen</span><span class="params">()</span> <span class="keyword">override</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  std::string Callee;</span><br><span class="line">  std::vector&lt;std::unique_ptr&lt;ExprAST&gt;&gt; Args;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Q1：为什么SSA变量都是以裸指针的形式返回，而 <code>ExprAST</code> 都是以智能指针返回？</p>
+</blockquote>
+<p>接下来需要准备一些必要的数据结构，方便起见，它们都被声明为全局变量。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/ADT/APFloat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/ADT/STLExtras.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/IR/BasicBlock.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/IR/Constants.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/IR/DerivedTypes.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/IR/Function.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/IR/IRBuilder.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/IR/LLVMContext.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/IR/Module.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/IR/Type.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;llvm/IR/Verifier.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> std::unique_ptr&lt;LLVMContext&gt; TheContext;</span><br><span class="line"><span class="type">static</span> std::unique_ptr&lt;IRBuilder&lt;&gt;&gt; <span class="built_in">Builder</span>(TheContext);</span><br><span class="line"><span class="type">static</span> std::unique_ptr&lt;Module&gt; TheModule;</span><br><span class="line"><span class="type">static</span> std::map&lt;std::string, Value *&gt; NamedValues;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>LLVMContext</code> 中包含了LLVM的一些核心数据结构，如类型信息和符号表</li>
+<li><code>IRBuilder</code> 能够追踪IR文件&#x2F;<code>Module</code> 的位置信息，并能够插入新的指令</li>
+<li><code>Module</code> 是LLVM IR的顶级结构，保存了解析文件中所有的IR</li>
+<li><code>NamedValues</code> 需要追踪当前作用域中的定义的变量，记录代表它们的LLVM IR value</li>
+</ul>
+<blockquote>
+<p>A1：在上面的数据结构中，除了 <code>NameValues</code> 会保存 <code>Value</code> 指针，<code>Module</code> 保存IR时也会隐式地保存 <code>Value</code> 指针，所以应该使用裸指针作为返回值。</p>
+</blockquote>
+<h3 id="表达式的生成"><a href="#表达式的生成" class="headerlink" title="表达式的生成"></a>表达式的生成</h3><h4 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Value *<span class="title">NumberExprAST::codegen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> ConstantFP::<span class="built_in">get</span>(*TheContext, <span class="built_in">APFloat</span>(Val));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ConstantFP</code> 是LLVM IR的数字常量，具体的值保存在 <code>APFloat</code> 的内部。<br>因为在LLVM IR中所有的常量都使用一份资源，所以API使用的风格是 <code>foo::get(...)</code><br>而不是 <code>new foo(...)</code> 或者 <code>foo::Create(...)</code>。<br><code>APFloat</code> 含义为Arbitrary Precision Float，类似的数据结构都定义在<br><code>$LLVM_TOP/llvm/include/llvm/ADT</code> 目录中。<br>使用正确的数据结构非常重要，这将会决定生成代码的内存开销和性能，内容可以参考<a target="_blank" rel="noopener" href="https://www.llvm.org/docs/ProgrammersManual.html#picking-the-right-data-structure-for-a-task%E3%80%82">https://www.llvm.org/docs/ProgrammersManual.html#picking-the-right-data-structure-for-a-task。</a></p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Value *<span class="title">VariableExprAST::codegen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Value *V = NamedValues[Name];</span><br><span class="line">  <span class="keyword">if</span> (!V)</span><br><span class="line">    <span class="built_in">LogErrorV</span>(<span class="string">&quot;Unknown variable name&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> V;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里我们假设变量的IR已经生成，其值已经生成并保存在 <code>NamedValues</code> 中。<br>不过因为Kaleidoscope的简单性，只有函数的参数才会被保存在 <code>NamedValues</code> 中。<br>不过在后面的章节中，还有循环索引的循环本地变量会被加入。</p>
+<h4 id="二元表达式"><a href="#二元表达式" class="headerlink" title="二元表达式"></a>二元表达式</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Value *<span class="title">BinaryExprAST::codegen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Value *L = LHS-&gt;<span class="built_in">codegen</span>();</span><br><span class="line">  Value *R = RHS-&gt;<span class="built_in">codegen</span>();</span><br><span class="line">  <span class="keyword">if</span> (!L || !R)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">switch</span> (Op) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">    <span class="keyword">return</span> Builder-&gt;<span class="built_in">CreateFAdd</span>(L, R, <span class="string">&quot;addtmp&quot;</span>);</span><br><span class="line">  <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">    <span class="keyword">return</span> Builder-&gt;<span class="built_in">CreateFSub</span>(L, R, <span class="string">&quot;subtmp&quot;</span>);</span><br><span class="line">  <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">    <span class="keyword">return</span> Builder-&gt;<span class="built_in">CreateFMul</span>(L, R, <span class="string">&quot;multmp&quot;</span>);</span><br><span class="line">  <span class="keyword">case</span> <span class="string">&#x27;&lt;&#x27;</span>:</span><br><span class="line">    L = Builder-&gt;<span class="built_in">CreateFCmpULT</span>(L, R, <span class="string">&quot;cmptmp&quot;</span>);</span><br><span class="line">    <span class="comment">// Convert bool 0/1 to double 0.0 or 1.0</span></span><br><span class="line">    <span class="keyword">return</span> Builder-&gt;<span class="built_in">CreateUIToFP</span>(L, Type::<span class="built_in">getDoubleTy</span>(*TheContext),</span><br><span class="line">                                 <span class="string">&quot;booltmp&quot;</span>);</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">LogErrorV</span>(<span class="string">&quot;invalid binary operator&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里我们递归地生成了代码，但是 <code>Builder</code> 会为我们自动追踪代码的位置，因此我们只需要决定<br>生成的代码的类型和操作数。<br>如果我们生成了多个 <code>addtmp</code> 类型表达式，LLVM会自动添加数字后缀来保持命名的唯一性。</p>
+<p>LLVM的 <code>fcmp</code> 指令的结果会保存在一个1位整型中。<br>但是Kaleidoscope中只有浮点数，所以我们希望结果是0.0或者1.0，因此使用了 <code>uitofp</code> 转换类型 (使用 <code>sitofp</code> 会生成0.0和-0.1)。</p>
+<h4 id="函数-调用表达式"><a href="#函数-调用表达式" class="headerlink" title="(函数) 调用表达式"></a>(函数) 调用表达式</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Value *<span class="title">CallExprAST::codegen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Look up the name in the global module table.</span></span><br><span class="line">  Function *CalleeF = TheModule-&gt;<span class="built_in">getFunction</span>(Callee);</span><br><span class="line">  <span class="keyword">if</span> (!CalleeF) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">LogErrorV</span>(<span class="string">&quot;Unknown function referenced&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// If argument mismatch error.</span></span><br><span class="line">  <span class="keyword">if</span> (CalleeF-&gt;<span class="built_in">arg_size</span>() != Args.<span class="built_in">size</span>()) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">LogErrorV</span>(<span class="string">&quot;Incorrect # arguments passed&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  std::vector&lt;Value *&gt; ArgsV;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">unsigned</span> i = <span class="number">0</span>, e = Args.<span class="built_in">size</span>(); i != e; ++i) &#123;</span><br><span class="line">    ArgsV.<span class="built_in">push_back</span>(Args[i]-&gt;<span class="built_in">codegen</span>());</span><br><span class="line">    <span class="keyword">if</span> (!ArgsV.<span class="built_in">back</span>()) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Builder-&gt;<span class="built_in">CreateCall</span>(CalleeF, ArgsV, <span class="string">&quot;calltmp&quot;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>调用函数的第一步肯定是查表。<br>Kaleidoscope并不能动态地创建函数，所以只能从全局的符号表中进行查找。<br>因为LLVM与C语言的调用规范一致，所以标准库中的函数，如 <code>sin</code> 能够被直接调用。</p>
+<h4 id="扩展现有的表达式…"><a href="#扩展现有的表达式…" class="headerlink" title="扩展现有的表达式…"></a>扩展现有的表达式…</h4><p>将LLVM IR作为一门语言学习，学习里面的数据结构能够将Kaleidoscope扩展。<br>教程网址：<a target="_blank" rel="noopener" href="https://llvm.org/docs/LangRef.html">https://llvm.org/docs/LangRef.html</a></p>
+<h3 id="函数的生成"><a href="#函数的生成" class="headerlink" title="函数的生成"></a>函数的生成</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PrototypeAST</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">PrototypeAST</span>(<span class="type">const</span> std::string &amp;Name, std::vector&lt;std::string&gt; Args)</span><br><span class="line">      : <span class="built_in">Name</span>(Name), <span class="built_in">Args</span>(std::<span class="built_in">move</span>(Args)) &#123;&#125;</span><br><span class="line">  <span class="function">Function *<span class="title">codegen</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="type">const</span> std::string &amp;<span class="title">getName</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> Name; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  std::string Name;</span><br><span class="line">  std::vector&lt;std::string&gt; Args;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FunctionAST</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">FunctionAST</span>(std::unique_ptr&lt;PrototypeAST&gt; Proto,</span><br><span class="line">              std::unique_ptr&lt;ExprAST&gt; Body)</span><br><span class="line">      : <span class="built_in">Proto</span>(std::<span class="built_in">move</span>(Proto)), <span class="built_in">Body</span>(std::<span class="built_in">move</span>(Body)) &#123;&#125;</span><br><span class="line">  <span class="function">Function *<span class="title">codegen</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  std::unique_ptr&lt;PrototypeAST&gt; Proto;</span><br><span class="line">  std::unique_ptr&lt;ExprAST&gt; Body;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>函数原型和函数定义是区别于表达式 <code>ExprAST</code> 的另一类AST类型。<br>并且 <code>codegen</code> 方法的实现上相较于表达式更加复杂</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Function *<span class="title">PrototypeAST::codegen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Make the function type: double (*func)(double, double) etc.</span></span><br><span class="line">  <span class="function">std::vector&lt;Type *&gt; <span class="title">Doubles</span><span class="params">(Args.size(), </span></span></span><br><span class="line"><span class="params"><span class="function">                              Type::getDoubleTy(*TheContext))</span></span>;</span><br><span class="line">  FunctionType *FT = </span><br><span class="line">    FunctionType::<span class="built_in">get</span>(Type::<span class="built_in">getDoubleTy</span>(*TheContext), Doubles, <span class="literal">false</span>);</span><br><span class="line">  </span><br><span class="line">  Function *F = </span><br><span class="line">    Function::<span class="built_in">Create</span>(FT, Function::ExternalLinkage, Name, TheModule.<span class="built_in">get</span>());</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Set names for all arguments.</span></span><br><span class="line">  <span class="type">unsigned</span> Idx = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;Arg: F-&gt;<span class="built_in">args</span>()) &#123;</span><br><span class="line">    Arg.<span class="built_in">setName</span>(Args[Idx++]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> F;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在LLVM IR中，所有的Type都是唯一的，所以获得一个类型信息都是用 <code>get</code> 方法。</p>
+</blockquote>
+<p>在创建LLVM IR的Function对象时，<code>ExternalLinkage</code> 表示函数的定义可能出现在当前<br>Module之外的地方。<br><code>TheModule</code> 是一个Module指针，传入Module本体将这个函数名注册在符号表中。<br>为参数设置变量名并不必要，但是这样做带来的好处是使得LLVM IR也能有可读性。</p>
+<blockquote>
+<p>Q2：这里只是构造了一个函数原型，为什么返回的却是一个完整的 <code>Function *</code> 呢？</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Function *<span class="title">FunctionAST::codegen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// First, check for an existing function from a previous &#x27;extern&#x27; declaration.</span></span><br><span class="line">  Function *TheFunction = TheModule-&gt;<span class="built_in">getFunction</span>(Proto-&gt;<span class="built_in">getName</span>());</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (!TheFunction) TheFunction = Proto-&gt;<span class="built_in">codegen</span>();</span><br><span class="line">  <span class="keyword">if</span> (!TheFunction) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">  <span class="keyword">if</span> (!TheFunction-&gt;<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    <span class="keyword">return</span> (Function *)<span class="built_in">LogErrorV</span>(<span class="string">&quot;Function cannot be redefined.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create a new basic block to start insertion into.</span></span><br><span class="line">  BasicBlock *BB = BasicBlock::<span class="built_in">Create</span>(*TheContext, <span class="string">&quot;entry&quot;</span>, TheFunction);</span><br><span class="line">  Builder-&gt;<span class="built_in">SetInsertPointer</span>(BB);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Record the function arguments in the NamedValues map.</span></span><br><span class="line">  NamedValues.<span class="built_in">clear</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;Arg: TheFunction-&gt;<span class="built_in">args</span>()) &#123;</span><br><span class="line">    NamedValues[std::<span class="built_in">string</span>(Arg.<span class="built_in">getName</span>())] = &amp;Arg;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (Value *RetVal = Body-&gt;<span class="built_in">codegen</span>()) &#123;</span><br><span class="line">    <span class="comment">// Finish off the function.</span></span><br><span class="line">    Builder-&gt;<span class="built_in">CreateRet</span>(RetVal);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Validate the generated code, checking for consistency.</span></span><br><span class="line">    <span class="built_in">verifyFunction</span>(*TheFunction);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> TheFunction;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>目前函数体只有一个计算返回值的表达式，直接用 <code>Builder</code> 创建一个ret语句即可，<br>且只要一个基本块就足够了。<br><code>verifyFunction</code> 相当于对LLVM IR进行了一次静态检查。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/27/PaperWriting/Paper-Writing/" rel="prev" title="Paper Writing">
+      <i class="fa fa-chevron-left"></i> Paper Writing
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/30/LLVMDeveloperMeeting/2017/" rel="next" title="2017">
+      2017 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-generation-setup"><span class="nav-number">1.</span> <span class="nav-text">Code generation setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">相关组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E7%94%9F%E6%88%90"><span class="nav-number">1.2.</span> <span class="nav-text">表达式的生成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%85%83%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">二元表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0-%E8%B0%83%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.2.4.</span> <span class="nav-text">(函数) 调用表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E7%8E%B0%E6%9C%89%E7%9A%84%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%A6"><span class="nav-number">1.2.5.</span> <span class="nav-text">扩展现有的表达式…</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%9F%E6%88%90"><span class="nav-number">1.3.</span> <span class="nav-text">函数的生成</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">ReRoozen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ReRoozen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
