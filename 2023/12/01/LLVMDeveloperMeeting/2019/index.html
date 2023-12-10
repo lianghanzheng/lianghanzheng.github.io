@@ -28,7 +28,7 @@
 <meta property="og:description" content="MLIR: Multi-Level Intermediate Representation for Compiler InfrastructureHandling massive concurrency: Development of a programming model for GPU and CPUSYCL compiler: zero-cost abstraction and type s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-01T14:38:10.000Z">
-<meta property="article:modified_time" content="2023-12-01T14:45:02.634Z">
+<meta property="article:modified_time" content="2023-12-07T07:47:40.827Z">
 <meta property="article:author" content="ReRoozen">
 <meta name="twitter:card" content="summary">
 
@@ -177,10 +177,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-12-01 22:38:10 / 修改时间：22:45:02" itemprop="dateCreated datePublished" datetime="2023-12-01T22:38:10+08:00">2023-12-01</time>
+              <time title="创建时间：2023-12-01 22:38:10" itemprop="dateCreated datePublished" datetime="2023-12-01T22:38:10+08:00">2023-12-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-07 15:47:40" itemprop="dateModified" datetime="2023-12-07T15:47:40+08:00">2023-12-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -202,7 +208,157 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure"><a href="#MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure" class="headerlink" title="MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure"></a>MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure</h2><h2 id="Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU"><a href="#Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU" class="headerlink" title="Handling massive concurrency: Development of a programming model for GPU and CPU"></a>Handling massive concurrency: Development of a programming model for GPU and CPU</h2><h2 id="SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing"><a href="#SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing" class="headerlink" title="SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing"></a>SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing</h2><h2 id="Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline"><a href="#Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline" class="headerlink" title="Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline"></a>Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline</h2><h2 id="Tutorial-Building-a-Compiler-with-MLIR"><a href="#Tutorial-Building-a-Compiler-with-MLIR" class="headerlink" title="Tutorial: Building a Compiler with MLIR"></a>Tutorial: Building a Compiler with MLIR</h2><h2 id="Building-an-LLVM-based-tool-lessons-learned"><a href="#Building-an-LLVM-based-tool-lessons-learned" class="headerlink" title="Building an LLVM-based tool: lessons learned"></a>Building an LLVM-based tool: lessons learned</h2><h2 id="LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my"><a href="#LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my" class="headerlink" title="LLVM IR Tutorial - Phis, GEPs and other things, oh my!"></a>LLVM IR Tutorial - Phis, GEPs and other things, oh my!</h2><h2 id="Hot-Cold-Splitting-Optimization-Pass-In-LLVM"><a href="#Hot-Cold-Splitting-Optimization-Pass-In-LLVM" class="headerlink" title="Hot Cold Splitting Optimization Pass In LLVM"></a>Hot Cold Splitting Optimization Pass In LLVM</h2><h2 id="Writing-Loop-Optimizations-in-LLVM"><a href="#Writing-Loop-Optimizations-in-LLVM" class="headerlink" title="Writing Loop Optimizations in LLVM"></a>Writing Loop Optimizations in LLVM</h2><h2 id="An-overview-of-LLVM"><a href="#An-overview-of-LLVM" class="headerlink" title="An overview of LLVM"></a>An overview of LLVM</h2>
+        <h2 id="MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure"><a href="#MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure" class="headerlink" title="MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure"></a>MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure</h2><h2 id="Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU"><a href="#Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU" class="headerlink" title="Handling massive concurrency: Development of a programming model for GPU and CPU"></a>Handling massive concurrency: Development of a programming model for GPU and CPU</h2><h2 id="SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing"><a href="#SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing" class="headerlink" title="SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing"></a>SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing</h2><h2 id="Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline"><a href="#Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline" class="headerlink" title="Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline"></a>Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline</h2><h2 id="Tutorial-Building-a-Compiler-with-MLIR"><a href="#Tutorial-Building-a-Compiler-with-MLIR" class="headerlink" title="Tutorial: Building a Compiler with MLIR"></a>Tutorial: Building a Compiler with MLIR</h2><h2 id="Building-an-LLVM-based-tool-lessons-learned"><a href="#Building-an-LLVM-based-tool-lessons-learned" class="headerlink" title="Building an LLVM-based tool: lessons learned"></a>Building an LLVM-based tool: lessons learned</h2><h2 id="LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my"><a href="#LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my" class="headerlink" title="LLVM IR Tutorial - Phis, GEPs and other things, oh my!"></a>LLVM IR Tutorial - Phis, GEPs and other things, oh my!</h2><p>@Intel</p>
+<p>LLVM IR</p>
+<ul>
+<li>RISC-like</li>
+</ul>
+<h3 id="Target-info"><a href="#Target-info" class="headerlink" title="Target info"></a>Target info</h3><figure class="highlight llvm"><figcaption><span>IR</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target</span> <span class="keyword">datalayout</span> <span class="operator">=</span> </span><br><span class="line">  <span class="string">&quot;e-m:e-i64:64-f80:128-n8:16:32:64-S128&quot;</span></span><br><span class="line"><span class="keyword">target</span> <span class="keyword">triple</span> <span class="operator">=</span> <span class="string">&quot;x86_64-unknown-linux-gnu&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Data layout: “little endian-ELF mangling-ABI alignment of i64-?-Native interger widths-?”</li>
+<li>Target: “Architecture-vendor-system-ABI”</li>
+</ul>
+<h3 id="Baisc-program"><a href="#Baisc-program" class="headerlink" title="Baisc program"></a>Baisc program</h3><ul>
+<li>Types everywhere<ul>
+<li>NO implicit conversions</li>
+<li><code>opt -verify input.ll</code> 用来检查LLVM IR中类型是否正确</li>
+</ul>
+</li>
+<li>Instructions have many variants</li>
+</ul>
+<h4 id="CFG"><a href="#CFG" class="headerlink" title="CFG"></a>CFG</h4><ul>
+<li>因分支指令产生<ul>
+<li><code>br</code></li>
+<li><code>ret</code></li>
+</ul>
+</li>
+<li>每个基本块都由名字<ul>
+<li>不一定是显式的，如 <code>%0</code> 也能作为名字，且变量不能重复使用这个名字</li>
+</ul>
+</li>
+</ul>
+<p>打印一个CFG：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Don&#x27;t include instructions per block</span></span><br><span class="line">opt -analysis -dot-cfg-only input.ll</span><br><span class="line"><span class="comment"># Include instrcutions</span></span><br><span class="line">opt -analysis -dot-cfg input.ll</span><br></pre></td></tr></table></figure>
+
+<h5 id="一个for循环"><a href="#一个for循环" class="headerlink" title="一个for循环"></a>一个for循环</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">define i32 @foo(i32 %val)&#123;</span><br><span class="line">entry:</span><br><span class="line">  ...</span><br><span class="line">check_for_condition:</span><br><span class="line">  ...</span><br><span class="line">for body:</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>变量：</p>
+<figure class="highlight llvm"><figcaption><span>IR</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">%i.addr</span> <span class="operator">=</span> <span class="keyword">alloca</span> <span class="type">i32</span></span><br><span class="line"><span class="keyword">store</span> <span class="type">i32</span> <span class="number">2</span><span class="punctuation">,</span> <span class="type">i32</span>* <span class="variable">%i.addr</span></span><br></pre></td></tr></table></figure>
+
+<p>数组：</p>
+<figure class="highlight llvm"><figcaption><span>IR</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">%array</span> <span class="operator">=</span> <span class="keyword">global</span> [<span class="number">10</span> <span class="keyword">x</span> <span class="type">i32</span>]</span><br><span class="line">// get element pointer instruction</span><br><span class="line"><span class="variable">%new_ptr</span> <span class="operator">=</span> <span class="keyword">getelementptr</span> <span class="type">i32</span><span class="punctuation">,</span> <span class="type">i32</span>* <span class="variable">%array</span><span class="punctuation">,</span> <span class="type">i32</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里的指针是i32类型。</p>
+</blockquote>
+<h4 id="GEP操作"><a href="#GEP操作" class="headerlink" title="GEP操作"></a>GEP操作</h4><figure class="highlight llvm"><figcaption><span>IR</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">@a_gv</span> <span class="operator">=</span> <span class="keyword">global</span> [<span class="number">6</span> <span class="keyword">x</span> <span class="type">i8</span>] zeroinitilizer</span><br><span class="line"><span class="variable">%new_ptr</span> <span class="operator">=</span> <span class="keyword">getelementptr</span> [<span class="number">6</span> <span class="keyword">x</span> <span class="number">18</span>]<span class="punctuation">,</span> [<span class="number">6</span> <span class="keyword">x</span> <span class="type">i8</span>]* <span class="title">@a_gv</span><span class="punctuation">,</span> <span class="type">i32</span> <span class="number">1</span></span><br><span class="line"><span class="variable">%elem_pt</span> <span class="operator">=</span> <span class="keyword">getelementptr</span> [<span class="number">6</span> <span class="keyword">x</span> <span class="type">i8</span>]<span class="punctuation">,</span> [<span class="number">6</span> <span class="keyword">x</span> <span class="type">i8</span>]* <span class="title">@a_gv</span><span class="punctuation">,</span> <span class="type">i32</span> <span class="number">0</span><span class="punctuation">,</span> <span class="type">i32</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>GEP NEVER load from memory.</p>
+<blockquote>
+<p>这里的指针是一个数组类型。</p>
+</blockquote>
+<p>两者之间的区别是，最后的偏移量每个单位的距离由基本类型执行，第一个 <code>new_ptr</code> 相当于 <code>array[1]</code>，第二个 <code>new_ptr</code> 相当于 <code>a_gv[7]</code>。</p>
+<p><code>elem_pt</code> 从 <code>@a_gv</code> 的0号 <code>[6 x i8]</code> 的分组中取出0号元素。</p>
+<h4 id="Aggregate-type"><a href="#Aggregate-type" class="headerlink" title="Aggregate type"></a>Aggregate type</h4><figure class="highlight llvm"><figcaption><span>IR</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">%MyStruct</span> <span class="operator">=</span> <span class="keyword">type</span> &lt;&#123; <span class="type">i8</span><span class="punctuation">,</span> <span class="type">i32</span><span class="punctuation">,</span> [<span class="number">3</span> <span class="keyword">x</span> <span class="type">i32</span>] &#125;&gt;</span><br><span class="line"><span class="title">@a_gv</span> <span class="operator">=</span> <span class="keyword">global</span> <span class="variable">%MyStruct</span> &#123; <span class="type">i8</span> <span class="number">99</span><span class="punctuation">,</span> <span class="type">i32</span> <span class="number">17</span><span class="punctuation">,</span> [<span class="type">i32</span> <span class="number">1</span><span class="punctuation">,</span> <span class="type">i32</span> <span class="number">2</span><span class="punctuation">,</span> <span class="type">i32</span> <span class="number">3</span>] &#125;</span><br><span class="line"><span class="variable">%new_ptr</span> <span class="operator">=</span> <span class="keyword">getelementptr</span> <span class="variable">%MyStruct</span>*<span class="punctuation">,</span> <span class="variable">%MyStruct</span>* a_gv<span class="punctuation">,</span> <span class="type">i32</span> <span class="number">0</span><span class="punctuation">,</span> <span class="type">i32</span> <span class="number">2</span><span class="punctuation">,</span> <span class="type">i32</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h4><ul>
+<li>使用 <code>@</code> 开始而不是 <code>%</code></li>
+<li>global keyword<ul>
+<li><code>@gv = global i8 42</code></li>
+<li><code>@gv = constant i8 42</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Hot-Cold-Splitting-Optimization-Pass-In-LLVM"><a href="#Hot-Cold-Splitting-Optimization-Pass-In-LLVM" class="headerlink" title="Hot Cold Splitting Optimization Pass In LLVM"></a>Hot Cold Splitting Optimization Pass In LLVM</h2><h2 id="Writing-Loop-Optimizations-in-LLVM"><a href="#Writing-Loop-Optimizations-in-LLVM" class="headerlink" title="Writing Loop Optimizations in LLVM"></a>Writing Loop Optimizations in LLVM</h2><p>@IBM</p>
+<h3 id="Terms"><a href="#Terms" class="headerlink" title="Terms"></a>Terms</h3><p><a target="_blank" rel="noopener" href="https://llvm.org/docs/LoopTerminology.html">Loop representation</a>:</p>
+<ul>
+<li>Preheader: A single edge to the header of the loop from outside of the loop</li>
+<li>Header: Single entry point to the loop that dominates all other blocks in the loop</li>
+<li>Exiting block: The block within the loop that has successors outside of the loop; if multiple blocks have such successors, this is NULL</li>
+<li>Latch: Block that contains the branch back to the loop header</li>
+<li>Exit block: The successor block of this loop.</li>
+</ul>
+<h4 id="Loop-closed-SSA-form"><a href="#Loop-closed-SSA-form" class="headerlink" title="Loop closed SSA form"></a>Loop closed SSA form</h4><p>循环中所有的使用的变量都是在循环内部定义的，这使得phi函数只能在循环的出口处被定义。</p>
+<ul>
+<li><code>llvm::formLCSSA</code></li>
+</ul>
+<h3 id="Rotated-Loops"><a href="#Rotated-Loops" class="headerlink" title="Rotated Loops"></a>Rotated Loops</h3><ul>
+<li>Covert a loop into a <code>do/while</code> style loop</li>
+<li>Canonicalize loop latch to have a single predecessor</li>
+<li>When the compiler cannot prove loop body will excute &gt;&#x3D;1, insert a guard</li>
+<li>It also inserts a loop epilogue, that will be excuted once after the body is finished executing</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> A[<span class="number">100</span>];</span><br><span class="line"><span class="type">int</span> B[<span class="number">100</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">example</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; ++i)</span><br><span class="line">    A[i] = i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Loop-pipeline"><a href="#Loop-pipeline" class="headerlink" title="Loop pipeline"></a>Loop pipeline</h3><ul>
+<li>Pipeline builder<ul>
+<li>Passes enabled by switch (UnrollAndJam)</li>
+<li>Added passes, but do nothing bu default (LoopVectorize, LoopUnroll)</li>
+<li>Passes added in EP callbacks (Polly)</li>
+<li>Passes never added by pass builder</li>
+</ul>
+</li>
+<li>Transformation order follows pass pipeline<ul>
+<li>Eixpoint within <code>LoopPassManager</code> using <code>Updater</code></li>
+</ul>
+</li>
+<li>Non-loop passes in-between</li>
+<li>Some passes are <code>FunctionPasses</code></li>
+</ul>
+<h4 id="Loop-pass-v-s-function-pass"><a href="#Loop-pass-v-s-function-pass" class="headerlink" title="Loop pass v.s. function pass"></a>Loop pass v.s. function pass</h4><p>Consider a FunctionPass first:</p>
+<ul>
+<li>Better maintained</li>
+<li>No LoopPassManager needed<ul>
+<li>May require adding function analyses by proxy</li>
+</ul>
+</li>
+<li>No requirement to preserve DominatorTree, LoopAnalysis, LoopSimplify, LCSSA</li>
+<li>Control over loop processing order &#x2F; reprocessing behaviour</li>
+</ul>
+<p>Reasons to write a LoopPass:</p>
+<ul>
+<li>Apply multiple passes on same loop before processing nest<ul>
+<li>i.a. Improved locality</li>
+</ul>
+</li>
+<li>Share reprocessing behaviour with other loop passes</li>
+<li>Add pass at the Loop EP Callbacks</li>
+<li>Analysis used by other loop passes</li>
+</ul>
+<h3 id="Demo-Basic-loop-optimization-pass-using-new-pass-manager"><a href="#Demo-Basic-loop-optimization-pass-using-new-pass-manager" class="headerlink" title="Demo: Basic loop optimization pass using new pass manager"></a>Demo: Basic loop optimization pass using new pass manager</h3><h4 id="Step1-Basic-loop-optimization-template"><a href="#Step1-Basic-loop-optimization-template" class="headerlink" title="Step1: Basic loop optimization template"></a><a target="_blank" rel="noopener" href="https://github.com/kitbarton/llvm-project/pull/1">Step1: Basic loop optimization template</a></h4><p>进入网页点开Files changed</p>
+<ul>
+<li><code>LoopOptTutorial.h</code> 和 <code>LoopOptTutorial.cpp</code> 共同创建了一个编译遍<br><br>目前这个编译遍只是打印了哪些循环被传入了这个pass</li>
+<li>对 <code>LoopPassBuilder.cpp</code>、<code>PassRegistry.def</code> 的修改将这个新编写的pass在管理器中注册</li>
+<li>对 <code>CMakeLists.txt</code> 的修改让这个Pass被添加进项目中</li>
+<li><code>simple.ll</code> 和 <code>loop_nest.ll</code> 是测试样例</li>
+</ul>
+<h4 id="Step2-Select-Filter-candidate-loops"><a href="#Step2-Select-Filter-candidate-loops" class="headerlink" title="Step2: Select&#x2F;Filter candidate loops"></a><a target="_blank" rel="noopener" href="https://github.com/kitbarton/llvm-project/pull/2">Step2: Select&#x2F;Filter candidate loops</a></h4><ul>
+<li>在Pass中增加了对Loop的检查，是否能够进行优化</li>
+</ul>
+<h4 id="Step3-Add-code-to-split-a-candidate-loop"><a href="#Step3-Add-code-to-split-a-candidate-loop" class="headerlink" title="Step3: Add code to split a candidate loop"></a><a target="_blank" rel="noopener" href="https://github.com/kitbarton/llvm-project/pull/3">Step3: Add code to split a candidate loop</a></h4><p>比较重要的成员函数：</p>
+<ul>
+<li><code>splitLoopInHalf</code>：对满足条件的循环进行分裂</li>
+<li><code>cloneLoop</code>：复制一个循环</li>
+<li><code>computeSplitPoint</code>：计算分割点</li>
+</ul>
+<h4 id="Step4-Use-DomTreeUpdater-to-update-the-dominator-tree"><a href="#Step4-Use-DomTreeUpdater-to-update-the-dominator-tree" class="headerlink" title="Step4: Use DomTreeUpdater to update the dominator tree"></a><a target="_blank" rel="noopener" href="https://github.com/kitbarton/llvm-project/pull/4">Step4: Use DomTreeUpdater to update the dominator tree</a></h4><p>变换后的代码需要能够插入会原本的代码中进行更新。</p>
+<h4 id="Step5-Use-STATISTICS-and-OpmizationRemarkEmitter-to-report-outcome"><a href="#Step5-Use-STATISTICS-and-OpmizationRemarkEmitter-to-report-outcome" class="headerlink" title="Step5: Use STATISTICS and OpmizationRemarkEmitter to report outcome"></a><a target="_blank" rel="noopener" href="https://github.com/kitbarton/llvm-project/pull/5">Step5: Use STATISTICS and OpmizationRemarkEmitter to report outcome</a></h4><ul>
+<li><code>OptimizationRemarkAnalysis</code></li>
+</ul>
+<h3 id="Dependence-graphs"><a href="#Dependence-graphs" class="headerlink" title="Dependence graphs"></a>Dependence graphs</h3><ul>
+<li>Theory:<ul>
+<li>Deendence Garphs and Compiler Optimizations (1981), D.J. Kuch et al.</li>
+<li>The Program Dependence Graph and Its Use in Optimizations (1987) J. Ferrante et al.</li>
+</ul>
+</li>
+<li>Dependence graph types:<ul>
+<li>Data Dependence Graph (DDG)</li>
+<li>Program Dependence Graph (PDG): also consider control flow</li>
+</ul>
+</li>
+</ul>
+<h2 id="An-overview-of-LLVM"><a href="#An-overview-of-LLVM" class="headerlink" title="An overview of LLVM"></a>An overview of LLVM</h2>
     </div>
 
     
@@ -282,7 +438,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure"><span class="nav-number">1.</span> <span class="nav-text">MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU"><span class="nav-number">2.</span> <span class="nav-text">Handling massive concurrency: Development of a programming model for GPU and CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing"><span class="nav-number">3.</span> <span class="nav-text">SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline"><span class="nav-number">4.</span> <span class="nav-text">Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tutorial-Building-a-Compiler-with-MLIR"><span class="nav-number">5.</span> <span class="nav-text">Tutorial: Building a Compiler with MLIR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Building-an-LLVM-based-tool-lessons-learned"><span class="nav-number">6.</span> <span class="nav-text">Building an LLVM-based tool: lessons learned</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my"><span class="nav-number">7.</span> <span class="nav-text">LLVM IR Tutorial - Phis, GEPs and other things, oh my!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hot-Cold-Splitting-Optimization-Pass-In-LLVM"><span class="nav-number">8.</span> <span class="nav-text">Hot Cold Splitting Optimization Pass In LLVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-Loop-Optimizations-in-LLVM"><span class="nav-number">9.</span> <span class="nav-text">Writing Loop Optimizations in LLVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#An-overview-of-LLVM"><span class="nav-number">10.</span> <span class="nav-text">An overview of LLVM</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure"><span class="nav-number">1.</span> <span class="nav-text">MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU"><span class="nav-number">2.</span> <span class="nav-text">Handling massive concurrency: Development of a programming model for GPU and CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing"><span class="nav-number">3.</span> <span class="nav-text">SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline"><span class="nav-number">4.</span> <span class="nav-text">Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tutorial-Building-a-Compiler-with-MLIR"><span class="nav-number">5.</span> <span class="nav-text">Tutorial: Building a Compiler with MLIR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Building-an-LLVM-based-tool-lessons-learned"><span class="nav-number">6.</span> <span class="nav-text">Building an LLVM-based tool: lessons learned</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my"><span class="nav-number">7.</span> <span class="nav-text">LLVM IR Tutorial - Phis, GEPs and other things, oh my!</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Target-info"><span class="nav-number">7.1.</span> <span class="nav-text">Target info</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Baisc-program"><span class="nav-number">7.2.</span> <span class="nav-text">Baisc program</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CFG"><span class="nav-number">7.2.1.</span> <span class="nav-text">CFG</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E4%B8%AAfor%E5%BE%AA%E7%8E%AF"><span class="nav-number">7.2.1.1.</span> <span class="nav-text">一个for循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">7.3.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GEP%E6%93%8D%E4%BD%9C"><span class="nav-number">7.3.1.</span> <span class="nav-text">GEP操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Aggregate-type"><span class="nav-number">7.3.2.</span> <span class="nav-text">Aggregate type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">7.3.3.</span> <span class="nav-text">全局变量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hot-Cold-Splitting-Optimization-Pass-In-LLVM"><span class="nav-number">8.</span> <span class="nav-text">Hot Cold Splitting Optimization Pass In LLVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-Loop-Optimizations-in-LLVM"><span class="nav-number">9.</span> <span class="nav-text">Writing Loop Optimizations in LLVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Terms"><span class="nav-number">9.1.</span> <span class="nav-text">Terms</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Loop-closed-SSA-form"><span class="nav-number">9.1.1.</span> <span class="nav-text">Loop closed SSA form</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rotated-Loops"><span class="nav-number">9.2.</span> <span class="nav-text">Rotated Loops</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loop-pipeline"><span class="nav-number">9.3.</span> <span class="nav-text">Loop pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Loop-pass-v-s-function-pass"><span class="nav-number">9.3.1.</span> <span class="nav-text">Loop pass v.s. function pass</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo-Basic-loop-optimization-pass-using-new-pass-manager"><span class="nav-number">9.4.</span> <span class="nav-text">Demo: Basic loop optimization pass using new pass manager</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step1-Basic-loop-optimization-template"><span class="nav-number">9.4.1.</span> <span class="nav-text">Step1: Basic loop optimization template</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step2-Select-Filter-candidate-loops"><span class="nav-number">9.4.2.</span> <span class="nav-text">Step2: Select&#x2F;Filter candidate loops</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step3-Add-code-to-split-a-candidate-loop"><span class="nav-number">9.4.3.</span> <span class="nav-text">Step3: Add code to split a candidate loop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step4-Use-DomTreeUpdater-to-update-the-dominator-tree"><span class="nav-number">9.4.4.</span> <span class="nav-text">Step4: Use DomTreeUpdater to update the dominator tree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step5-Use-STATISTICS-and-OpmizationRemarkEmitter-to-report-outcome"><span class="nav-number">9.4.5.</span> <span class="nav-text">Step5: Use STATISTICS and OpmizationRemarkEmitter to report outcome</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dependence-graphs"><span class="nav-number">9.5.</span> <span class="nav-text">Dependence graphs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#An-overview-of-LLVM"><span class="nav-number">10.</span> <span class="nav-text">An overview of LLVM</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
