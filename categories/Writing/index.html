@@ -1,352 +1,256 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="robots" content="noindex"><meta><title>分类: Writing - ReRoozen&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="ReRoozen&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ReRoozen&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="ReRoozen&#039;s Blog"><meta property="og:url" content="http://example.com/"><meta property="og:site_name" content="ReRoozen&#039;s Blog"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:author" content="ReRoozen"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com"},"headline":"ReRoozen's Blog","image":["http://example.com/img/og_image.png"],"author":{"@type":"Person","name":"ReRoozen"},"publisher":{"@type":"Organization","name":"ReRoozen's Blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
 
-<link rel="stylesheet" href="/css/main.css">
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
 
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta property="og:type" content="website">
-<meta property="og:title" content="RRZ&#39;s Blog">
-<meta property="og:url" content="http://example.com/categories/Writing/index.html">
-<meta property="og:site_name" content="RRZ&#39;s Blog">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="ReRoozen">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/categories/Writing/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>分类: Writing | RRZ's Blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">RRZ's Blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content category">
-            
-
-  
-  
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Writing
-          <small>分类</small>
-        </h2>
-      </div>
-
-      
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-10-27T10:32:00+08:00"
-              content="2023-10-27">
-          10-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/10/27/PaperWriting/Paper-Writing/" itemprop="url">
-            <span itemprop="name">Paper Writing</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-    </div>
-  </div>
-  
-  
-  
-
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
       }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="ReRoozen&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/categories">分类</a></li><li class="is-active"><a href="#" aria-current="page">Writing</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2023-10-27T02:32:00.000Z" title="2023/10/27 10:32:00">2023-10-27</time>发表</span><span class="level-item"><time dateTime="2023-11-16T13:27:17.949Z" title="2023/11/16 21:27:17">2023-11-16</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Writing/">Writing</a></span><span class="level-item">19 分钟读完 (大约2779个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2023/10/27/PaperWriting/Paper-Writing/">Paper Writing</a></p><div class="content"><h1 id="论文写作规范"><a href="#论文写作规范" class="headerlink" title="论文写作规范"></a>论文写作规范</h1><p>本博客内容主要从《Science Research Writing: For Non-Native Speakers of English》中摘录并整理。</p>
+<p>规范地撰写一篇论文是为了有效的传递信息。通过花费几秒钟阅读标题，读者应该能够获得一些信息；通过花费几十秒阅读Abstract，读者能够获得更多的一些信息；通过花费几分钟阅读Introduction&#x2F;Conclusion，读者应该又能得到一些信息。<em>论文中的每句话都应该能够传达出有效的信息。</em></p>
+<h2 id="撰写Introduction"><a href="#撰写Introduction" class="headerlink" title="撰写Introduction"></a>撰写Introduction</h2><p>尽管论文是为了发表自己在实验中使用的方法与结果，但是一个<strong>Introduction</strong>却不能直接这样入手;方法和结果应该属于<strong>Methodology</strong>和<strong>Result</strong>这样的report section。</p>
+<p>Introduction应该像一个漏斗一样：将话题从一个开放的话题过渡到自己工作的那一个点上。</p>
+<h3 id="主要语法与写作技巧"><a href="#主要语法与写作技巧" class="headerlink" title="主要语法与写作技巧"></a>主要语法与写作技巧</h3><ul>
+<li>Tense pairs</li>
+<li>signalling language</li>
+<li>passive&#x2F;activate use</li>
+<li>paragraphing</li>
+</ul>
+<h4 id="Tense-piars：不同时态表达的倾向性"><a href="#Tense-piars：不同时态表达的倾向性" class="headerlink" title="Tense piars：不同时态表达的倾向性"></a>Tense piars：不同时态表达的倾向性</h4><h5 id="一般现在时vs-现在进行时"><a href="#一般现在时vs-现在进行时" class="headerlink" title="一般现在时vs.现在进行时"></a>一般现在时vs.现在进行时</h5><p>一般现在时表达了一个长久的状态，而现在进行时则表达了一个临时的状态。因此一般现在时用来表达一个已经被广泛接受的结论或事实。但是所谓“广泛接受”的标准因人而异，最保险的方法是在使用一般现在时的句子中加上文献引用——毕竟能够发表出去的工作肯定也得到了部分人的承认。</p>
+<p>类似地，在描述结果的时候也有一般现在时和一般过去时的抉择：</p>
+<ol>
+<li><em>We found that the pressure <strong>increased</strong> as the temperature <strong>rose</strong>, which <strong>indicated</strong> that temperature <strong>played</strong> a significant role in the process.</em></li>
+<li><em>We found that the pressure <strong>increases</strong> as the temperature <strong>rises</strong>, which <strong>indicates</strong> that temperature <strong>plays</strong> a significant role in the process.</em></li>
+</ol>
+<p>毫无疑问，当我们用一般现在时描述我们的结果时显得我们对结果更加自信：我们描述的是一个能够被广泛接受的事实；而使用一般过去时则只是说明在实验限定的条件下产生了这样的结果。</p>
+<h5 id="一般过去时vs-现在完成时"><a href="#一般过去时vs-现在完成时" class="headerlink" title="一般过去时vs.现在完成时"></a>一般过去时vs.现在完成时</h5><p>一般过去时表达了过去发生的事情并不影响现在的状态，现在完成时表明过去发生的事情对现在的状态持续产生影响。</p>
+<ol>
+<li><em>I lived in Tokyo for five years…, (but I don’t live there anymore.)</em></li>
+<li><em>I have lived in Tokyo for five years…, ( and I still live there NOW.)</em></li>
+</ol>
+<h4 id="Signalling-language：连接句子"><a href="#Signalling-language：连接句子" class="headerlink" title="Signalling language：连接句子"></a>Signalling language：连接句子</h4><p>在撰写论文时，可能从上一个句子到下一个句子中间，我们花费了10分钟来构思内容，然后才动笔。但是我们的读者看完上一个句子后却会立即看向下一个句子，如果没有良好的衔接，那么有可能读者会看的云里雾里。</p>
+<h5 id="重叠"><a href="#重叠" class="headerlink" title="重叠"></a>重叠</h5><p>通过内容重叠对句子进行衔接：</p>
+<blockquote>
+<p><em>The pattern of inflammation during an asthma attack is diff erent from that seen in <u>stable asthma</u>. In <strong><u>stable asthma</u></strong> the total number of inflammatory cells does not increase.</em></p>
+</blockquote>
+<p>这种通过重叠的衔接又派生除了三种形式：代词、分号和非限制定语从句。</p>
+<p>使用代词进行衔接：</p>
+<blockquote>
+<p><em>Many researchers have suggested <u>ways of reducing cost without affecting the quality of the image</u>. <strong><u>These methods</u></strong> rely on data structures built during a preprocessing step.</em></p>
+</blockquote>
+<p>使用分号进行衔接：</p>
+<blockquote>
+<p><em>The procedure for testing whether components are operationally safe usually takes many hours<u>;</u> this means that tests are rarely repeated.</em></p>
+</blockquote>
+<p>使用非限制定语从句进行衔接：</p>
+<blockquote>
+<p><em>It has received much attention over the past few decades due to its biodegradable properties, <strong><u>which</u></strong> off er important economic benefits.</em></p>
+</blockquote>
+<h5 id="衔接词"><a href="#衔接词" class="headerlink" title="衔接词"></a>衔接词</h5><p>除了重叠之外，在句子间添加衔接词来表明两个句子之间递进关系 (therefore)、转折关系 (however) 也是常用的手段。如果作者没有通过衔接词来表达下一个句子的功能，那么读者处理这些信息就会很困难。e.g. 没有加上however，那么读者就会疑惑为什么上个句子在肯定某个事物，到了下个句子就开始否定，从而质疑整个段落内容。</p>
+<p>一直使用however，therefore当然会令人感到单调，所以衔接词的积累也很重要。</p>
+<p>表示原因：<em>The experiment was unsuccessful ________ the measuring instruments were inaccurate.</em></p>
+<ul>
+<li>due to (the fact that)</li>
+<li>on account of (the fact that)</li>
+<li>in view of (the fact that)</li>
+<li>as</li>
+<li>because</li>
+<li>since</li>
+</ul>
+<blockquote>
+<ul>
+<li><em>since</em>除了表示原因以外还可以引导时间状语，在可能产生歧义时替换掉</li>
+<li>所有的衔接词最好都放在句首</li>
+</ul>
+</blockquote>
+<p>表示结果：<em>The measuring instruments were calibrated accurately, ________ the experiment was successful.</em></p>
+<ul>
+<li>which is why</li>
+<li>as a result (of which)</li>
+<li>therefore</li>
+<li>consquently</li>
+<li>hence</li>
+<li>so</li>
+</ul>
+<p>表示转折或者差异：<em>British students are all vegetarians, __________ Norwegian students eat meat every day.</em></p>
+<ul>
+<li>on the other hand</li>
+<li>by contrast</li>
+<li>however</li>
+<li>whereas</li>
+<li>but</li>
+<li>while</li>
+</ul>
+<blockquote>
+<ul>
+<li>on the contrary和conversely除了表示转折以外，还蕴含了“其反面才是正确的”含义，因此不能用来衔接给出的例句</li>
+<li>while也能引导时间状语，所以注意不要在可能引起混淆的时候使用</li>
+</ul>
+</blockquote>
+<p>表示出乎意料：</p>
+<ol type="a">
+  <li><i>_______ it was difficult, a solution was eventually found.</i></li>
+  <li><i>_______ the difficulty, a solution was eventually found.</i></li>
+  <li><i>It was difficult; ________ a solution was eventually found.</i></li>
+</ol>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+<p>在这三种情况下分别可以用：</p>
+<table>
+<tr>
+  <td>a</td>
+  <td>b</td>
+  <td>c</td>
+</tr>
+<tr>
+  <td><ol>
+    <li>Although</li>
+    <li>Even though</li>
+    <li>Though</li>
+  </ol></td>
+  <td><ol>
+    <li>Despite</li>
+    <li>In spite of</li>
+    <li>Regardless of</li>
+    <li>Notwithstanding</li>
+  </ol></td>
+  <td><ol>
+    <li>nevertheless</li>
+    <li>however</li>
+    <li>yet</li>
+    <li>nonetheless</li>
+    <li>even so</li>
+  </ol></td>
+</tr>
+</table>
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">ReRoozen</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">20</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">ReRoozen</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-</body>
-</html>
+<blockquote>
+<ul>
+<li>still和anyway也能在这个使用情境下客串，但是这两个词也蕴含了更多信息</li>
+</ul>
+</blockquote>
+<p>表示并列：<em>We used a batch processing system because it was more effective; ___________ it was faster.</em></p>
+<ul>
+<li>in addition</li>
+<li>in the second place (etc.)</li>
+<li>what is more</li>
+<li>apart from that&#x2F;which</li>
+<li>moreover</li>
+<li>furthermore</li>
+<li>also</li>
+<li>secondly</li>
+</ul>
+<blockquote>
+<ul>
+<li>besides也能表达类似的意思，但是它应该用在更有说服力的上下文中</li>
+</ul>
+</blockquote>
+<h4 id="被动语态和主动语态"><a href="#被动语态和主动语态" class="headerlink" title="被动语态和主动语态"></a>被动语态和主动语态</h4><p>在论文中，<strong>we</strong>只能用来表示自己的研究团队，而绝不能表示宽泛的人类整体。如果想要指代一个广泛的人类群体，那么应该使用被动语态：<em>It is known&#x2F;thought that …</em></p>
+<p>但是在学位论文中，因为没有共同署名的团队，所以不能用we。但是用I也是不能被接受的，此时应该使用This article&#x2F;The present paper来表达自己的观点。</p>
+<p>被动语态相较于主动语态的缺点在于表达观点的主体并没有被明示，所以类似于This article&#x2F;The present paper这样的表述更不容易引起混淆，更适合放在Introduction中。</p>
+<h4 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h4><p>分段面临着两类主要的错误：1) 段落由零散的短句构成，或只是独立句子；2) 段落过长。</p>
+<h5 id="阅读的技巧"><a href="#阅读的技巧" class="headerlink" title="阅读的技巧"></a>阅读的技巧</h5><p>在阅读一本推理小说的时候，如果提前看了最后一页，那么这本小说对读者的吸引力会迅速降低；但是如果坚持看完也能提高读者的阅读速度：因为读者知道了哪些信息是可以忽略的。</p>
+<p>阅读论文同样也是如此，在面临一篇长文时，先浏览一遍获取文章的主题及关键内容的位置能够在正式阅读时更快进入主题。</p>
+<blockquote>
+<ol>
+<li>阅读标题：对文章的内容有一个预期</li>
+<li>看作者的名字和单位：对文件的价值有一个预期</li>
+<li>检查数据：通过数据辅助理解文章内容</li>
+<li>看摘要：获得文章的工作和结论</li>
+<li>快速浏览第一个段落</li>
+<li>快速浏览每个段落的第一句话</li>
+<li>浏览每个图表及它们的标题</li>
+<li>阅读最后一段</li>
+</ol>
+</blockquote>
+<h5 id="利用浏览的技巧辅助写作"><a href="#利用浏览的技巧辅助写作" class="headerlink" title="利用浏览的技巧辅助写作"></a>利用浏览的技巧辅助写作</h5><p>读者拥有这样的阅读习惯，那么我们当然能够在文章做出相应的设计。以第六条为例，在段落起始句交代这个段落的主要内容，其它的句子都用来支撑首句的观点。当内容偏离首句时，分段。</p>
+<h3 id="构建一个写作模型"><a href="#构建一个写作模型" class="headerlink" title="构建一个写作模型"></a>构建一个写作模型</h3><ol>
+<li>介绍这个话题 (topic) 的重要性，e.g. much study in recent years (接现在完成时)或者a major role are common here (接一般现在时)</li>
+<li>介绍这个重要的东西是什么&#x2F;相关背景信息，从最可能被读者知道的背景入手，然后深入；另一方面，在这里也能有引用文献，但是最好是大佬的文章或者结论被广泛接受的文章</li>
+<li>指出已有工作面临的挑战、问题的来源，但不是真正开始讲述自己的工作；收缩话题范围</li>
+<li>开始以文献综述的方式从研究面切入研究点；文献可以按照三种顺序陈列：发表时间顺序、方法类型和通用-&gt;特定应用情景</li>
+<li>指出现有工作的不足，并开始说明自己文章涉及的工作</li>
+<li>对自己工作的方法和结果分别简单描述</li>
+</ol>
+<p>书上将这几点进一步归纳为了四点：</p>
+<ol>
+<li>明确研究的重要性&#x2F;提供背景信息&#x2F;陈述当前研究方向的热门关注点</li>
+<li>给出关于这个话题的文献综述</li>
+<li>指出现有工作的不足&#x2F;说明自己解决的问题&#x2F;提出在文章中将要验证的命题</li>
+<li>概述这篇文章的方法与结论</li>
+</ol>
+<blockquote>
+<p>我个人在分析Introduction结构时，对于长篇幅我更喜欢自己的六点分类，对于短篇幅书上的四点分类更好</p>
+</blockquote>
+<h3 id="词汇"><a href="#词汇" class="headerlink" title="词汇"></a>词汇</h3><p>本书作者根据他自己的四点对提供的词组进行了分类。由于内容比较丰富，建议直接阅读原文。</p>
+<h2 id="撰写Methodology"><a href="#撰写Methodology" class="headerlink" title="撰写Methodology"></a>撰写Methodology</h2><p>如前文提到的，Methodology是report的一部分。大部分出版商都会发布它们的Guide for Authors，并且都会有这样的一句话： <em>The Methodology should contain suffi cient detail for readers to replicate the work done and obtain similar results.</em></p>
+<p>虽然这个章节的目标是让其他人能够复现实验并得到相近的结果，但这并不意味着要在这一节像流水账一样地把做的事情全部记录下来。</p>
+<p>对于一个开始着手第一篇论文的学生而言，之前的报告都是写给老师看的——一个比本人更懂这个话题的人。因此这样的报告主要是说明自己是否完成了老师布置的任务。</p>
+<p>但是，撰写论文 (在理论上) 是让别人从自己这里学到东西。论文里提到的东西，对于别人来说可能是一个新方法，因此除了让别人能够复现结果以外，还要让别人能够接受这个新的方法。</p>
+</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/gallery/head-portrial.jpg" alt="ReRoozen"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">ReRoozen</p><p class="is-size-6 is-block">I need more power!!!</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Within Heaven and Hell</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">44</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">12</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/CMAKE/"><span class="level-start"><span class="level-item">CMAKE</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/LLVM/"><span class="level-start"><span class="level-item">LLVM</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/LLVM-Meetings/"><span class="level-start"><span class="level-item">LLVM Meetings</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/MLIR/"><span class="level-start"><span class="level-item">MLIR</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Modern-CPP/"><span class="level-start"><span class="level-item">Modern CPP</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/categories/PFPL/"><span class="level-start"><span class="level-item">PFPL</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Performance-Profiling/"><span class="level-start"><span class="level-item">Performance Profiling</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Polyhedral/"><span class="level-start"><span class="level-item">Polyhedral</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Writing/"><span class="level-start"><span class="level-item">Writing</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/git/"><span class="level-start"><span class="level-item">git</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/hexo/"><span class="level-start"><span class="level-item">hexo</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/vim/"><span class="level-start"><span class="level-item">vim</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-04-03T08:03:39.000Z">2024-04-03</time></p><p class="title"><a href="/2024/04/03/CPPTemplate/9-Require%E5%92%8Cconcept/">9-Require and concept</a></p><p class="categories"><a href="/categories/Modern-CPP/">Modern CPP</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-25T05:08:24.000Z">2024-03-25</time></p><p class="title"><a href="/2024/03/25/CPPTemplate/8-SFINAE/">8-SFINAE</a></p><p class="categories"><a href="/categories/Modern-CPP/">Modern CPP</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-20T08:18:24.000Z">2024-03-20</time></p><p class="title"><a href="/2024/03/20/PerformanceProf/Monitors/">Monitor Tools</a></p><p class="categories"><a href="/categories/Performance-Profiling/">Performance Profiling</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-20T06:35:59.000Z">2024-03-20</time></p><p class="title"><a href="/2024/03/20/PerformanceProf/ValgrindUsage/">ValgrindUsage</a></p><p class="categories"><a href="/categories/Performance-Profiling/">Performance Profiling</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-12T12:13:21.000Z">2024-03-12</time></p><p class="title"><a href="/2024/03/12/LLVM/APPENDIX-A%20The-headers%20of%20LLVM/">APPENDIX A: The headers of LLVM</a></p><p class="categories"><a href="/categories/LLVM/">LLVM</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/04/"><span class="level-start"><span class="level-item">四月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/03/"><span class="level-start"><span class="level-item">三月 2024</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/02/"><span class="level-start"><span class="level-item">二月 2024</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/01/"><span class="level-start"><span class="level-item">一月 2024</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/12/"><span class="level-start"><span class="level-item">十二月 2023</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/11/"><span class="level-start"><span class="level-item">十一月 2023</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/10/"><span class="level-start"><span class="level-item">十月 2023</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/09/"><span class="level-start"><span class="level-item">九月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/08/"><span class="level-start"><span class="level-item">八月 2023</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="ReRoozen&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 ReRoozen</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2024</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

@@ -1,214 +1,125 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>2019 - ReRoozen&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="ReRoozen&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ReRoozen&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="MLIR: Multi-Level Intermediate Representation for Compiler InfrastructureWhy new compiler infrastructure?Swift:  A higher level language Extra optimizations like closure optimization and reference cou"><meta property="og:type" content="blog"><meta property="og:title" content="2019"><meta property="og:url" content="http://example.com/2023/12/01/LLVMDeveloperMeeting/2019/"><meta property="og:site_name" content="ReRoozen&#039;s Blog"><meta property="og:description" content="MLIR: Multi-Level Intermediate Representation for Compiler InfrastructureWhy new compiler infrastructure?Swift:  A higher level language Extra optimizations like closure optimization and reference cou"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2023-12-01T14:38:10.000Z"><meta property="article:modified_time" content="2023-12-16T14:36:48.966Z"><meta property="article:author" content="ReRoozen"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/12/01/LLVMDeveloperMeeting/2019/"},"headline":"2019","image":["http://example.com/img/og_image.png"],"datePublished":"2023-12-01T14:38:10.000Z","dateModified":"2023-12-16T14:36:48.966Z","author":{"@type":"Person","name":"ReRoozen"},"publisher":{"@type":"Organization","name":"ReRoozen's Blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"MLIR: Multi-Level Intermediate Representation for Compiler InfrastructureWhy new compiler infrastructure?Swift:  A higher level language Extra optimizations like closure optimization and reference cou"}</script><link rel="canonical" href="http://example.com/2023/12/01/LLVMDeveloperMeeting/2019/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
 
-<link rel="stylesheet" href="/css/main.css">
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
 
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="ReRoozen&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2023-12-01T14:38:10.000Z" title="2023/12/1 22:38:10">2023-12-01</time>发表</span><span class="level-item"><time dateTime="2023-12-16T14:36:48.966Z" title="2023/12/16 22:36:48">2023-12-16</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/LLVM-Meetings/">LLVM Meetings</a></span><span class="level-item">11 分钟读完 (大约1582个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">2019</h1><div class="content"><h2 id="MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure"><a href="#MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure" class="headerlink" title="MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure"></a>MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure</h2><h3 id="Why-new-compiler-infrastructure"><a href="#Why-new-compiler-infrastructure" class="headerlink" title="Why new compiler infrastructure?"></a>Why new compiler infrastructure?</h3><p>Swift:</p>
+<ul>
+<li>A higher level language</li>
+<li>Extra optimizations like closure optimization and reference counting optimization are needed<ul>
+<li>LLVM IR are too low level to support that</li>
+</ul>
+</li>
+<li>Have to introduce SIL IR<ul>
+<li>CIL IR for modern Clang AST</li>
+<li>MIR IR for Rust AST</li>
+<li>Julia IR for Julia AST</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h3 id="MLIR"><a href="#MLIR" class="headerlink" title="MLIR"></a>MLIR</h3><ul>
+<li>Similar to LLVM IR</li>
+<li>Type system is extensible</li>
+<li>MLIR operations:<ul>
+<li>opcode and location info</li>
+<li>everything an instruction has (oprands, attributes, …)</li>
+</ul>
+</li>
+<li>MLIR Dialects<ul>
+<li>Families of defined operations</li>
+<li>Set of defined operations<ul>
+<li>Custom parser, printer, verifier</li>
+</ul>
+</li>
+<li>Entirely custom type system</li>
+<li>Customization hooks</li>
+</ul>
+</li>
+</ul>
+<h4 id="An-exmaple"><a href="#An-exmaple" class="headerlink" title="An exmaple"></a>An exmaple</h4><p>Declarative Op definitions:</p>
+<ul>
+<li>Specified using TableGen</li>
+<li>Dialect can create own hierarchies</li>
+<li>Specify op properties</li>
+<li>Name input and output operands</li>
+<li>Document along with the op</li>
+</ul>
+<p>More than definition:</p>
+<ul>
+<li>Tranform the defined opertion into another</li>
+<li>mlir-opt</li>
+<li>mlir-translate - test data structure translations</li>
+</ul>
+<h3 id="MLIR-Clang"><a href="#MLIR-Clang" class="headerlink" title="MLIR + Clang"></a>MLIR + Clang</h3><ul>
+<li>CIL: a high-level IR for Clang</li>
+<li>OpenMP dialect</li>
+<li>…</li>
+</ul>
+<h2 id="Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU"><a href="#Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU" class="headerlink" title="Handling massive concurrency: Development of a programming model for GPU and CPU"></a>Handling massive concurrency: Development of a programming model for GPU and CPU</h2><h2 id="SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing"><a href="#SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing" class="headerlink" title="SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing"></a>SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing</h2><h2 id="Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline"><a href="#Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline" class="headerlink" title="Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline"></a>Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline</h2><h2 id="Tutorial-Building-a-Compiler-with-MLIR"><a href="#Tutorial-Building-a-Compiler-with-MLIR" class="headerlink" title="Tutorial: Building a Compiler with MLIR"></a>Tutorial: Building a Compiler with MLIR</h2><h3 id="A-toy-language"><a href="#A-toy-language" class="headerlink" title="A toy language"></a>A toy language</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def foo(a, b, c) &#123;</span><br><span class="line">  var c = a*b;</span><br><span class="line">  print(transpose(c));</span><br><span class="line">  var d&lt;2, 4&gt; = v * foo(c);</span><br><span class="line">  return d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<p>MLIR is all you need for lowering:</p>
+<ul>
+<li>Toy AST - MLIR dialect</li>
+<li>TIR - MLIR dialect</li>
+<li>LLVM IR - MLIR dialect</li>
+</ul>
+<h3 id="Primer"><a href="#Primer" class="headerlink" title="Primer"></a>Primer</h3><h4 id="Operation-no-instruction"><a href="#Operation-no-instruction" class="headerlink" title="Operation, no instruction"></a>Operation, no instruction</h4><p>表示 <code>transpose</code> 函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%0 = &quot;toy.transpose&quot;(%arg1) : (!toy&lt;&quot;array&lt;2, 3&gt;&quot;&gt;</span><br><span class="line">  -&gt; !toy&lt;&quot;array&lt;3, 2&gt;&quot;&gt; loc(&quot;test/codegen.toy&quot;:3:14))</span><br></pre></td></tr></table></figure>
 
-  <meta name="description" content="MLIR: Multi-Level Intermediate Representation for Compiler InfrastructureHandling massive concurrency: Development of a programming model for GPU and CPUSYCL compiler: zero-cost abstraction and type s">
-<meta property="og:type" content="article">
-<meta property="og:title" content="2019">
-<meta property="og:url" content="http://example.com/2023/12/01/LLVMDeveloperMeeting/2019/index.html">
-<meta property="og:site_name" content="RRZ&#39;s Blog">
-<meta property="og:description" content="MLIR: Multi-Level Intermediate Representation for Compiler InfrastructureHandling massive concurrency: Development of a programming model for GPU and CPUSYCL compiler: zero-cost abstraction and type s">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-12-01T14:38:10.000Z">
-<meta property="article:modified_time" content="2023-12-07T07:47:40.827Z">
-<meta property="article:author" content="ReRoozen">
-<meta name="twitter:card" content="summary">
+<p>对应的MLIR源代码为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Operation *<span class="title">creteTransposeOp</span><span class="params">(FuncBuilder *builder, MLIRContext *ctx, Value *input_array, Location location)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// bundle our custom type in a `toy` dialect</span></span><br><span class="line">  <span class="keyword">auto</span> toyDialect = Identifier::<span class="built_in">get</span>(<span class="string">&quot;toy&quot;</span>, ctx);</span><br><span class="line">  <span class="comment">// create custom type for array&lt;3, 2&gt;</span></span><br><span class="line">  <span class="keyword">auto</span> type = OpaqueType::<span class="built_in">get</span>(toyDialect, <span class="string">&quot;array&lt;3, 2&gt;&quot;</span>, ctx);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Fill in the `OperationState` with the required fields.</span></span><br><span class="line">  <span class="function">OperationState <span class="title">result</span><span class="params">(ctx, location, <span class="string">&quot;toy.transpose&quot;</span>)</span></span>;</span><br><span class="line">  results.type.<span class="built_in">push_back</span>(type); <span class="comment">// return type;</span></span><br><span class="line">  result.operands.<span class="built_in">push_back</span>(input_value); <span class="comment">// arguments</span></span><br><span class="line">  Operation *newTransposeOp = builder-&gt;<span class="built_in">createOperation</span>(result);</span><br><span class="line">  <span class="keyword">return</span> newTransposeOp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>A MLIR dialect includes:</p>
+<ul>
+<li>A prefix (toy)</li>
+<li>A list of custom types, each its C++ class</li>
+<li>A list of operations and C++ class implementation:<ul>
+<li>Verify for operation invariants</li>
+<li>Semantics (has-no-effects, constant-foldingm CSE-allowed, …)</li>
+</ul>
+</li>
+<li>Possible custom parser and assembly printer</li>
+<li>Passes: analysis, transformations, and dialect conversions</li>
+</ul>
+<h3 id="High-level-transformation"><a href="#High-level-transformation" class="headerlink" title="High-level transformation"></a>High-level transformation</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def no_op(b) &#123;</span><br><span class="line">  return transpose(transpose(b))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<link rel="canonical" href="http://example.com/2023/12/01/LLVMDeveloperMeeting/2019/">
+<p>这里实际上无事发生，但是clang中解析出的依赖分析并不能消除这个无效操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">SimplifyRedundantTranspose</span>: <span class="keyword">public</span> RewritePattern &#123;</span><br><span class="line">  <span class="comment">// register pattern to match every toy.transpose in the IR</span></span><br><span class="line">  <span class="built_in">SimplifyRedundantTranspose</span>(MLIRContext *ctx):</span><br><span class="line">    <span class="built_in">RewritePattern</span>(TransposeOp::<span class="built_in">getOperationName</span>(), <span class="comment">/* benefit = */</span> <span class="number">1</span>, context) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">PatternMatchResult <span class="title">matchAndRewrite</span><span class="params">(Operation *op, PatternRewriter &amp;rewriter)</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">    <span class="comment">// directly cast current operation</span></span><br><span class="line">    TransposeOp transpose = op-&gt;<span class="built_in">cast</span>&lt;TransposeOp&gt;();</span><br><span class="line">    <span class="comment">// look through the input</span></span><br><span class="line">    mlir::Value *transposeInput = transpose.<span class="built_in">getOperand</span>();</span><br><span class="line">    mlir::Operation *transposeInputInst = transposeInput-&gt;<span class="built_in">getDefiningOp</span>();</span><br><span class="line">    <span class="comment">// Input is defined by another transpose, match it!</span></span><br><span class="line">    TransposeOp transposeInputOp = <span class="built_in">dyn_cast_or_null</span>&lt;TransposeOp&gt;(transposeInput);</span><br><span class="line">    <span class="keyword">if</span> (!transposeInputOp)</span><br><span class="line">      <span class="keyword">return</span> matchFailure;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// rewrite and performe replacement</span></span><br><span class="line">    rewriter.<span class="built_in">replaceOp</span>(op, &#123; transposeInputOp.<span class="built_in">getOperand</span>() &#125;, &#123; transposeInputOp &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">matchSuccess</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>2019 | RRZ's Blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">RRZ's Blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/01/LLVMDeveloperMeeting/2019/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="ReRoozen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="RRZ's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          2019
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-12-01 22:38:10" itemprop="dateCreated datePublished" datetime="2023-12-01T22:38:10+08:00">2023-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-07 15:47:40" itemprop="dateModified" datetime="2023-12-07T15:47:40+08:00">2023-12-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LLVM-Meetings/" itemprop="url" rel="index"><span itemprop="name">LLVM Meetings</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure"><a href="#MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure" class="headerlink" title="MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure"></a>MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure</h2><h2 id="Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU"><a href="#Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU" class="headerlink" title="Handling massive concurrency: Development of a programming model for GPU and CPU"></a>Handling massive concurrency: Development of a programming model for GPU and CPU</h2><h2 id="SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing"><a href="#SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing" class="headerlink" title="SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing"></a>SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing</h2><h2 id="Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline"><a href="#Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline" class="headerlink" title="Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline"></a>Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline</h2><h2 id="Tutorial-Building-a-Compiler-with-MLIR"><a href="#Tutorial-Building-a-Compiler-with-MLIR" class="headerlink" title="Tutorial: Building a Compiler with MLIR"></a>Tutorial: Building a Compiler with MLIR</h2><h2 id="Building-an-LLVM-based-tool-lessons-learned"><a href="#Building-an-LLVM-based-tool-lessons-learned" class="headerlink" title="Building an LLVM-based tool: lessons learned"></a>Building an LLVM-based tool: lessons learned</h2><h2 id="LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my"><a href="#LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my" class="headerlink" title="LLVM IR Tutorial - Phis, GEPs and other things, oh my!"></a>LLVM IR Tutorial - Phis, GEPs and other things, oh my!</h2><p>@Intel</p>
+<p>这个定义也能够用TableGen进行表达，而且比较简单。</p>
+<h3 id="Lowering-dialect-to-LLVM"><a href="#Lowering-dialect-to-LLVM" class="headerlink" title="Lowering dialect to LLVM"></a>Lowering dialect to LLVM</h3><p>Convert to the standard dialect for codegen or any other dialect:</p>
+<ul>
+<li>Function signature conversion</li>
+<li>Type conversion</li>
+<li>Operation conversion</li>
+</ul>
+<h2 id="Building-an-LLVM-based-tool-lessons-learned"><a href="#Building-an-LLVM-based-tool-lessons-learned" class="headerlink" title="Building an LLVM-based tool: lessons learned"></a>Building an LLVM-based tool: lessons learned</h2><h2 id="LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my"><a href="#LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my" class="headerlink" title="LLVM IR Tutorial - Phis, GEPs and other things, oh my!"></a>LLVM IR Tutorial - Phis, GEPs and other things, oh my!</h2><p>@Intel</p>
 <p>LLVM IR</p>
 <ul>
 <li>RISC-like</li>
@@ -358,193 +269,48 @@
 </ul>
 </li>
 </ul>
-<h2 id="An-overview-of-LLVM"><a href="#An-overview-of-LLVM" class="headerlink" title="An overview of LLVM"></a>An overview of LLVM</h2>
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2023/12/01/LLVMDeveloperMeeting/2018/" rel="prev" title="2018">
-      <i class="fa fa-chevron-left"></i> 2018
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/12/01/LLVMDeveloperMeeting/2020/" rel="next" title="2020">
-      2020 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MLIR-Multi-Level-Intermediate-Representation-for-Compiler-Infrastructure"><span class="nav-number">1.</span> <span class="nav-text">MLIR: Multi-Level Intermediate Representation for Compiler Infrastructure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handling-massive-concurrency-Development-of-a-programming-model-for-GPU-and-CPU"><span class="nav-number">2.</span> <span class="nav-text">Handling massive concurrency: Development of a programming model for GPU and CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SYCL-compiler-zero-cost-abstraction-and-type-safety-for-heterogeneous-computing"><span class="nav-number">3.</span> <span class="nav-text">SYCL compiler: zero-cost abstraction and type safety for heterogeneous computing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loop-Fusion-Loop-Distribution-and-their-Place-in-the-Loop-Optimization-Pipeline"><span class="nav-number">4.</span> <span class="nav-text">Loop Fusion, Loop Distribution and their Place in the Loop Optimization Pipeline</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tutorial-Building-a-Compiler-with-MLIR"><span class="nav-number">5.</span> <span class="nav-text">Tutorial: Building a Compiler with MLIR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Building-an-LLVM-based-tool-lessons-learned"><span class="nav-number">6.</span> <span class="nav-text">Building an LLVM-based tool: lessons learned</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LLVM-IR-Tutorial-Phis-GEPs-and-other-things-oh-my"><span class="nav-number">7.</span> <span class="nav-text">LLVM IR Tutorial - Phis, GEPs and other things, oh my!</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Target-info"><span class="nav-number">7.1.</span> <span class="nav-text">Target info</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Baisc-program"><span class="nav-number">7.2.</span> <span class="nav-text">Baisc program</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CFG"><span class="nav-number">7.2.1.</span> <span class="nav-text">CFG</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E4%B8%AAfor%E5%BE%AA%E7%8E%AF"><span class="nav-number">7.2.1.1.</span> <span class="nav-text">一个for循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">7.3.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GEP%E6%93%8D%E4%BD%9C"><span class="nav-number">7.3.1.</span> <span class="nav-text">GEP操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Aggregate-type"><span class="nav-number">7.3.2.</span> <span class="nav-text">Aggregate type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">7.3.3.</span> <span class="nav-text">全局变量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hot-Cold-Splitting-Optimization-Pass-In-LLVM"><span class="nav-number">8.</span> <span class="nav-text">Hot Cold Splitting Optimization Pass In LLVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-Loop-Optimizations-in-LLVM"><span class="nav-number">9.</span> <span class="nav-text">Writing Loop Optimizations in LLVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Terms"><span class="nav-number">9.1.</span> <span class="nav-text">Terms</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Loop-closed-SSA-form"><span class="nav-number">9.1.1.</span> <span class="nav-text">Loop closed SSA form</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rotated-Loops"><span class="nav-number">9.2.</span> <span class="nav-text">Rotated Loops</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loop-pipeline"><span class="nav-number">9.3.</span> <span class="nav-text">Loop pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Loop-pass-v-s-function-pass"><span class="nav-number">9.3.1.</span> <span class="nav-text">Loop pass v.s. function pass</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo-Basic-loop-optimization-pass-using-new-pass-manager"><span class="nav-number">9.4.</span> <span class="nav-text">Demo: Basic loop optimization pass using new pass manager</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step1-Basic-loop-optimization-template"><span class="nav-number">9.4.1.</span> <span class="nav-text">Step1: Basic loop optimization template</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step2-Select-Filter-candidate-loops"><span class="nav-number">9.4.2.</span> <span class="nav-text">Step2: Select&#x2F;Filter candidate loops</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step3-Add-code-to-split-a-candidate-loop"><span class="nav-number">9.4.3.</span> <span class="nav-text">Step3: Add code to split a candidate loop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step4-Use-DomTreeUpdater-to-update-the-dominator-tree"><span class="nav-number">9.4.4.</span> <span class="nav-text">Step4: Use DomTreeUpdater to update the dominator tree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step5-Use-STATISTICS-and-OpmizationRemarkEmitter-to-report-outcome"><span class="nav-number">9.4.5.</span> <span class="nav-text">Step5: Use STATISTICS and OpmizationRemarkEmitter to report outcome</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dependence-graphs"><span class="nav-number">9.5.</span> <span class="nav-text">Dependence graphs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#An-overview-of-LLVM"><span class="nav-number">10.</span> <span class="nav-text">An overview of LLVM</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">ReRoozen</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">20</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">ReRoozen</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-</body>
-</html>
+<h2 id="An-overview-of-LLVM"><a href="#An-overview-of-LLVM" class="headerlink" title="An overview of LLVM"></a>An overview of LLVM</h2></div><div class="article-licensing box"><div class="licensing-title"><p>2019</p><p><a href="http://example.com/2023/12/01/LLVMDeveloperMeeting/2019/">http://example.com/2023/12/01/LLVMDeveloperMeeting/2019/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>ReRoozen</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2023-12-01</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-12-16</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="notification is-danger">You need to set <code>install_url</code> to use ShareThis. Please set it in <code>_config.yml</code>.</div></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" href="/" target="_blank" rel="noopener" data-type="afdian"><span class="icon is-small"><i class="fas fa-charging-station"></i></span><span>爱发电</span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/" alt="支付宝"></span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="buymeacoffee"><span class="icon is-small"><i class="fas fa-coffee"></i></span><span>送我杯咖啡</span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="patreon"><span class="icon is-small"><i class="fab fa-patreon"></i></span><span>Patreon</span></a><div class="notification is-danger">You forgot to set the <code>business</code> or <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.</div><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2023/12/01/LLVMDeveloperMeeting/2020/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">2020</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/12/01/LLVMDeveloperMeeting/2018/"><span class="level-item">2018</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="notification is-danger">You forgot to set the <code>shortname</code> for Disqus. Please set it in <code>_config.yml</code>.</div></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/gallery/head-portrial.jpg" alt="ReRoozen"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">ReRoozen</p><p class="is-size-6 is-block">I need more power!!!</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Within Heaven and Hell</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">44</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">12</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/CMAKE/"><span class="level-start"><span class="level-item">CMAKE</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/LLVM/"><span class="level-start"><span class="level-item">LLVM</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/LLVM-Meetings/"><span class="level-start"><span class="level-item">LLVM Meetings</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/MLIR/"><span class="level-start"><span class="level-item">MLIR</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Modern-CPP/"><span class="level-start"><span class="level-item">Modern CPP</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/categories/PFPL/"><span class="level-start"><span class="level-item">PFPL</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Performance-Profiling/"><span class="level-start"><span class="level-item">Performance Profiling</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Polyhedral/"><span class="level-start"><span class="level-item">Polyhedral</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Writing/"><span class="level-start"><span class="level-item">Writing</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/git/"><span class="level-start"><span class="level-item">git</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/hexo/"><span class="level-start"><span class="level-item">hexo</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/vim/"><span class="level-start"><span class="level-item">vim</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-04-03T08:03:39.000Z">2024-04-03</time></p><p class="title"><a href="/2024/04/03/CPPTemplate/9-Require%E5%92%8Cconcept/">9-Require and concept</a></p><p class="categories"><a href="/categories/Modern-CPP/">Modern CPP</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-25T05:08:24.000Z">2024-03-25</time></p><p class="title"><a href="/2024/03/25/CPPTemplate/8-SFINAE/">8-SFINAE</a></p><p class="categories"><a href="/categories/Modern-CPP/">Modern CPP</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-20T08:18:24.000Z">2024-03-20</time></p><p class="title"><a href="/2024/03/20/PerformanceProf/Monitors/">Monitor Tools</a></p><p class="categories"><a href="/categories/Performance-Profiling/">Performance Profiling</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-20T06:35:59.000Z">2024-03-20</time></p><p class="title"><a href="/2024/03/20/PerformanceProf/ValgrindUsage/">ValgrindUsage</a></p><p class="categories"><a href="/categories/Performance-Profiling/">Performance Profiling</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-12T12:13:21.000Z">2024-03-12</time></p><p class="title"><a href="/2024/03/12/LLVM/APPENDIX-A%20The-headers%20of%20LLVM/">APPENDIX A: The headers of LLVM</a></p><p class="categories"><a href="/categories/LLVM/">LLVM</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/04/"><span class="level-start"><span class="level-item">四月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/03/"><span class="level-start"><span class="level-item">三月 2024</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/02/"><span class="level-start"><span class="level-item">二月 2024</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/01/"><span class="level-start"><span class="level-item">一月 2024</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/12/"><span class="level-start"><span class="level-item">十二月 2023</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/11/"><span class="level-start"><span class="level-item">十一月 2023</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/10/"><span class="level-start"><span class="level-item">十月 2023</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/09/"><span class="level-start"><span class="level-item">九月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/08/"><span class="level-start"><span class="level-item">八月 2023</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="ReRoozen&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 ReRoozen</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2024</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

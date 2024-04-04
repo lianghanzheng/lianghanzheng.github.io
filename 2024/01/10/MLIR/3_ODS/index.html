@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>MLIR ODS - ReRoozen&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="ReRoozen&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ReRoozen&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Prologue最终第二章还是变成了对文档的简单总结，不过完全把细节完全展开还是太离谱了。本章重点对MLIR ODS进行学习，因为该框架在Op定义上十分重要，所有的custom Op都是以ODS的语法给出的。 Tablegen语法基础概念Tablgen本身是用来写record的。在这个基础上，record又分为abstract record和concrete record两类。  Abstract"><meta property="og:type" content="blog"><meta property="og:title" content="MLIR ODS"><meta property="og:url" content="http://example.com/2024/01/10/MLIR/3_ODS/"><meta property="og:site_name" content="ReRoozen&#039;s Blog"><meta property="og:description" content="Prologue最终第二章还是变成了对文档的简单总结，不过完全把细节完全展开还是太离谱了。本章重点对MLIR ODS进行学习，因为该框架在Op定义上十分重要，所有的custom Op都是以ODS的语法给出的。 Tablegen语法基础概念Tablgen本身是用来写record的。在这个基础上，record又分为abstract record和concrete record两类。  Abstract"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2024-01-10T08:53:57.000Z"><meta property="article:modified_time" content="2024-03-01T07:13:23.260Z"><meta property="article:author" content="ReRoozen"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/01/10/MLIR/3_ODS/"},"headline":"MLIR ODS","image":["http://example.com/img/og_image.png"],"datePublished":"2024-01-10T08:53:57.000Z","dateModified":"2024-03-01T07:13:23.260Z","author":{"@type":"Person","name":"ReRoozen"},"publisher":{"@type":"Organization","name":"ReRoozen's Blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"Prologue最终第二章还是变成了对文档的简单总结，不过完全把细节完全展开还是太离谱了。本章重点对MLIR ODS进行学习，因为该框架在Op定义上十分重要，所有的custom Op都是以ODS的语法给出的。 Tablegen语法基础概念Tablgen本身是用来写record的。在这个基础上，record又分为abstract record和concrete record两类。  Abstract"}</script><link rel="canonical" href="http://example.com/2024/01/10/MLIR/3_ODS/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="ReRoozen&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-01-10T08:53:57.000Z" title="2024/1/10 16:53:57">2024-01-10</time>发表</span><span class="level-item"><time dateTime="2024-03-01T07:13:23.260Z" title="2024/3/1 15:13:23">2024-03-01</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/MLIR/">MLIR</a></span><span class="level-item">16 分钟读完 (大约2361个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">MLIR ODS</h1><div class="content"><h1 id="Prologue"><a href="#Prologue" class="headerlink" title="Prologue"></a>Prologue</h1><p>最终第二章还是变成了对文档的简单总结，不过完全把细节完全展开还是太离谱了。<br>本章重点对MLIR ODS进行学习，因为该框架在Op定义上十分重要，所有的custom Op都是以ODS的语法给出的。</p>
+<h1 id="Tablegen语法"><a href="#Tablegen语法" class="headerlink" title="Tablegen语法"></a>Tablegen语法</h1><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>Tablgen本身是用来写record的。<br>在这个基础上，record又分为abstract record和concrete record两类。</p>
+<ul>
+<li>Abstract record：被称为class</li>
+<li>Concrete record：被称为record</li>
+</ul>
+<p>Class和record都有专有的名字，可以由程序员或者tablegen给出。<br>每个名字都会和一组有值的field相关联。<br>Field的具体含义并不由tablegen语法决定，而是由后端决定。</p>
+<p>Class通常用来描述一个record的模板，并且能够进行派生；record向class传入参数来填充不同的filed。<br>未初始化的field的值以 <code>?</code> 表示。因此class的field的值通常都是 <code>?</code> 而record的field大多被初始化了。</p>
+<h2 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h2><ul>
+<li>注释： <ul>
+<li><code>//</code></li>
+<li><code>/*...*/</code></li>
+</ul>
+</li>
+<li>字面量：<ul>
+<li>二进制&#x2F;十进制&#x2F;十六进制数</li>
+<li>字符串：由双引号 <code>&quot;</code> 包围（单行字符串）或者由 <code>[&#123;...&#125;]</code>  包围（多行）</li>
+</ul>
+</li>
+<li>标识符<ul>
+<li>变量名以 <code>$</code> 开头</li>
+<li>不能使用关键字作为标识符</li>
+</ul>
+</li>
+<li>惊叹号运算符 (bang operator)<ul>
+<li>以 <code>!</code> 为开头，如 <code>!add</code>, <code>!isa</code>, …</li>
+</ul>
+</li>
+<li>文件引用<ul>
+<li><code>include ...</code></li>
+<li>定义文件 <code>#define</code>, <code>#ifdef</code>, <code>#ifndef</code></li>
+</ul>
+</li>
+</ul>
+<p>关键字如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">assert     bit           bits          class         code</span><br><span class="line">dag        def           dump          else          false</span><br><span class="line">foreach    defm          defset        defvar        field</span><br><span class="line">if         in            include       int           let</span><br><span class="line">list       multiclass    string        then          true</span><br></pre></td></tr></table></figure>
+
+<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><ul>
+<li><code>bit</code></li>
+<li><code>int</code></li>
+<li>字符串</li>
+<li><code>bits&lt;N&gt;</code></li>
+<li><code>list&lt;type&gt;</code></li>
+<li>ClassID<ul>
+<li>比如定义一个class <code>Register</code>，那么有 <code>list&lt;Register&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="值和表达式"><a href="#值和表达式" class="headerlink" title="值和表达式"></a>值和表达式</h2><ul>
+<li>字面量</li>
+<li>布尔值</li>
+<li>未知值 <code>?</code></li>
+<li>多位bit<ul>
+<li><code>&#123;1, 0, 1&#125;</code></li>
+<li><code>1, 0, 1</code></li>
+</ul>
+</li>
+<li>list initializer<ul>
+<li><code>[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</code></li>
+<li>类型说明可选 <code>[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;] &lt;string&gt;</code></li>
+</ul>
+</li>
+<li>DAG initializer</li>
+<li>标识符</li>
+<li>匿名record：给定class和参数列表<ul>
+<li><code>ClassID&lt;ArgList&gt;</code></li>
+</ul>
+</li>
+<li>运算符</li>
+</ul>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><h3 id="class-定义抽象record"><a href="#class-定义抽象record" class="headerlink" title="class 定义抽象record"></a><code>class</code> 定义抽象record</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class C &#123;</span><br><span class="line">  bit V = true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def X : C;</span><br><span class="line">def Y : C &#123;</span><br><span class="line">  let V = false;</span><br><span class="line">  string Greeting = &quot;Hello!&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="def-定义具体record"><a href="#def-定义具体record" class="headerlink" title="def 定义具体record"></a><code>def</code> 定义具体record</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class FPFormat &lt;bits&lt;3&gt; val&gt; &#123;</span><br><span class="line">  bits&lt;3&gt; Value = val;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def NotFP      : FPFormat&lt;0&gt;;</span><br><span class="line">def ZeroArgFP  : FPFormat&lt;1&gt;;</span><br><span class="line">def OneArgFP   : FPFormat&lt;2&gt;;</span><br><span class="line">def OneArgFPRW : FPFormat&lt;3&gt;;</span><br><span class="line">def TwoArgFP   : FPFormat&lt;4&gt;;</span><br><span class="line">def CompareFP  : FPFormat&lt;5&gt;;</span><br><span class="line">def CondMovFP  : FPFormat&lt;6&gt;;</span><br><span class="line">def SpecialFP  : FPFormat&lt;7&gt;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="let-覆写class或者record中的field"><a href="#let-覆写class或者record中的field" class="headerlink" title="let 覆写class或者record中的field"></a><code>let</code> 覆写class或者record中的field</h3><blockquote>
+<p>TODO: 先写了点常见的，不够再补。</p>
+</blockquote>
+<h1 id="定义Op"><a href="#定义Op" class="headerlink" title="定义Op"></a>定义Op</h1><p>定义Op所需要的class都定义在 <code>$LLVM_ROOT/mlir/include/mlir/IR/OpBase.td</code> 中：</p>
+<ul>
+<li><code>Op</code> class：新的Op的定义都是从这个class中派生</li>
+<li><code>Dialect</code> class</li>
+<li><code>OpTrait</code> class</li>
+<li><code>ins</code>&#x2F;<code>outs</code> marker：由后端定义的特别符号，用来引导操作数和结果的定义</li>
+<li><code>TypeConstraint</code> class：<code>Type</code> 是它的subclass</li>
+<li><code>AttrConstraint</code> class：<code>Attr</code> 是它的subclass</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">def TF_AvgPoolOp : TF_Op&lt;&quot;AvgPool&quot;, [NoMemoryEffect]&gt; &#123;</span><br><span class="line">  let summary = &quot;Performs average pooling on the input.&quot;;</span><br><span class="line"></span><br><span class="line">  let description = [&#123;</span><br><span class="line">Each entry in `output` is the mean of the corresponding size `ksize`</span><br><span class="line">window in `value`.</span><br><span class="line">  &#125;];</span><br><span class="line"></span><br><span class="line">  let arguments = (ins</span><br><span class="line">    TF_FpTensor:$value,</span><br><span class="line"></span><br><span class="line">    ConfinedAttr&lt;I64ArrayAttr, [ArrayMinCount&lt;4&gt;]&gt;:$ksize,</span><br><span class="line">    ConfinedAttr&lt;I64ArrayAttr, [ArrayMinCount&lt;4&gt;]&gt;:$strides,</span><br><span class="line">    TF_AnyStrAttrOf&lt;[&quot;SAME&quot;, &quot;VALID&quot;]&gt;:$padding,</span><br><span class="line">    DefaultValuedAttr&lt;TF_ConvertDataFormatAttr, &quot;NHWC&quot;&gt;:$data_format</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  let results = (outs</span><br><span class="line">    TF_FpTensor:$output</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  TF_DerivedOperandTypeAttr T = TF_DerivedOperandTypeAttr&lt;0&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>各个field含义如下：</p>
+<ul>
+<li>Op名称：<code>TF_AvgPoolOp</code></li>
+<li>文档信息：<code>summary</code>, <code>description</code></li>
+<li>参数：<code>arguments</code><ul>
+<li>operation：其它Op传过来的result</li>
+<li>attribute：编译时已知的常量<ul>
+<li>Natural attribute：影响Op的行为</li>
+<li>Derived attribute：由Op内信息推断得到</li>
+</ul>
+</li>
+<li>是DAG类型TableGen参数，以 <code>ins</code> 开始，后续为 <code>&lt;type-constraint&gt;:$&lt;operand-name&gt;</code> 或者 <code>&lt;attr-constraint&gt;:$&lt;attr-name&gt;</code></li>
+<li>operation和attribute的顺序在 <code>arguments</code> 中没有限制</li>
+</ul>
+</li>
+<li>结果：<code>result</code><ul>
+<li>特指在这个Op作为出边的值</li>
+<li>是DAG类型TableGen参数，以 <code>outs</code> 开始，后续为 <code>&lt;type-constraint&gt;:$&lt;result-name&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="其它field"><a href="#其它field" class="headerlink" title="其它field"></a>其它field</h2><h3 id="可变参数-variadic-operands"><a href="#可变参数-variadic-operands" class="headerlink" title="可变参数 (variadic operands)"></a>可变参数 (variadic operands)</h3><p>语法为 <code>Variadic&lt;...&gt;</code>。</p>
+<h3 id="可选参数-optional-operands"><a href="#可选参数-optional-operands" class="headerlink" title="可选参数 (optional operands)"></a>可选参数 (optional operands)</h3><p>语法为 <code>Optional&lt;...&gt;</code>。</p>
+<h3 id="可选attribute"><a href="#可选attribute" class="headerlink" title="可选attribute"></a>可选attribute</h3><p>语法为 <code>OptionalAttr&lt;...&gt;</code>。</p>
+<h3 id="约束attribute"><a href="#约束attribute" class="headerlink" title="约束attribute"></a>约束attribute</h3><p>添加约束条件，如 <code>ConfinedAttr&lt;I32Attr, [IntMinValue&lt;10&gt;]&gt;</code>。</p>
+<ul>
+<li><code>IntMinValue&lt;N&gt;</code>: Specifying an integer attribute to be greater than or equal to N</li>
+<li><code>IntMaxValue&lt;N&gt;</code>: Specifying an integer attribute to be less than or equal to N</li>
+<li><code>ArrayMinCount&lt;N&gt;</code>: Specifying an array attribute to have at least N elements</li>
+<li><code>IntArrayNthElemEq&lt;I, N&gt;</code>: Specifying an integer array attribute’s I-th element to be equal to N</li>
+<li><code>IntArrayNthElemMinValue&lt;I, N&gt;</code>: Specifying an integer array attribute’s I-th element to be greater than or equal to N</li>
+<li><code>IntArrayNthElemMaxValue&lt;I, N&gt;</code>: Specifying an integer array attribute’s I-th element to be less than or equal to N</li>
+<li><code>IntArrayNthElemInRange&lt;I, M, N&gt;</code>: Specifying an integer array attribute’s I-th element to be greater than or equal to M and less than or equal to N</li>
+</ul>
+<h3 id="Region"><a href="#Region" class="headerlink" title="Region"></a>Region</h3><p>由 <code>region</code> 引导的dag数据类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let regions = (region</span><br><span class="line">  &lt;region-constraint&gt;:$&lt;region-name&gt;,</span><br><span class="line">  ...</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Op-successor"><a href="#Op-successor" class="headerlink" title="Op successor"></a>Op successor</h3><p>由 <code>successor</code> 引导的dag数据类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let successors = (successor</span><br><span class="line">  &lt;successor-constraint&gt;:$&lt;successor-name&gt;,</span><br><span class="line">  ...</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Op-trait-Op-constraints"><a href="#Op-trait-Op-constraints" class="headerlink" title="Op trait &amp; Op constraints"></a>Op trait &amp; Op constraints</h3><p>Trait和constraint都是作为Op class的参数传入。</p>
+<h3 id="Builder-method"><a href="#Builder-method" class="headerlink" title="Builder method"></a>Builder method</h3><p>ODS能够根据参数和返回类型生成基础的builder：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">def MyOp : ... &#123;</span><br><span class="line">  let arguments = (ins</span><br><span class="line">    I32:$i32_operand,</span><br><span class="line">    F32:$f32_operand,</span><br><span class="line">    ...,</span><br><span class="line"></span><br><span class="line">    I32Attr:$i32_attr,</span><br><span class="line">    F32Attr:$f32_attr,</span><br><span class="line">    ...</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  let results = (outs</span><br><span class="line">    I32:$i32_result,</span><br><span class="line">    F32:$f32_result,</span><br><span class="line">    ...</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>会生成如下的函数签名：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// All result-types/operands/attributes have one aggregate parameter.</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">build</span><span class="params">(OpBuilder &amp;odsBuilder, OperationState &amp;odsState,</span></span></span><br><span class="line"><span class="params"><span class="function">                  TypeRange resultTypes,</span></span></span><br><span class="line"><span class="params"><span class="function">                  ValueRange operands,</span></span></span><br><span class="line"><span class="params"><span class="function">                  ArrayRef&lt;NamedAttribute&gt; attributes)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Each result-type/operand/attribute has a separate parameter. The parameters</span></span><br><span class="line"><span class="comment">// for attributes are of mlir::Attribute types.</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">build</span><span class="params">(OpBuilder &amp;odsBuilder, OperationState &amp;odsState,</span></span></span><br><span class="line"><span class="params"><span class="function">                  Type i32_result, Type f32_result, ...,</span></span></span><br><span class="line"><span class="params"><span class="function">                  Value i32_operand, Value f32_operand, ...,</span></span></span><br><span class="line"><span class="params"><span class="function">                  IntegerAttr i32_attr, FloatAttr f32_attr, ...)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Each result-type/operand/attribute has a separate parameter. The parameters</span></span><br><span class="line"><span class="comment">// for attributes are raw values unwrapped with mlir::Attribute instances.</span></span><br><span class="line"><span class="comment">// (Note that this builder will not always be generated. See the following</span></span><br><span class="line"><span class="comment">// explanation for more details.)</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">build</span><span class="params">(OpBuilder &amp;odsBuilder, OperationState &amp;odsState,</span></span></span><br><span class="line"><span class="params"><span class="function">                  Type i32_result, Type f32_result, ...,</span></span></span><br><span class="line"><span class="params"><span class="function">                  Value i32_operand, Value f32_operand, ...,</span></span></span><br><span class="line"><span class="params"><span class="function">                  APInt i32_attr, StringRef f32_attr, ...)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Each operand/attribute has a separate parameter but result type is aggregate.</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">build</span><span class="params">(OpBuilder &amp;odsBuilder, OperationState &amp;odsState,</span></span></span><br><span class="line"><span class="params"><span class="function">                  TypeRange resultTypes,</span></span></span><br><span class="line"><span class="params"><span class="function">                  Value i32_operand, Value f32_operand, ...,</span></span></span><br><span class="line"><span class="params"><span class="function">                  IntegerAttr i32_attr, FloatAttr f32_attr, ...)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// All operands/attributes have aggregate parameters.</span></span><br><span class="line"><span class="comment">// Generated if return type can be inferred.</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">build</span><span class="params">(OpBuilder &amp;odsBuilder, OperationState &amp;odsState,</span></span></span><br><span class="line"><span class="params"><span class="function">                  ValueRange operands, ArrayRef&lt;NamedAttribute&gt; attributes)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// (And manually specified builders depending on the specific op.)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一个builder的函数签名是所有Op都相同的，供 <code>MLIRContext::create</code> 使用</li>
+<li>第二个和第三个builder对于编写MLIR代码比较有用</li>
+</ul>
+<h4 id="自定义builder"><a href="#自定义builder" class="headerlink" title="自定义builder"></a>自定义builder</h4><p>如果上述的builder不能满足需求，则可以填充 <code>builders</code> field来添加定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def MyOp : Op&lt;&quot;my_op&quot;, []&gt; &#123;</span><br><span class="line">  let arguments = (ins F32Attr:$attr);</span><br><span class="line"></span><br><span class="line">  let builders = [</span><br><span class="line">    OpBuilder&lt;(ins &quot;float&quot;:$val)&gt;</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该field会生成如下的函数签名：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyOp</span> : <span class="comment">/*...*/</span> &#123;</span><br><span class="line">  <span class="comment">/*...*/</span></span><br><span class="line">  <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">build</span><span class="params">(::mlir::OpBuilder &amp;builder, ::mlir::OperationState &amp;state,</span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="type">float</span> val)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>ODS中也能直接描述builder的具体实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def MyOp : Op&lt;&quot;my_op&quot;, []&gt; &#123;</span><br><span class="line">  let arguments = (ins F32Attr:$attr);</span><br><span class="line"></span><br><span class="line">  let builders = [</span><br><span class="line">    OpBuilder&lt;(ins &quot;float&quot;:$val), [&#123;</span><br><span class="line">      $_state.addAttribute(&quot;attr&quot;, $_builder.getF32FloatAttr(val));</span><br><span class="line">    &#125;]&gt;</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>$_builder</code> 和 <code>$_state</code> 是特殊变量，对应于C++形式中的 <code>builder</code> 和 <code>state</code></li>
+<li>但只推荐在ODS中构建简单的builder，复杂的builder最好还是实现为C++</li>
+</ul>
+<p>为参数添加默认值需要使用 <code>CArg</code> 进行包装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def MyOp : Op&lt;&quot;my_op&quot;, []&gt; &#123;</span><br><span class="line">  let arguments = (ins F32Attr:$attr);</span><br><span class="line"></span><br><span class="line">  let builders = [</span><br><span class="line">    OpBuilder&lt;(ins CArg&lt;&quot;float&quot;, &quot;0.5f&quot;&gt;:$val), [&#123;</span><br><span class="line">      $_state.addAttribute(&quot;attr&quot;, $_builder.getF32FloatAttr(val));</span><br><span class="line">    &#125;]&gt;</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应的C++为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Header file.</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyOp</span> : <span class="comment">/*...*/</span> &#123;</span><br><span class="line">  <span class="comment">/*...*/</span></span><br><span class="line">  <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">build</span><span class="params">(::mlir::OpBuilder &amp;builder, ::mlir::OperationState &amp;state,</span></span></span><br><span class="line"><span class="params"><span class="function">                    <span class="type">float</span> val = <span class="number">0.5f</span>)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// Source file.</span></span><br><span class="line">MyOp::<span class="built_in">build</span>(::mlir::OpBuilder &amp;builder, ::mlir::OperationState &amp;state,</span><br><span class="line">            <span class="type">float</span> val) &#123;</span><br><span class="line">  state.<span class="built_in">addAttribute</span>(<span class="string">&quot;attr&quot;</span>, builder.<span class="built_in">getF32FloatAttr</span>(val));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Verifier"><a href="#Verifier" class="headerlink" title="Verifier"></a>Verifier</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let hasVerifier = 1;</span><br><span class="line">let hasRegionVerifier = 1; // for nested operation</span><br></pre></td></tr></table></figure>
+
+<p>验证顺序：</p>
+<ul>
+<li>StructuralOp trait会被首先验证</li>
+<li><code>verifyInvariants</code> 会验证type&#x2F;attribute</li>
+<li>剩下的Trait和interface需要设置 <code>verifyTrait</code> 和 <code>verifyWithRegion</code> 进行验证</li>
+<li>自定义的verifier</li>
+</ul>
+<h4 id="传递诊断信息"><a href="#传递诊断信息" class="headerlink" title="传递诊断信息"></a>传递诊断信息</h4><ul>
+<li><code>Note</code></li>
+<li><code>Remark</code></li>
+<li><code>Warning</code></li>
+<li><code>Error</code></li>
+</ul>
+<h2 id="Declarative-assembly-format"><a href="#Declarative-assembly-format" class="headerlink" title="Declarative assembly format"></a>Declarative assembly format</h2><p>通过使用ODS中预定义的和attribute等匹配的关键字来定义Op的文本形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def CallOp : Std_Op&lt;&quot;call&quot;, ...&gt; &#123;</span><br><span class="line">  let arguments = (ins FlatSymbolRefAttr:$callee, Variadic&lt;AnyType&gt;:$args);</span><br><span class="line">  let results = (outs Variadic&lt;AnyType&gt;);</span><br><span class="line"></span><br><span class="line">  let assemblyFormat = [&#123;</span><br><span class="line">    $callee `(` $args `)` attr-dict `:` functional-type($args, results)</span><br><span class="line">  &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>保留的diective含义如下：</p>
+<ul>
+<li><code>attr-dict</code><ul>
+<li>Represents the attribute dictionary of the operation.</li>
+</ul>
+</li>
+<li><code>attr-dict-with-keyword</code><ul>
+<li>Represents the attribute dictionary of the operation, but prefixes the dictionary with an attributes keyword.</li>
+</ul>
+</li>
+<li><code>custom</code> &lt; UserDirective &gt; ( Params )<ul>
+<li>Represents a custom directive implemented by the user in C++.</li>
+<li>See the Custom Directives section below for more details.</li>
+</ul>
+</li>
+<li><code>functional-type</code> (inputs, outputs)<ul>
+<li>Formats the inputs and outputs arguments as a function type.</li>
+<li>The constraints on inputs and outputs are the same as the input of the type directive.</li>
+</ul>
+</li>
+<li><code>oilist</code> ( <code>keyword</code> elements | <code>otherKeyword</code> elements …)<ul>
+<li>Represents an optional order-independent list of clauses. Each clause has a keyword and corresponding assembly format.</li>
+<li>Each clause can appear 0 or 1 time (in any order).</li>
+<li>Only literals, types and variables can be used within an oilist element.</li>
+<li>All the variables must be optional or variadic.</li>
+</ul>
+</li>
+<li><code>operands</code><ul>
+<li>Represents all of the operands of an operation.</li>
+</ul>
+</li>
+<li>ref ( input )<ul>
+<li>Represents a reference to the a variable or directive, that must have already been resolved, that may be used as a parameter to a custom directive.</li>
+<li>Used to pass previously parsed entities to custom directives.</li>
+<li>The input may be any directive or variable, aside from functional-type and custom.</li>
+</ul>
+</li>
+<li>regions<ul>
+<li>Represents all of the regions of an operation.</li>
+</ul>
+</li>
+<li>results<ul>
+<li>Represents all of the results of an operation.</li>
+</ul>
+</li>
+<li>successors<ul>
+<li>Represents all of the successors of an operation.</li>
+</ul>
+</li>
+<li>type ( input )<ul>
+<li>Represents the type of the given input.</li>
+<li>input must be either an operand or result variable, the operands directive, or the results directive.</li>
+</ul>
+</li>
+<li>qualified ( type_or_attribute )<ul>
+<li>Wraps a type directive or an attribute parameter.</li>
+<li>Used to force printing the type or attribute prefixed with its dialect and mnemonic. For example the vector.multi_reduction operation has a kind attribute ; by default the declarative assembly will print: vector.multi_reduction <minf>, … but using qualified($kind) in the declarative assembly format will print it instead as: vector.multi_reduction #vector.kind<minf>, ….</li>
+</ul>
+</li>
+</ul>
+<h3 id="可选成分"><a href="#可选成分" class="headerlink" title="可选成分"></a>可选成分</h3><figure class="highlight bnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optional-group::= `(` then-elements `)` (`:` `(` else-elements `)`)? `?`</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>then-elements</code> 必须是一个attribute&#x2F;literal&#x2F;oprand&#x2F;region</li>
+<li>必须有一个参数作为anchor<ul>
+<li>作为anchor的参数以 <code>^</code></li>
+<li>控制这个可选的部分是否在Op中打印出来</li>
+</ul>
+</li>
+<li>optional group中只能出现literal&#x2F;variable&#x2F;custom directive&#x2F;type directive</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def ReturnOp : ... &#123;</span><br><span class="line">  let arguments = (ins Variadic&lt;AnyType&gt;:$operands);</span><br><span class="line"></span><br><span class="line">  // We only print the operands and types if there are a non-zero number</span><br><span class="line">  // of operands.</span><br><span class="line">  let assemblyFormat = &quot;attr-dict ($operands^ `:` type($operands))?&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Constraint"><a href="#Constraint" class="headerlink" title="Constraint"></a>Constraint</h2><ul>
+<li>Single-entity constraint<ul>
+<li>只对单个operand&#x2F;attribute&#x2F;result施加约束的</li>
+</ul>
+</li>
+<li>Multi-entity constraint</li>
+</ul>
+<h3 id="设置constraint"><a href="#设置constraint" class="headerlink" title="设置constraint"></a>设置constraint</h3><p>Constraint由一组predicate构建：</p>
+<ul>
+<li><code>CPred</code>：leaf predicate，包含能够返回一个布尔类型的C++表达式&#x2F;函数调用&#x2F;…</li>
+<li>Compound predicate</li>
+</ul>
+<p>部分占位符被保留下来，转化为C++中的hook：</p>
+<ul>
+<li><code>$_builder</code>：<code>mlir::Builder</code> 实例</li>
+<li><code>$_op</code>：当前所在的Op，用于访问Op的相关信息</li>
+<li><code>$_self</code>：和predicate绑定</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">And&lt;[</span><br><span class="line">  CPred&lt;&quot;$_self.isa&lt;IntegerAttr&gt;()&quot;&gt;,</span><br><span class="line">  Or&lt;[</span><br><span class="line">    CPred&lt;&quot;$_self.cast&lt;IntegerAttr&gt;().getType().isInteger(32)&quot;&gt;,</span><br><span class="line">    CPred&lt;&quot;$_self.cast&lt;IntegerAttr&gt;().getType().isInteger(64)&quot;&gt;</span><br><span class="line">  ]&gt;</span><br><span class="line">]&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果一个constraint比较复杂，先用C++实现，然后再tablegen中识别：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">HasSomeProperty</span><span class="params">(Attribute attr)</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def HasSomeProperty : AttrConstraint&lt;CPred&lt;&quot;HasSomeProperty($_self)&quot;&gt;,</span><br><span class="line">                                     &quot;has some property&quot;&gt;;</span><br><span class="line"></span><br><span class="line">def MyOp : Op&lt;...&gt; &#123;</span><br><span class="line">  let arguments = (ins</span><br><span class="line">    ...</span><br><span class="line">    HasSomeProperty:$attr</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="定义Attribute"><a href="#定义Attribute" class="headerlink" title="定义Attribute"></a>定义Attribute</h1><p>MLIR中Attribute的本质就是编译时常量，所以有着各种类型，如 <code>StrAttr</code> (C++ <code>StringAttr</code>)。<br>完整的attribute见<a target="_blank" rel="noopener" href="https://github.com/llvm/llvm-project/blob/main/mlir/include/mlir/IR/Attributes.h">ODS attribute class</a>。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>MLIR ODS</p><p><a href="http://example.com/2024/01/10/MLIR/3_ODS/">http://example.com/2024/01/10/MLIR/3_ODS/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>ReRoozen</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2024-01-10</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2024-03-01</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="notification is-danger">You need to set <code>install_url</code> to use ShareThis. Please set it in <code>_config.yml</code>.</div></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" href="/" target="_blank" rel="noopener" data-type="afdian"><span class="icon is-small"><i class="fas fa-charging-station"></i></span><span>爱发电</span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/" alt="支付宝"></span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="buymeacoffee"><span class="icon is-small"><i class="fas fa-coffee"></i></span><span>送我杯咖啡</span></a><a class="button donate" href="/" target="_blank" rel="noopener" data-type="patreon"><span class="icon is-small"><i class="fab fa-patreon"></i></span><span>Patreon</span></a><div class="notification is-danger">You forgot to set the <code>business</code> or <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.</div><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/01/11/MLIR/4_Toy%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">MLIR Toy Code Reading</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/01/04/MLIR/2_Toy-tutorial/"><span class="level-item">MLIR Toy Tutorial</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="notification is-danger">You forgot to set the <code>shortname</code> for Disqus. Please set it in <code>_config.yml</code>.</div></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/gallery/head-portrial.jpg" alt="ReRoozen"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">ReRoozen</p><p class="is-size-6 is-block">I need more power!!!</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Within Heaven and Hell</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">44</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">12</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/CMAKE/"><span class="level-start"><span class="level-item">CMAKE</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/LLVM/"><span class="level-start"><span class="level-item">LLVM</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/LLVM-Meetings/"><span class="level-start"><span class="level-item">LLVM Meetings</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/MLIR/"><span class="level-start"><span class="level-item">MLIR</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/Modern-CPP/"><span class="level-start"><span class="level-item">Modern CPP</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/categories/PFPL/"><span class="level-start"><span class="level-item">PFPL</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Performance-Profiling/"><span class="level-start"><span class="level-item">Performance Profiling</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Polyhedral/"><span class="level-start"><span class="level-item">Polyhedral</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Writing/"><span class="level-start"><span class="level-item">Writing</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/git/"><span class="level-start"><span class="level-item">git</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/hexo/"><span class="level-start"><span class="level-item">hexo</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/vim/"><span class="level-start"><span class="level-item">vim</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-04-03T08:03:39.000Z">2024-04-03</time></p><p class="title"><a href="/2024/04/03/CPPTemplate/9-Require%E5%92%8Cconcept/">9-Require and concept</a></p><p class="categories"><a href="/categories/Modern-CPP/">Modern CPP</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-25T05:08:24.000Z">2024-03-25</time></p><p class="title"><a href="/2024/03/25/CPPTemplate/8-SFINAE/">8-SFINAE</a></p><p class="categories"><a href="/categories/Modern-CPP/">Modern CPP</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-20T08:18:24.000Z">2024-03-20</time></p><p class="title"><a href="/2024/03/20/PerformanceProf/Monitors/">Monitor Tools</a></p><p class="categories"><a href="/categories/Performance-Profiling/">Performance Profiling</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-20T06:35:59.000Z">2024-03-20</time></p><p class="title"><a href="/2024/03/20/PerformanceProf/ValgrindUsage/">ValgrindUsage</a></p><p class="categories"><a href="/categories/Performance-Profiling/">Performance Profiling</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-03-12T12:13:21.000Z">2024-03-12</time></p><p class="title"><a href="/2024/03/12/LLVM/APPENDIX-A%20The-headers%20of%20LLVM/">APPENDIX A: The headers of LLVM</a></p><p class="categories"><a href="/categories/LLVM/">LLVM</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/04/"><span class="level-start"><span class="level-item">四月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/03/"><span class="level-start"><span class="level-item">三月 2024</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/02/"><span class="level-start"><span class="level-item">二月 2024</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/01/"><span class="level-start"><span class="level-item">一月 2024</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/12/"><span class="level-start"><span class="level-item">十二月 2023</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/11/"><span class="level-start"><span class="level-item">十一月 2023</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/10/"><span class="level-start"><span class="level-item">十月 2023</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/09/"><span class="level-start"><span class="level-item">九月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/08/"><span class="level-start"><span class="level-item">八月 2023</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="ReRoozen&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 ReRoozen</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2024</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
